@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>My awesome website</title>
+    <link>https://vorontsov.dev/posts/</link>
+    <description>Recent content on My awesome website</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 31 Dec 2022 00:21:30 +0300</lastBuildDate><atom:link href="https://vorontsov.dev/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>First_post</title>
+      <link>https://vorontsov.dev/posts/first_post/</link>
+      <pubDate>Sat, 31 Dec 2022 00:21:30 +0300</pubDate>
+      
+      <guid>https://vorontsov.dev/posts/first_post/</guid>
+      <description>Some content over here</description>
+    </item>
+    
+  </channel>
+</rss>
