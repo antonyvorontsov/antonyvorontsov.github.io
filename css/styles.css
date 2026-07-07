@@ -81,7 +81,28 @@ html[lang="ru"] .lang-en { display: none !important; }
 
 .nav-menu {
   display: flex;
+  align-items: center;
   gap: 20px;
+}
+
+.nav-avatar-link {
+  display: flex;
+  align-items: center;
+  height: 28px;
+}
+
+.nav-avatar-img {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  border: 1px solid var(--border);
+  transition: var(--transition);
+}
+
+.nav-avatar-link:hover .nav-avatar-img {
+  border-color: var(--card-hover-border);
 }
 
 .nav-link {
