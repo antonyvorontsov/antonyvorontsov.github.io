@@ -1,0 +1,27 @@
+baseURL = "https://vorontsov.dev"
+locale = "ru"
+title = "Антон Воронцов — Software Engineering Blog"
+uglyURLs = true
+relativeURLs = true
+
+[taxonomies]
+  tag = "tags"
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[markup.goldmark.parser.attribute]
+  title = true
+
+[params]
+  profileName_ru = "Антон Воронцов"
+  profileName_en = "Anton Vorontsov"
+  profileTitle = "Software Engineering Manager / Tech Lead @ Ozon Tech"
+  bio_ru = [
+    "Проектирую и создаю надежные распределенные системы. Мой путь в разработке начался в 2016 году, а с 2017 года я активно использую .NET. Специализируюсь на WMS (системах управления складом), проектировании Event-Driven архитектуры, CQRS, DDD и высоконагруженных (Highload) системах.",
+    "Всегда открыт к менторингу и помощи коллегам. Передача знаний и обмен практическим опытом — моя страсть."
+  ]
+  bio_en = [
+    "Designing and building reliable distributed systems. My software engineering journey started in 2016, and I have been actively using .NET since 2017. Specializing in Warehouse Management Systems (WMS), Event-Driven Architecture, CQRS, DDD, and highload systems.",
+    "I am always open to mentoring others. Sharing experience and knowledge transfer is my passion."
+  ]

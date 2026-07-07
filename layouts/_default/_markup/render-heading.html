@@ -1,0 +1,9 @@
+{{- $parts := split .Text "|||" -}}
+{{- $ru := index $parts 0 -}}
+{{- $en := index $parts 1 | default $ru -}}
+{{- $seen := .Page.Scratch.Get "headingAnchors" | default slice -}}
+{{- if in $seen .Anchor -}}
+  {{- errorf "duplicate heading anchor #%s in %s — give one of the headings an explicit {#slug} to disambiguate" .Anchor .Page.File.Path -}}
+{{- end -}}
+{{- .Page.Scratch.Set "headingAnchors" ($seen | append .Anchor) -}}
+<h{{ .Level }} id="{{ .Anchor }}"><span class="lang-ru">{{ $ru }}</span><span class="lang-en">{{ $en }}</span></h{{ .Level }}>
