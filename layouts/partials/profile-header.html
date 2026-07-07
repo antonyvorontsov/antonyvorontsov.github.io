@@ -1,0 +1,43 @@
+{{ $site := .Site }}
+{{ $hasSocial := .Params.social }}
+<header class="profile-header profile-header-center">
+  {{ if $hasSocial }}
+  <div class="avatar-wrap">
+    <img src="{{ "assets/images/avatar.jpeg" | relURL }}" alt="Anton Vorontsov" class="avatar-img">
+  </div>
+  {{ end }}
+
+  <h1 class="profile-name">
+    <span class="lang-ru">{{ $site.Params.profileName_ru }}</span>
+    <span class="lang-en">{{ $site.Params.profileName_en }}</span>
+  </h1>
+
+  <p class="profile-title">
+    <span class="lang-ru">{{ $site.Params.profileTitle }}</span>
+    <span class="lang-en">{{ $site.Params.profileTitle }}</span>
+  </p>
+
+  <div class="profile-bio">
+    {{ range $i, $p := $site.Params.bio_ru }}
+    <p class="lang-ru"{{ if gt $i 0 }} style="margin-top: 12px;"{{ end }}>{{ $p }}</p>
+    {{ end }}
+    {{ range $i, $p := $site.Params.bio_en }}
+    <p class="lang-en"{{ if gt $i 0 }} style="margin-top: 12px;"{{ end }}>{{ $p }}</p>
+    {{ end }}
+  </div>
+
+  {{ if $hasSocial }}
+  <p class="contact-label">
+    <span class="lang-ru">Вы можете связаться со мной через:</span>
+    <span class="lang-en">You can contact me via:</span>
+  </p>
+  <div class="social-links">
+    {{ range $hasSocial }}
+    <a href="{{ .url }}" target="_blank" rel="noopener noreferrer" class="btn-social">
+      {{ partial "social-icon.html" .icon }}
+      <span>{{ .name }}</span>
+    </a>
+    {{ end }}
+  </div>
+  {{ end }}
+</header>

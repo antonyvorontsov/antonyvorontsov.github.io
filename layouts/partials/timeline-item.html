@@ -1,0 +1,19 @@
+{{ $item := .item }}
+<div class="timeline-item">
+  <span class="timeline-dot"></span>
+  <div class="timeline-header">
+    <span class="timeline-role">
+      <span class="lang-ru">{{ $item.role_ru }}</span>
+      <span class="lang-en">{{ $item.role_en }}</span>
+    </span>
+    {{ if .showCompany }}<span class="timeline-company">{{ $item.company }}</span>{{ end }}
+    <span class="timeline-date">
+      <span class="lang-ru">{{ $item.date_ru }}</span>
+      <span class="lang-en">{{ $item.date_en }}</span>
+    </span>
+  </div>
+  <div class="timeline-desc">
+    <p class="lang-ru">{{ $item.desc_ru | safeHTML }}</p>
+    <p class="lang-en">{{ $item.desc_en | safeHTML }}</p>
+  </div>
+</div>

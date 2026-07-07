@@ -1,0 +1,55 @@
+{{ define "main" }}
+{{ partial "profile-header.html" . }}
+
+<!-- Experience Section -->
+<section>
+  <h2 class="section-heading">
+    <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-2-2h-2V4a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v2H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2zM9 4h6v2H9V4zM5 8h14v3H5V8zm0 5h14v3H5v-3z"/></svg>
+    <span class="lang-ru">Профессиональный опыт</span>
+    <span class="lang-en">Experience</span>
+  </h2>
+
+  <div class="timeline">
+    {{ range .Params.experience }}
+    {{ partial "timeline-item.html" (dict "item" . "showCompany" true) }}
+    {{ end }}
+  </div>
+</section>
+
+<!-- Conferences & Mentoring -->
+<section>
+  <h2 class="section-heading">
+    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+    <span class="lang-ru">Выступления и образование</span>
+    <span class="lang-en">Speaking & Education</span>
+  </h2>
+
+  <div class="timeline">
+    {{ range .Params.speaking }}
+    {{ partial "timeline-item.html" (dict "item" . "showCompany" false) }}
+    {{ end }}
+  </div>
+</section>
+
+<!-- Skills Section -->
+<section class="skills-section">
+  <h2 class="section-heading">
+    <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4v18zm10 0h-4V3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2z"/></svg>
+    <span class="lang-ru">Ключевые навыки</span>
+    <span class="lang-en">Skills</span>
+  </h2>
+
+  <div class="skills-container">
+    {{ range .Params.skills }}
+    <div class="skills-category">
+      <span class="skills-label">{{ .category }}</span>
+      <div class="skills-tags">
+        {{ range .tags }}
+        <span class="skill-tag">{{ . }}</span>
+        {{ end }}
+      </div>
+    </div>
+    {{ end }}
+  </div>
+</section>
+{{ end }}

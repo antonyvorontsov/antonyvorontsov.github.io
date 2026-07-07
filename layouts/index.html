@@ -1,0 +1,40 @@
+{{ define "main" }}
+{{ partial "profile-header.html" . }}
+
+<!-- Latest Posts -->
+<section>
+  <h2 class="section-heading">
+    <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+    <span class="lang-ru">Последние посты</span>
+    <span class="lang-en">Latest Posts</span>
+  </h2>
+
+  <div class="cards-grid">
+    {{ range first 5 (where .Site.RegularPages "Section" "posts").ByDate.Reverse }}
+    <a href="{{ .RelPermalink }}" class="card">
+      <div class="card-title-row">
+        <span class="card-title">
+          <span class="lang-ru">{{ .Title }}</span>
+          <span class="lang-en">{{ .Params.title_en | default .Title }}</span>
+        </span>
+      </div>
+      <div class="card-meta">
+        <span class="lang-ru">{{ partial "date-ru.html" .Date }}</span>
+        <span class="lang-en">{{ .Date.Format "January 2, 2006" }}</span>
+      </div>
+      <div class="card-description">
+        <span class="lang-ru">{{ .Params.description }}</span>
+        <span class="lang-en">{{ .Params.description_en | default .Params.description }}</span>
+      </div>
+    </a>
+    {{ end }}
+  </div>
+
+  <div class="show-more-wrap">
+    <a href="{{ (.Site.GetPage "/posts").RelPermalink }}" class="btn-show-more">
+      <span class="lang-ru">Показать ещё</span>
+      <span class="lang-en">Show more</span>
+    </a>
+  </div>
+</section>
+{{ end }}

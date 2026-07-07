@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ru" data-title-ru="Архив постов — Антон Воронцов" data-title-en="Posts Archive — Anton Vorontsov">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Архив постов — Антон Воронцов</title>
+  <meta name="description" content="Все посты блога Антона Воронцова, сгруппированные по годам публикации.">
+
+  <!-- SEO Open Graph -->
+  <meta property="og:title" content="Архив постов — Антон Воронцов">
+  <meta property="og:description" content="Все посты блога, сгруппированные по годам публикации.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://antonyvorontsov.github.io/posts.html">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <div class="container fade-in">
+    <!-- Navigation -->
+    <div class="nav-container">
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-avatar-link" aria-label="На главную / Home">
+          <img src="assets/images/avatar.jpeg" alt="Anton Vorontsov" class="nav-avatar-img">
+        </a>
+        <a href="index.html" class="nav-link">
+          <span class="lang-ru">Главная</span>
+          <span class="lang-en">Home</span>
+        </a>
+        <a href="posts.html" class="nav-link active">
+          <span class="lang-ru">Архив постов</span>
+          <span class="lang-en">Posts</span>
+        </a>
+        <a href="about.html" class="nav-link">
+          <span class="lang-ru">Обо мне</span>
+          <span class="lang-en">About</span>
+        </a>
+      </nav>
+
+      <div class="controls">
+        <!-- Language Button -->
+        <button class="btn-control" id="lang-btn" aria-label="Сменить язык / Switch language">
+          <svg viewBox="0 0 24 24">
+            <path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/>
+          </svg>
+          <span class="lang-ru">English</span>
+          <span class="lang-en">Русский</span>
+        </button>
+
+        <!-- Theme Button -->
+        <button class="btn-control" id="theme-btn" aria-label="Сменить тему / Toggle theme">
+          <!-- Sun icon -->
+          <svg class="theme-icon-light" viewBox="0 0 24 24" style="display: none;">
+            <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.01c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/>
+          </svg>
+          <!-- Moon icon -->
+          <svg class="theme-icon-dark" viewBox="0 0 24 24">
+            <path d="M12.3 22h-.1c-5.5 0-10-4.5-10-10 0-4.8 3.5-9 8.3-9.9.5-.1.9.3.8.8-.4 1.5-.2 3 .6 4.3.9 1.5 2.4 2.6 4.1 3 1 .2 2.1.2 3.1-.2.5-.2.9.2.8.7-.9 4.8-5.1 8.3-9.8 8.3-2.6 0-5.1-1-6.9-2.8-.4-.4-.3-1 .2-1.3.4-.3 1-.2 1.3.2 1.5 1.5 3.5 2.3 5.7 2.3 3.8 0 7.1-2.7 7.8-6.5-2.5 1.1-5.3.9-7.7-.5-1.9-1.1-3.3-3-3.8-5.1 3.5.5 6.6 2.6 8.3 5.8 1.1 2 1.3 4.3.7 6.5-.4 1.7-1.5 3.2-3.1 4.1-1.3.7-2.7 1.1-4.2 1.1z"/>
+          </svg>
+          <span class="lang-ru" id="theme-text-ru">Темная тема</span>
+          <span class="lang-en" id="theme-text-en">Dark Mode</span>
+        </button>
+      </div>
+    </div>
+
+    <header class="profile-header">
+      <h1 class="profile-name">
+        <span class="lang-ru">Архив постов</span>
+        <span class="lang-en">Posts Archive</span>
+      </h1>
+    </header>
+
+    <!-- 2026 -->
+    <div class="archive-year-group">
+      <h2 class="archive-year">2026</h2>
+      <div class="archive-list">
+        <div class="archive-item">
+          <span class="archive-date">
+            <span class="lang-ru">01.06.2026</span>
+            <span class="lang-en">Jun 1, 2026</span>
+          </span>
+          <a href="posts/ot-senior-k-tech-lead.html" class="archive-link">
+            <span class="lang-ru">От Senior к Tech Lead: смена мышления, а не только обязанностей</span>
+            <span class="lang-en">From Senior to Tech Lead: A Mindset Shift, Not Just New Duties</span>
+          </a>
+        </div>
+        <div class="archive-item">
+          <span class="archive-date">
+            <span class="lang-ru">10.02.2026</span>
+            <span class="lang-en">Feb 10, 2026</span>
+          </span>
+          <a href="posts/kod-review-bez-poteri-motivatsii.html" class="archive-link">
+            <span class="lang-ru">Как проводить код-ревью, не убивая мотивацию команды</span>
+            <span class="lang-en">Code Review Without Killing Team Morale</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2025 -->
+    <div class="archive-year-group">
+      <h2 class="archive-year">2025</h2>
+      <div class="archive-list">
+        <div class="archive-item">
+          <span class="archive-date">
+            <span class="lang-ru">20.11.2025</span>
+            <span class="lang-en">Nov 20, 2025</span>
+          </span>
+          <a href="posts/event-driven-podvodnye-kamni.html" class="archive-link">
+            <span class="lang-ru">Event-Driven архитектура: подводные камни при масштабировании</span>
+            <span class="lang-en">Event-Driven Architecture: Pitfalls at Scale</span>
+          </a>
+        </div>
+        <div class="archive-item">
+          <span class="archive-date">
+            <span class="lang-ru">02.08.2025</span>
+            <span class="lang-en">Aug 2, 2025</span>
+          </span>
+          <a href="posts/cqrs-na-praktike.html" class="archive-link">
+            <span class="lang-ru">CQRS на практике: когда усложнение оправдано</span>
+            <span class="lang-en">CQRS in Practice: When the Complexity Pays Off</span>
+          </a>
+        </div>
+        <div class="archive-item">
+          <span class="archive-date">
+            <span class="lang-ru">14.03.2025</span>
+            <span class="lang-en">Mar 14, 2025</span>
+          </span>
+          <a href="posts/shardirovanie-bez-daountaima.html" class="archive-link">
+            <span class="lang-ru">Шардирование без даунтайма: практический разбор</span>
+            <span class="lang-en">Zero-Downtime Sharding: A Practical Breakdown</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>
+        <span class="lang-ru">&copy; <span id="copyright-year-ru">2026</span> Антон Воронцов</span>
+        <span class="lang-en">&copy; <span id="copyright-year-en">2026</span> Anton Vorontsov</span>
+      </p>
+    </footer>
+  </div>
+  <script src="js/modules/utils.js" defer></script>
+  <script src="js/modules/navigation.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>

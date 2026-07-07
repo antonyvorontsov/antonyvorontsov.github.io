@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+{{ $titleEn := .Params.title_en | default .Title }}
+{{ .Scratch.Set "isPostSingle" (and .IsPage (eq .Section "posts")) }}
+{{ $isPostSingle := .Scratch.Get "isPostSingle" }}
+<html lang="ru" data-title-ru="{{ .Title }}{{ if $isPostSingle }} — Блог Антона Воронцова{{ end }}" data-title-en="{{ $titleEn }}{{ if $isPostSingle }} — Anton Vorontsov Blog{{ end }}">
+<head>
+  {{ partial "head.html" . }}
+</head>
+<body>
+
+  <div class="container{{ if $isPostSingle }} container-wide{{ end }} fade-in">
+    {{ partial "header.html" . }}
+    {{ block "main" . }}{{ end }}
+    {{ partial "footer.html" . }}
+  </div>
+  <script src="{{ "js/modules/utils.js" | relURL }}" defer></script>
+  <script src="{{ "js/modules/navigation.js" | relURL }}" defer></script>
+  <script src="{{ "js/main.js" | relURL }}" defer></script>
+</body>
+</html>
