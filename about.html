@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ru" data-title-ru="Обо мне — Антон Воронцов" data-title-en="About — Anton Vorontsov">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Обо мне — Антон Воронцов</title>
+  <meta name="description" content="Антон Воронцов — Senior .NET Engineer & Tech Lead. Опыт, выступления и ключевые навыки.">
+
+  <!-- SEO Open Graph -->
+  <meta property="og:title" content="Обо мне — Антон Воронцов">
+  <meta property="og:description" content="Опыт работы, выступления на конференциях, менторство и ключевые навыки.">
+  <meta property="og:type" content="profile">
+  <meta property="og:url" content="https://antonyvorontsov.github.io/about.html">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container fade-in">
+    <!-- Navigation -->
+    <div class="nav-container">
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-link">
+          <span class="lang-ru">Главная</span>
+          <span class="lang-en">Home</span>
+        </a>
+        <a href="posts/index.html" class="nav-link">
+          <span class="lang-ru">Архив постов</span>
+          <span class="lang-en">Posts</span>
+        </a>
+        <a href="about.html" class="nav-link active">
+          <span class="lang-ru">Обо мне</span>
+          <span class="lang-en">About</span>
+        </a>
+      </nav>
+
+      <div class="controls">
+        <!-- Language Button -->
+        <button class="btn-control" id="lang-btn" onclick="toggleLang()" aria-label="Сменить язык / Switch language">
+          <svg viewBox="0 0 24 24">
+            <path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/>
+          </svg>
+          <span class="lang-ru">English</span>
+          <span class="lang-en">Русский</span>
+        </button>
+
+        <!-- Theme Button -->
+        <button class="btn-control" id="theme-btn" onclick="toggleTheme()" aria-label="Сменить тему / Toggle theme">
+          <!-- Sun icon -->
+          <svg class="theme-icon-light" viewBox="0 0 24 24" style="display: none;">
+            <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.01c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/>
+          </svg>
+          <!-- Moon icon -->
+          <svg class="theme-icon-dark" viewBox="0 0 24 24">
+            <path d="M12.3 22h-.1c-5.5 0-10-4.5-10-10 0-4.8 3.5-9 8.3-9.9.5-.1.9.3.8.8-.4 1.5-.2 3 .6 4.3.9 1.5 2.4 2.6 4.1 3 1 .2 2.1.2 3.1-.2.5-.2.9.2.8.7-.9 4.8-5.1 8.3-9.8 8.3-2.6 0-5.1-1-6.9-2.8-.4-.4-.3-1 .2-1.3.4-.3 1-.2 1.3.2 1.5 1.5 3.5 2.3 5.7 2.3 3.8 0 7.1-2.7 7.8-6.5-2.5 1.1-5.3.9-7.7-.5-1.9-1.1-3.3-3-3.8-5.1 3.5.5 6.6 2.6 8.3 5.8 1.1 2 1.3 4.3.7 6.5-.4 1.7-1.5 3.2-3.1 4.1-1.3.7-2.7 1.1-4.2 1.1z"/>
+          </svg>
+          <span class="lang-ru" id="theme-text-ru">Темная тема</span>
+          <span class="lang-en" id="theme-text-en">Dark Mode</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Header Section -->
+    <header class="profile-header profile-header-center">
+      <div class="avatar-wrap">
+        <img src="assets/img/avatar.jpeg" alt="Anton Vorontsov" class="avatar-img">
+      </div>
+
+      <h1 class="profile-name">
+        <span class="lang-ru">Антон Воронцов</span>
+        <span class="lang-en">Anton Vorontsov</span>
+      </h1>
+
+      <p class="profile-title">
+        <span class="lang-ru">Software Engineering Manager / Tech Lead @ Ozon Tech</span>
+        <span class="lang-en">Software Engineering Manager / Tech Lead @ Ozon Tech</span>
+      </p>
+
+      <div class="profile-bio">
+        <p class="lang-ru">
+          Проектирую и создаю надежные распределенные системы. Мой путь в разработке начался в 2016 году, а с 2017 года я активно использую .NET. Специализируюсь на WMS (системах управления складом), проектировании Event-Driven архитектуры, CQRS, DDD и высоконагруженных (Highload) системах.
+        </p>
+        <p class="lang-ru" style="margin-top: 12px;">
+          Всегда открыт к менторингу и помощи коллегам. Передача знаний и обмен практическим опытом — моя страсть.
+        </p>
+        <p class="lang-en">
+          Designing and building reliable distributed systems. My software engineering journey started in 2016, and I have been actively using .NET since 2017. Specializing in Warehouse Management Systems (WMS), Event-Driven Architecture, CQRS, DDD, and highload systems.
+        </p>
+        <p class="lang-en" style="margin-top: 12px;">
+          I am always open to mentoring others. Sharing experience and knowledge transfer is my passion.
+        </p>
+      </div>
+
+      <p class="contact-label">
+        <span class="lang-ru">Вы можете связаться со мной через:</span>
+        <span class="lang-en">You can contact me via:</span>
+      </p>
+
+      <div class="social-links">
+        <a href="https://www.linkedin.com/in/anton-vorontsov/" target="_blank" rel="noopener noreferrer" class="btn-social">
+          <svg viewBox="0 0 24 24">
+            <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+          </svg>
+          <span>LinkedIn</span>
+        </a>
+        <a href="https://github.com/antonyvorontsov" target="_blank" rel="noopener noreferrer" class="btn-social">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/>
+          </svg>
+          <span>GitHub</span>
+        </a>
+        <a href="https://getmentor.dev/mentor/anton-voroncov-4225" target="_blank" rel="noopener noreferrer" class="btn-social">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5.89 12.5L3 11v4c0 1.66 4.03 3 9 3s9-1.34 9-3v-4l-2.89 1.5c-1.36.73-3.69 1.5-6.11 1.5s-4.75-.77-6.11-1.5z"/>
+          </svg>
+          <span>GetMentor</span>
+        </a>
+        <a href="https://t.me/williams750" target="_blank" rel="noopener noreferrer" class="btn-social">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.24-5.54 3.65-.52.36-1 .54-1.42.53-.47-.01-1.37-.27-2.03-.49-.82-.27-1.47-.41-1.42-.87.03-.24.36-.49.99-.74 3.89-1.69 6.48-2.8 7.78-3.33 3.7-1.53 4.47-1.8 4.97-1.8.11 0 .36.03.52.16.14.11.18.28.2.43.02.16-.01.52-.03.78z"/>
+          </svg>
+          <span>Telegram</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Experience Section -->
+    <section>
+      <h2 class="section-heading">
+        <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-2-2h-2V4a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v2H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2zM9 4h6v2H9V4zM5 8h14v3H5V8zm0 5h14v3H5v-3z"/></svg>
+        <span class="lang-ru">Профессиональный опыт</span>
+        <span class="lang-en">Experience</span>
+      </h2>
+
+      <div class="timeline">
+        <!-- Ozon Tech -->
+        <div class="timeline-item">
+          <span class="timeline-dot"></span>
+          <div class="timeline-header">
+            <span class="timeline-role">
+              <span class="lang-ru">Software Engineering Manager / Tech Lead</span>
+              <span class="lang-en">Software Engineering Manager / Tech Lead</span>
+            </span>
+            <span class="timeline-company">Ozon Tech</span>
+            <span class="timeline-date">
+              <span class="lang-ru">2019 — настоящее время</span>
+              <span class="lang-en">2019 — Present</span>
+            </span>
+          </div>
+          <div class="timeline-desc">
+            <p class="lang-ru">
+              Руковожу разработкой высоконагруженных систем управления складом (WMS) и систем хранения Ozon. Проектирую отказоустойчивую микросервисную архитектуру, оптимизирую работу баз данных и систем обмена сообщениями. Помогаю расти бизнесу за счет своевременного delivery нового функционала, одновременно адаптируя систему под растущие нагрузки.
+            </p>
+            <p class="lang-en">
+              Lead development of high-load Warehouse Management Systems (WMS) and storage systems at Ozon. Architect highly available microservices, optimize performance of databases and messaging clusters. Help the business grow through continuous delivery of new functionality, while concurrently adapting the system to increasing loads.
+            </p>
+          </div>
+        </div>
+
+        <!-- Prior .NET Dev -->
+        <div class="timeline-item">
+          <span class="timeline-dot"></span>
+          <div class="timeline-header">
+            <span class="timeline-role">
+              <span class="lang-ru">Senior .NET Developer</span>
+              <span class="lang-en">Senior .NET Developer</span>
+            </span>
+            <span class="timeline-company">Fintech & Logistics Projects</span>
+            <span class="timeline-date">
+              <span class="lang-ru">2016 — 2019</span>
+              <span class="lang-en">2016 — 2019</span>
+            </span>
+          </div>
+          <div class="timeline-desc">
+            <p class="lang-ru">
+              Разрабатывал надежные backend-сервисы на .NET Core и C#. Проектировал API, оптимизировал сложные SQL-запросы, интегрировал сервисы с системами очередей сообщений и внешними провайдерами.
+            </p>
+            <p class="lang-en">
+              Built reliable backend services using .NET Core and C#. Designed RESTful APIs, optimized complex SQL queries, and integrated message queues with third-party providers.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Conferences & Mentoring -->
+    <section>
+      <h2 class="section-heading">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        <span class="lang-ru">Выступления и образование</span>
+        <span class="lang-en">Speaking & Education</span>
+      </h2>
+
+      <div class="timeline">
+        <!-- DotNext -->
+        <div class="timeline-item">
+          <span class="timeline-dot"></span>
+          <div class="timeline-header">
+            <span class="timeline-role">
+              <span class="lang-ru">Спикер на DotNext 2025</span>
+              <span class="lang-en">DotNext 2025 Speaker</span>
+            </span>
+            <span class="timeline-date">2025</span>
+          </div>
+          <div class="timeline-desc">
+            <p class="lang-ru">
+              Выступил с техническим докладом <strong>«Шардирование. История одного сервиса»</strong>. Поделился практическим опытом горизонтального масштабирования ключевого хранилища крупной системы WMS, проектирования логики консистентности и выполнения миграции без остановки процессов склада.
+            </p>
+            <p class="lang-en">
+              Presented a technical talk titled <strong>"Sharding: One Service's Tale"</strong>. Explored the practical path of horizontally scaling primary database storage for a WMS, designing consistency models, and migrating live data with zero downtime.
+            </p>
+          </div>
+        </div>
+
+        <!-- GetMentor Mentorship -->
+        <div class="timeline-item">
+          <span class="timeline-dot"></span>
+          <div class="timeline-header">
+            <span class="timeline-role">
+              <span class="lang-ru">Менторство на GetMentor</span>
+              <span class="lang-en">Mentorship on GetMentor</span>
+            </span>
+            <span class="timeline-date">
+              <span class="lang-ru">2024 — настоящее время</span>
+              <span class="lang-en">2024 — Present</span>
+            </span>
+          </div>
+          <div class="timeline-desc">
+            <p class="lang-ru">
+              Занимаюсь менторингом разработчиков на платформе GetMentor с 2024 года. Провел более 30 mock-интервью и помог кандидатам с подготовкой к системным собеседованиям и успешным прохождением отборов в Big Tech компании.
+            </p>
+            <p class="lang-en">
+              Mentoring developers on the GetMentor platform since 2024. Conducted 30+ mock interviews and helped candidates prepare for system design, architecture, and coding evaluations to secure roles in Big Tech.
+            </p>
+          </div>
+        </div>
+
+        <!-- Route 256 -->
+        <div class="timeline-item">
+          <span class="timeline-dot"></span>
+          <div class="timeline-header">
+            <span class="timeline-role">
+              <span class="lang-ru">Школа Route 256 (Ozon Tech)</span>
+              <span class="lang-en">Route 256 School (Ozon Tech)</span>
+            </span>
+            <span class="timeline-date">
+              <span class="lang-ru">Прошедшие потоки</span>
+              <span class="lang-en">Past Cohorts</span>
+            </span>
+          </div>
+          <div class="timeline-desc">
+            <p class="lang-ru">
+              Был преподавателем на первых потоках школы <strong>Route 256</strong>. Помогал с формированием программы курса по C#/.NET, читал лекции и проводил практические занятия (обучение на данных потоках полностью завершено).
+            </p>
+            <p class="lang-en">
+              Was an instructor for the initial cohorts of Ozon Tech's <strong>Route 256</strong> school. Assisted in structuring the course program, delivered lectures, and guided students (these cohorts are completed).
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills-section">
+      <h2 class="section-heading">
+        <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4v18zm10 0h-4V3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2z"/></svg>
+        <span class="lang-ru">Ключевые навыки</span>
+        <span class="lang-en">Skills</span>
+      </h2>
+
+      <div class="skills-container">
+        <!-- Languages & Frameworks -->
+        <div class="skills-category">
+          <span class="skills-label">Languages &amp; Core</span>
+          <div class="skills-tags">
+            <span class="skill-tag">C#</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">SQL</span>
+          </div>
+        </div>
+
+        <!-- Architecture & Patterns -->
+        <div class="skills-category">
+          <span class="skills-label">Architecture &amp; Patterns</span>
+          <div class="skills-tags">
+            <span class="skill-tag">Domain-Driven Design (DDD)</span>
+            <span class="skill-tag">CQRS &amp; Event Sourcing</span>
+            <span class="skill-tag">Event-Driven Architecture (EDA)</span>
+            <span class="skill-tag">Highload</span>
+            <span class="skill-tag">Microservices</span>
+          </div>
+        </div>
+
+        <!-- Infrastructure -->
+        <div class="skills-category">
+          <span class="skills-label">Infrastructure &amp; Storage</span>
+          <div class="skills-tags">
+            <span class="skill-tag">PostgreSQL</span>
+            <span class="skill-tag">ClickHouse</span>
+            <span class="skill-tag">Redis</span>
+            <span class="skill-tag">ScyllaDB</span>
+            <span class="skill-tag">Prometheus</span>
+            <span class="skill-tag">RabbitMQ</span>
+            <span class="skill-tag">Kafka</span>
+            <span class="skill-tag">Docker</span>
+            <span class="skill-tag">Kubernetes</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>
+        <span class="lang-ru">&copy; <span id="copyright-year-ru">2026</span> Антон Воронцов</span>
+        <span class="lang-en">&copy; <span id="copyright-year-en">2026</span> Anton Vorontsov</span>
+      </p>
+    </footer>
+  </div>
+  <script src="script.js" defer></script>
+</body>
+</html>
