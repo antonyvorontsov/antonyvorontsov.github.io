@@ -15,7 +15,7 @@
         <span class="card-title">{{ .Title }}</span>
       </div>
       <div class="card-meta">
-        {{ if eq .Language.Lang "ru" }}{{ partial "date-ru.html" .Date }}{{ else }}{{ .Date.Format "January 2, 2006" }}{{ end }}
+        {{ partial "post-date.html" . }}
       </div>
       <div class="card-description">{{ .Params.description }}</div>
     </a>

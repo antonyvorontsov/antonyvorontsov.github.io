@@ -4,7 +4,7 @@
     <div class="post-header">
       <h1>{{ .Title }}</h1>
       <p class="post-meta">
-        {{ if eq .Language.Lang "ru" }}{{ partial "date-ru.html" .Date }}{{ else }}{{ .Date.Format "January 2, 2006" }}{{ end }}
+        {{ partial "post-date.html" . }}
       </p>
     </div>
 

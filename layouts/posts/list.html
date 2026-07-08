@@ -10,7 +10,7 @@
     {{ range .Pages }}
     <div class="archive-item">
       <span class="archive-date">
-        {{ if eq .Language.Lang "ru" }}{{ .Date.Format "02.01.2006" }}{{ else }}{{ .Date.Format "Jan 2, 2006" }}{{ end }}
+        {{ partial "post-date.html" . }}
       </span>
       <a href="{{ .RelPermalink }}" class="archive-link">{{ .Title }}</a>
     </div>
