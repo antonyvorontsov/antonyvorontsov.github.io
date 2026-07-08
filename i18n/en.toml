@@ -1,0 +1,44 @@
+[navAvatarAria]
+other = "Home"
+
+[langSwitchAria]
+other = "Switch to Russian"
+
+[themeSwitchAria]
+other = "Toggle theme"
+
+[themeDark]
+other = "Dark Mode"
+
+[themeLight]
+other = "Light Mode"
+
+[footerCopyright]
+other = "© {{ .Year }} {{ .Name }}"
+
+[contactLabel]
+other = "You can contact me via:"
+
+[postsArchiveTitle]
+other = "Posts Archive"
+
+[latestPostsTitle]
+other = "Latest Posts"
+
+[showMore]
+other = "Show more"
+
+[experienceTitle]
+other = "Experience"
+
+[speakingTitle]
+other = "Speaking & Education"
+
+[skillsTitle]
+other = "Skills"
+
+[tocTitle]
+other = "Contents"
+
+[siteTitleSuffix]
+other = "— Anton Vorontsov Blog"

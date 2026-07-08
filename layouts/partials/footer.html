@@ -1,7 +1,4 @@
 <!-- Footer -->
 <footer>
-  <p>
-    <span class="lang-ru">&copy; <span id="copyright-year-ru">2026</span> Антон Воронцов</span>
-    <span class="lang-en">&copy; <span id="copyright-year-en">2026</span> Anton Vorontsov</span>
-  </p>
+  <p>{{ i18n "footerCopyright" (dict "Year" "<span id=\"copyright-year\">2026</span>" "Name" .Site.Params.profileName) | safeHTML }}</p>
 </footer>

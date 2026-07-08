@@ -2,13 +2,9 @@
 <div class="post-layout">
   <article>
     <div class="post-header">
-      <h1>
-        <span class="lang-ru">{{ .Title }}</span>
-        <span class="lang-en">{{ .Params.title_en | default .Title }}</span>
-      </h1>
+      <h1>{{ .Title }}</h1>
       <p class="post-meta">
-        <span class="lang-ru">{{ partial "date-ru.html" .Date }}</span>
-        <span class="lang-en">{{ .Date.Format "January 2, 2006" }}</span>
+        {{ if eq .Language.Lang "ru" }}{{ partial "date-ru.html" .Date }}{{ else }}{{ .Date.Format "January 2, 2006" }}{{ end }}
       </p>
     </div>
 
@@ -18,23 +14,14 @@
   </article>
 
   <aside class="toc-sidebar" id="toc-sidebar">
-    <div class="toc-title">
-      <span class="lang-ru">Содержание</span>
-      <span class="lang-en">Contents</span>
-    </div>
+    <div class="toc-title">{{ i18n "tocTitle" }}</div>
     {{ if .Fragments.Headings }}
     {{ $root := index .Fragments.Headings 0 }}
     <ul class="toc-list">
       {{ range $root.Headings }}
-        {{ $p := split .Title "|||" }}
-        {{ $ru := index $p 0 }}
-        {{ $en := index $p 1 | default $ru }}
-        <li><a href="#{{ .ID }}" class="toc-link"><span class="lang-ru">{{ $ru }}</span><span class="lang-en">{{ $en }}</span></a></li>
+        <li><a href="#{{ .ID }}" class="toc-link">{{ .Title }}</a></li>
         {{ range .Headings }}
-          {{ $p2 := split .Title "|||" }}
-          {{ $ru2 := index $p2 0 }}
-          {{ $en2 := index $p2 1 | default $ru2 }}
-          <li><a href="#{{ .ID }}" class="toc-link" style="padding-left:16px"><span class="lang-ru">{{ $ru2 }}</span><span class="lang-en">{{ $en2 }}</span></a></li>
+          <li><a href="#{{ .ID }}" class="toc-link" style="padding-left:16px">{{ .Title }}</a></li>
         {{ end }}
       {{ end }}
     </ul>

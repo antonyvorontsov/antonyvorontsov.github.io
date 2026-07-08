@@ -1,9 +1,13 @@
 {{ $isPostSingle := .Scratch.Get "isPostSingle" }}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{ .Title }}{{ if $isPostSingle }} — Блог Антона Воронцова{{ end }}</title>
+<title>{{ .Title }}{{ if $isPostSingle }} {{ i18n "siteTitleSuffix" }}{{ end }}</title>
 <meta name="description" content="{{ .Params.description }}">
 <link rel="icon" type="image/png" href="{{ "assets/favicon.png" | relURL }}">
+
+{{ range .AllTranslations }}
+<link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}">
+{{ end }}
 
 {{ if not $isPostSingle }}
 <!-- SEO Open Graph -->

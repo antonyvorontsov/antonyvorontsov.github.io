@@ -1,0 +1,44 @@
+[navAvatarAria]
+other = "На главную"
+
+[langSwitchAria]
+other = "Переключить на английский"
+
+[themeSwitchAria]
+other = "Сменить тему"
+
+[themeDark]
+other = "Тёмная тема"
+
+[themeLight]
+other = "Светлая тема"
+
+[footerCopyright]
+other = "© {{ .Year }} {{ .Name }}"
+
+[contactLabel]
+other = "Вы можете связаться со мной через:"
+
+[postsArchiveTitle]
+other = "Архив постов"
+
+[latestPostsTitle]
+other = "Последние посты"
+
+[showMore]
+other = "Показать ещё"
+
+[experienceTitle]
+other = "Профессиональный опыт"
+
+[speakingTitle]
+other = "Выступления и образование"
+
+[skillsTitle]
+other = "Ключевые навыки"
+
+[tocTitle]
+other = "Содержание"
+
+[siteTitleSuffix]
+other = "— Блог Антона Воронцова"

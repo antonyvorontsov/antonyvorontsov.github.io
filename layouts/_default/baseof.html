@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-{{ $titleEn := .Params.title_en | default .Title }}
 {{ .Scratch.Set "isPostSingle" (and .IsPage (eq .Section "posts")) }}
 {{ $isPostSingle := .Scratch.Get "isPostSingle" }}
-<html lang="ru" data-title-ru="{{ .Title }}{{ if $isPostSingle }} — Блог Антона Воронцова{{ end }}" data-title-en="{{ $titleEn }}{{ if $isPostSingle }} — Anton Vorontsov Blog{{ end }}">
+<html lang="{{ .Language.Lang }}">
 <head>
   {{ partial "head.html" . }}
 </head>

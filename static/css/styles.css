@@ -63,10 +63,6 @@ body {
   max-width: 900px;
 }
 
-/* Localization styling */
-html[lang="en"] .lang-ru { display: none !important; }
-html[lang="ru"] .lang-en { display: none !important; }
-
 /* Navigation Container */
 .nav-container {
   display: flex;
