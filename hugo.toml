@@ -18,6 +18,12 @@ defaultContentLanguage = "ru"
 # mechanism — there's no cross-language root redirect to generate.
 defaultContentLanguageInSubdir = false
 
+# Posts carry tags: [] for future use (see CLAUDE.md), but no tag-browsing UI
+# exists yet — disabling these two kinds stops Hugo from generating /tags/
+# taxonomy/term pages (and warning about the missing html layout for them)
+# until that UI is actually built.
+disableKinds = ["taxonomy", "term"]
+
 [taxonomies]
   tag = "tags"
 
@@ -30,6 +36,16 @@ defaultContentLanguageInSubdir = false
 [params]
   profileTitle = "Software Engineering Manager / Tech Lead @ Ozon Tech"
 
+# Site-wide search index (see layouts/index.searchindex.json): one JSON file
+# per language, listing every searchable page (home, about, posts list,
+# individual posts) in that language's own site. baseName keeps it out of the
+# way of the real index.html.
+[outputFormats.searchindex]
+  mediaType = "application/json"
+  baseName = "search-index"
+  isPlainText = true
+  notAlternative = true
+
 [languages]
   [languages.ru]
     label = "Русский"
@@ -38,6 +54,7 @@ defaultContentLanguageInSubdir = false
     title = "Антон Воронцов — Software Engineering Blog"
     [languages.ru.params]
       profileName = "Антон Воронцов"
+      shortLabel = "Ru"
       bio = [
         "Проектирую и создаю надежные распределенные системы. Мой путь в разработке начался в 2016 году, а с 2017 года я активно использую .NET. Специализируюсь на WMS (системах управления складом), проектировании Event-Driven архитектуры, CQRS, DDD и высоконагруженных (Highload) системах.",
         "Всегда открыт к менторингу и помощи коллегам. Передача знаний и обмен практическим опытом — моя страсть."
@@ -50,6 +67,7 @@ defaultContentLanguageInSubdir = false
     title = "Anton Vorontsov — Software Engineering Blog"
     [languages.en.params]
       profileName = "Anton Vorontsov"
+      shortLabel = "En"
       bio = [
         "Designing and building reliable distributed systems. My software engineering journey started in 2016, and I have been actively using .NET since 2017. Specializing in Warehouse Management Systems (WMS), Event-Driven Architecture, CQRS, DDD, and highload systems.",
         "I am always open to mentoring others. Sharing experience and knowledge transfer is my passion."

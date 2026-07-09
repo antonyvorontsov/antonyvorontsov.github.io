@@ -17,10 +17,15 @@
     <div class="toc-title">{{ i18n "tocTitle" }}</div>
     {{ if .Fragments.Headings }}
     {{ $root := index .Fragments.Headings 0 }}
+    {{ $seen := slice }}
     <ul class="toc-list">
       {{ range $root.Headings }}
+        {{ if in $seen .ID }}{{ errorf "duplicate heading anchor #%s in %s — give one of the headings an explicit {#slug} to disambiguate" .ID $.File.Path }}{{ end }}
+        {{ $seen = $seen | append .ID }}
         <li><a href="#{{ .ID }}" class="toc-link">{{ .Title }}</a></li>
         {{ range .Headings }}
+          {{ if in $seen .ID }}{{ errorf "duplicate heading anchor #%s in %s — give one of the headings an explicit {#slug} to disambiguate" .ID $.File.Path }}{{ end }}
+          {{ $seen = $seen | append .ID }}
           <li><a href="#{{ .ID }}" class="toc-link" style="padding-left:16px">{{ .Title }}</a></li>
         {{ end }}
       {{ end }}

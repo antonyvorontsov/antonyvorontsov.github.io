@@ -7,14 +7,23 @@ other = "Switch to Russian"
 [themeSwitchAria]
 other = "Toggle theme"
 
-[themeDark]
-other = "Dark Mode"
+[searchAria]
+other = "Search"
 
-[themeLight]
-other = "Light Mode"
+[searchPlaceholder]
+other = "Search posts and pages…"
+
+[searchNoResults]
+other = "No results found"
+
+[searchCloseAria]
+other = "Close search"
 
 [footerCopyright]
 other = "© {{ .Year }} {{ .Name }}"
+
+[madeWithHugo]
+other = "Made with <a href=\"https://gohugo.io/\" target=\"_blank\" rel=\"noopener\">Hugo</a>"
 
 [contactLabel]
 other = "You can contact me via:"

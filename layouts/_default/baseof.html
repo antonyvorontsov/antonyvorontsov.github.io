@@ -12,8 +12,10 @@
     {{ block "main" . }}{{ end }}
     {{ partial "footer.html" . }}
   </div>
+  {{ partial "search-modal.html" . }}
   <script src="{{ "js/modules/utils.js" | relURL }}" defer></script>
   <script src="{{ "js/modules/navigation.js" | relURL }}" defer></script>
+  <script src="{{ "js/modules/search.js" | relURL }}" defer></script>
   <script src="{{ "js/main.js" | relURL }}" defer></script>
 </body>
 </html>

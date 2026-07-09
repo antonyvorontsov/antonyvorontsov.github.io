@@ -1,4 +1,8 @@
 <!-- Footer -->
 <footer>
-  <p>{{ i18n "footerCopyright" (dict "Year" "<span id=\"copyright-year\">2026</span>" "Name" .Site.Params.profileName) | safeHTML }}</p>
+  <p class="footer-line">
+    <span>{{ i18n "footerCopyright" (dict "Year" "<span id=\"copyright-year\">2026</span>" "Name" .Site.Params.profileName) | safeHTML }}</span>
+    <span class="footer-divider" aria-hidden="true">|</span>
+    <span>{{ i18n "madeWithHugo" | safeHTML }}</span>
+  </p>
 </footer>

@@ -5,4 +5,5 @@ description: Личный блог Антона Воронцова о разра
 og_description: Разработка распределенных систем на .NET, архитектура WMS, масштабирование
   и инженерное лидерство.
 og_type: website
+outputs: ["html", "rss", "searchindex"]
 ---

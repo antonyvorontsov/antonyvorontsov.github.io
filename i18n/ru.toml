@@ -7,14 +7,23 @@ other = "Переключить на английский"
 [themeSwitchAria]
 other = "Сменить тему"
 
-[themeDark]
-other = "Тёмная тема"
+[searchAria]
+other = "Поиск"
 
-[themeLight]
-other = "Светлая тема"
+[searchPlaceholder]
+other = "Поиск по постам и страницам…"
+
+[searchNoResults]
+other = "Ничего не найдено"
+
+[searchCloseAria]
+other = "Закрыть поиск"
 
 [footerCopyright]
 other = "© {{ .Year }} {{ .Name }}"
+
+[madeWithHugo]
+other = "Сделано с помощью <a href=\"https://gohugo.io/\" target=\"_blank\" rel=\"noopener\">Hugo</a>"
 
 [contactLabel]
 other = "Вы можете связаться со мной через:"

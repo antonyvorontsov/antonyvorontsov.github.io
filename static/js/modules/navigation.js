@@ -15,17 +15,13 @@ window.Blog.navigation = (function () {
   function updateThemeIcon(theme) {
     const sunIcon = document.querySelector('.theme-icon-light');
     const moonIcon = document.querySelector('.theme-icon-dark');
-    const themeBtn = document.getElementById('theme-btn');
-    const themeText = document.getElementById('theme-text');
 
     if (theme === 'dark') {
       sunIcon.style.display = 'inline-block';
       moonIcon.style.display = 'none';
-      themeText.textContent = themeBtn.dataset.lightLabel;
     } else {
       sunIcon.style.display = 'none';
       moonIcon.style.display = 'inline-block';
-      themeText.textContent = themeBtn.dataset.darkLabel;
     }
   }
 
