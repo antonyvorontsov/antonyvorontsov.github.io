@@ -10,7 +10,7 @@
     {{ range .Pages }}
     <div class="archive-item">
       <span class="archive-date">
-        {{ partial "post-date.html" . }}
+        {{ partial "archive-date.html" . }}
       </span>
       <a href="{{ .RelPermalink }}" class="archive-link">{{ .Title }}</a>
     </div>

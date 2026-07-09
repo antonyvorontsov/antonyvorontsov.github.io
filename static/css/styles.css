@@ -76,9 +76,20 @@ body {
 }
 
 .nav-menu {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 20px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.btn-control.nav-burger {
+  display: none;
 }
 
 .nav-avatar-link {
@@ -155,6 +166,47 @@ body {
   width: 14px;
   height: 14px;
   fill: currentColor;
+}
+
+.nav-burger svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+@media (max-width: 767px) {
+  .btn-control.nav-burger {
+    display: flex;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: var(--shadow);
+    min-width: 180px;
+    z-index: 20;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-links .nav-link {
+    width: 100%;
+    padding: 8px 4px;
+  }
 }
 
 /* Profile Header Info */
@@ -448,7 +500,20 @@ h2.section-heading svg {
 .show-more-wrap {
   display: flex;
   justify-content: center;
-  margin-top: 32px;
+  margin-top: 24px;
+}
+
+/* The gap below the button would otherwise collapse with the larger
+   section/footer margins (56px/64px) and look bigger than the 24px gap
+   above it. Zero out the section's own trailing margin and let the footer's
+   margin-top collapse down to the same 24px instead, only for the section
+   that ends in a show-more button. */
+section:has(.show-more-wrap) {
+  margin-bottom: 0;
+}
+
+section:has(.show-more-wrap) + footer {
+  margin-top: 24px;
 }
 
 .btn-show-more {
@@ -667,8 +732,10 @@ h2.section-heading svg {
 .archive-date {
   font-size: 0.9rem;
   color: var(--text-muted);
-  min-width: 80px;
+  width: 100px;
   flex-shrink: 0;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 
 .archive-link {

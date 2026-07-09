@@ -10,6 +10,9 @@ other = "Toggle theme"
 [searchAria]
 other = "Search"
 
+[menuAria]
+other = "Menu"
+
 [searchPlaceholder]
 other = "Search posts and pages…"
 

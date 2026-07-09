@@ -10,6 +10,9 @@ other = "Сменить тему"
 [searchAria]
 other = "Поиск"
 
+[menuAria]
+other = "Меню"
+
 [searchPlaceholder]
 other = "Поиск по постам и страницам…"
 

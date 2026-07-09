@@ -40,6 +40,49 @@ window.Blog.navigation = (function () {
     document.getElementById('theme-btn').addEventListener('click', toggleTheme);
   }
 
+  // Mobile nav: the three page links (nav-links) collapse into a dropdown
+  // toggled by nav-burger below the 767px breakpoint (see styles.css); above
+  // it .nav-links is always visible via CSS and this code has no effect.
+  function initMobileMenu() {
+    const burger = document.getElementById('nav-burger');
+    const links = document.getElementById('nav-links');
+    if (!burger || !links) return;
+
+    const iconOpen = burger.querySelector('.nav-burger-icon-open');
+    const iconClose = burger.querySelector('.nav-burger-icon-close');
+
+    function onOutsideClick(e) {
+      if (!links.contains(e.target) && !burger.contains(e.target)) close();
+    }
+
+    function onKeydown(e) {
+      if (e.key === 'Escape') close();
+    }
+
+    function open() {
+      links.classList.add('open');
+      burger.setAttribute('aria-expanded', 'true');
+      iconOpen.style.display = 'none';
+      iconClose.style.display = 'inline-block';
+      document.addEventListener('click', onOutsideClick);
+      document.addEventListener('keydown', onKeydown);
+    }
+
+    function close() {
+      links.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+      iconOpen.style.display = 'inline-block';
+      iconClose.style.display = 'none';
+      document.removeEventListener('click', onOutsideClick);
+      document.removeEventListener('keydown', onKeydown);
+    }
+
+    burger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      links.classList.contains('open') ? close() : open();
+    });
+  }
+
   // Table of Contents scrollspy: TOC links are rendered server-side by Hugo
   // (layouts/posts/single.html, from .Fragments.Headings) — here we only
   // observe the linked headings and toggle the active link on scroll.
@@ -69,5 +112,5 @@ window.Blog.navigation = (function () {
     headings.forEach((heading) => observer.observe(heading));
   }
 
-  return { initTheme, initToc };
+  return { initTheme, initToc, initMobileMenu };
 })();

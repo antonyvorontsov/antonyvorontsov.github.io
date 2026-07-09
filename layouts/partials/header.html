@@ -21,10 +21,20 @@
     <a href="{{ .Site.Home.RelPermalink }}" class="nav-avatar-link" aria-label="{{ i18n "navAvatarAria" }}">
       <img src="{{ "assets/images/avatar.jpeg" | relURL }}" alt="Anton Vorontsov" class="nav-avatar-img">
     </a>
-    {{ range .Site.Menus.main }}
-    {{ $itemActive := or (eq $.RelPermalink .Page.RelPermalink) (and (eq .Page.Section "posts") (eq $currentSection "posts")) }}
-    <a href="{{ .Page.RelPermalink }}" class="nav-link{{ if $itemActive }} active{{ end }}">{{ .Name }}</a>
-    {{ end }}
+    <button class="btn-control btn-control-icon nav-burger" id="nav-burger" type="button" aria-label="{{ i18n "menuAria" }}" aria-expanded="false" aria-controls="nav-links">
+      <svg class="nav-burger-icon-open" viewBox="0 0 24 24">
+        <path d="M3 6h18M3 12h18M3 18h18"/>
+      </svg>
+      <svg class="nav-burger-icon-close" viewBox="0 0 24 24" style="display: none;">
+        <path d="M6 6l12 12M18 6L6 18"/>
+      </svg>
+    </button>
+    <div class="nav-links" id="nav-links">
+      {{ range .Site.Menus.main }}
+      {{ $itemActive := or (eq $.RelPermalink .Page.RelPermalink) (and (eq .Page.Section "posts") (eq $currentSection "posts")) }}
+      <a href="{{ .Page.RelPermalink }}" class="nav-link{{ if $itemActive }} active{{ end }}">{{ .Name }}</a>
+      {{ end }}
+    </div>
   </nav>
 
   <div class="controls">
