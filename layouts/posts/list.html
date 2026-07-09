@@ -1,9 +1,6 @@
 {{ define "main" }}
 <header class="profile-header">
-  <h1 class="profile-name">
-    <span class="lang-ru">Архив постов</span>
-    <span class="lang-en">Posts Archive</span>
-  </h1>
+  <h1 class="profile-name">{{ i18n "postsArchiveTitle" }}</h1>
 </header>
 
 {{ range .Pages.GroupByPublishDate "2006" }}
@@ -13,13 +10,9 @@
     {{ range .Pages }}
     <div class="archive-item">
       <span class="archive-date">
-        <span class="lang-ru">{{ .Date.Format "02.01.2006" }}</span>
-        <span class="lang-en">{{ .Date.Format "Jan 2, 2006" }}</span>
+        {{ partial "archive-date.html" . }}
       </span>
-      <a href="{{ .RelPermalink }}" class="archive-link">
-        <span class="lang-ru">{{ .Title }}</span>
-        <span class="lang-en">{{ .Params.title_en | default .Title }}</span>
-      </a>
+      <a href="{{ .RelPermalink }}" class="archive-link">{{ .Title }}</a>
     </div>
     {{ end }}
   </div>

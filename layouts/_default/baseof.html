@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-{{ $titleEn := .Params.title_en | default .Title }}
 {{ .Scratch.Set "isPostSingle" (and .IsPage (eq .Section "posts")) }}
 {{ $isPostSingle := .Scratch.Get "isPostSingle" }}
-<html lang="ru" data-title-ru="{{ .Title }}{{ if $isPostSingle }} — Блог Антона Воронцова{{ end }}" data-title-en="{{ $titleEn }}{{ if $isPostSingle }} — Anton Vorontsov Blog{{ end }}">
+<html lang="{{ .Language.Lang }}">
 <head>
   {{ partial "head.html" . }}
 </head>
@@ -13,8 +12,10 @@
     {{ block "main" . }}{{ end }}
     {{ partial "footer.html" . }}
   </div>
+  {{ partial "search-modal.html" . }}
   <script src="{{ "js/modules/utils.js" | relURL }}" defer></script>
   <script src="{{ "js/modules/navigation.js" | relURL }}" defer></script>
+  <script src="{{ "js/modules/search.js" | relURL }}" defer></script>
   <script src="{{ "js/main.js" | relURL }}" defer></script>
 </body>
 </html>

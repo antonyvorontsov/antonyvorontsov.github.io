@@ -1,0 +1,14 @@
+[[main]]
+  name = "Главная"
+  pageRef = "/"
+  weight = 1
+
+[[main]]
+  name = "Архив постов"
+  pageRef = "/posts"
+  weight = 2
+
+[[main]]
+  name = "Обо мне"
+  pageRef = "/about"
+  weight = 3

@@ -1,0 +1,56 @@
+[navAvatarAria]
+other = "Home"
+
+[langSwitchAria]
+other = "Switch to Russian"
+
+[themeSwitchAria]
+other = "Toggle theme"
+
+[searchAria]
+other = "Search"
+
+[menuAria]
+other = "Menu"
+
+[searchPlaceholder]
+other = "Search posts and pages…"
+
+[searchNoResults]
+other = "No results found"
+
+[searchCloseAria]
+other = "Close search"
+
+[footerCopyright]
+other = "© {{ .Year }} {{ .Name }}"
+
+[madeWithHugo]
+other = "Made with <a href=\"https://gohugo.io/\" target=\"_blank\" rel=\"noopener\">Hugo</a>"
+
+[contactLabel]
+other = "You can contact me via:"
+
+[postsArchiveTitle]
+other = "Posts Archive"
+
+[latestPostsTitle]
+other = "Latest Posts"
+
+[showMore]
+other = "Show more"
+
+[experienceTitle]
+other = "Experience"
+
+[speakingTitle]
+other = "Speaking & Education"
+
+[skillsTitle]
+other = "Skills"
+
+[tocTitle]
+other = "Contents"
+
+[siteTitleSuffix]
+other = "— Anton Vorontsov Blog"

@@ -1,8 +1,28 @@
-baseURL = "https://vorontsov.dev"
-locale = "ru"
-title = "Антон Воронцов — Software Engineering Blog"
+# No baseURL here on purpose: the only place the production domain is allowed
+# to appear in this repo is static/CNAME (how GitHub Pages custom domains
+# work). CI always passes the real one explicitly via
+# `hugo --baseURL "${{ steps.pages.outputs.base_url }}/"` (see
+# .github/workflows/hugo.yml). Leaving this unset means `hugo server` and a
+# plain local `hugo` build both default to a harmless localhost baseURL
+# instead of silently linking out to production.
 uglyURLs = true
 relativeURLs = true
+defaultContentLanguage = "ru"
+# false: Russian (default language) is unprefixed at the root (/, /about.html,
+# /posts/<slug>.html); English gets the /en/ prefix. This is also what avoids
+# a real Hugo defect — with defaultContentLanguageInSubdir=true + uglyURLs=true,
+# Hugo's automatic root-redirect stub and the real default-language home page
+# collide on the same output path (ru/index.html) and the stub silently
+# clobbers the real page (see gohugoio/hugo PR #6138, proposed fix never
+# merged). Keeping the default language unprefixed sidesteps the whole
+# mechanism — there's no cross-language root redirect to generate.
+defaultContentLanguageInSubdir = false
+
+# Posts carry tags: [] for future use (see CLAUDE.md), but no tag-browsing UI
+# exists yet — disabling these two kinds stops Hugo from generating /tags/
+# taxonomy/term pages (and warning about the missing html layout for them)
+# until that UI is actually built.
+disableKinds = ["taxonomy", "term"]
 
 [taxonomies]
   tag = "tags"
@@ -14,14 +34,41 @@ relativeURLs = true
   title = true
 
 [params]
-  profileName_ru = "Антон Воронцов"
-  profileName_en = "Anton Vorontsov"
   profileTitle = "Software Engineering Manager / Tech Lead @ Ozon Tech"
-  bio_ru = [
-    "Проектирую и создаю надежные распределенные системы. Мой путь в разработке начался в 2016 году, а с 2017 года я активно использую .NET. Специализируюсь на WMS (системах управления складом), проектировании Event-Driven архитектуры, CQRS, DDD и высоконагруженных (Highload) системах.",
-    "Всегда открыт к менторингу и помощи коллегам. Передача знаний и обмен практическим опытом — моя страсть."
-  ]
-  bio_en = [
-    "Designing and building reliable distributed systems. My software engineering journey started in 2016, and I have been actively using .NET since 2017. Specializing in Warehouse Management Systems (WMS), Event-Driven Architecture, CQRS, DDD, and highload systems.",
-    "I am always open to mentoring others. Sharing experience and knowledge transfer is my passion."
-  ]
+
+# Site-wide search index (see layouts/index.searchindex.json): one JSON file
+# per language, listing every searchable page (home, about, posts list,
+# individual posts) in that language's own site. baseName keeps it out of the
+# way of the real index.html.
+[outputFormats.searchindex]
+  mediaType = "application/json"
+  baseName = "search-index"
+  isPlainText = true
+  notAlternative = true
+
+[languages]
+  [languages.ru]
+    label = "Русский"
+    locale = "ru"
+    weight = 1
+    title = "Антон Воронцов — Software Engineering Blog"
+    [languages.ru.params]
+      profileName = "Антон Воронцов"
+      shortLabel = "Ru"
+      bio = [
+        "Проектирую и создаю надежные распределенные системы. Мой путь в разработке начался в 2016 году, а с 2017 года я активно использую .NET. Специализируюсь на WMS (системах управления складом), проектировании Event-Driven архитектуры, CQRS, DDD и высоконагруженных (Highload) системах.",
+        "Всегда открыт к менторингу и помощи коллегам. Передача знаний и обмен практическим опытом — моя страсть."
+      ]
+
+  [languages.en]
+    label = "English"
+    locale = "en"
+    weight = 2
+    title = "Anton Vorontsov — Software Engineering Blog"
+    [languages.en.params]
+      profileName = "Anton Vorontsov"
+      shortLabel = "En"
+      bio = [
+        "Designing and building reliable distributed systems. My software engineering journey started in 2016, and I have been actively using .NET since 2017. Specializing in Warehouse Management Systems (WMS), Event-Driven Architecture, CQRS, DDD, and highload systems.",
+        "I am always open to mentoring others. Sharing experience and knowledge transfer is my passion."
+      ]
