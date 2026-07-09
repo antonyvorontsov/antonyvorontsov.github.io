@@ -63,10 +63,6 @@ body {
   max-width: 900px;
 }
 
-/* Localization styling */
-html[lang="en"] .lang-ru { display: none !important; }
-html[lang="ru"] .lang-en { display: none !important; }
-
 /* Navigation Container */
 .nav-container {
   display: flex;
@@ -80,9 +76,20 @@ html[lang="ru"] .lang-en { display: none !important; }
 }
 
 .nav-menu {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 20px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.btn-control.nav-burger {
+  display: none;
 }
 
 .nav-avatar-link {
@@ -148,10 +155,58 @@ html[lang="ru"] .lang-en { display: none !important; }
   transform: translateY(-1px);
 }
 
+.btn-control-icon {
+  padding: 8px;
+  width: 34px;
+  height: 34px;
+  justify-content: center;
+}
+
 .btn-control svg {
   width: 14px;
   height: 14px;
   fill: currentColor;
+}
+
+.nav-burger svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+@media (max-width: 767px) {
+  .btn-control.nav-burger {
+    display: flex;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: var(--shadow);
+    min-width: 180px;
+    z-index: 20;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-links .nav-link {
+    width: 100%;
+    padding: 8px 4px;
+  }
 }
 
 /* Profile Header Info */
@@ -445,7 +500,20 @@ h2.section-heading svg {
 .show-more-wrap {
   display: flex;
   justify-content: center;
-  margin-top: 32px;
+  margin-top: 24px;
+}
+
+/* The gap below the button would otherwise collapse with the larger
+   section/footer margins (56px/64px) and look bigger than the 24px gap
+   above it. Zero out the section's own trailing margin and let the footer's
+   margin-top collapse down to the same 24px instead, only for the section
+   that ends in a show-more button. */
+section:has(.show-more-wrap) {
+  margin-bottom: 0;
+}
+
+section:has(.show-more-wrap) + footer {
+  margin-top: 24px;
 }
 
 .btn-show-more {
@@ -664,8 +732,10 @@ h2.section-heading svg {
 .archive-date {
   font-size: 0.9rem;
   color: var(--text-muted);
-  min-width: 80px;
+  width: 100px;
   flex-shrink: 0;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 
 .archive-link {
@@ -692,6 +762,138 @@ footer {
 
 footer p {
   margin-bottom: 8px;
+}
+
+.footer-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.footer-divider {
+  color: var(--border);
+}
+
+footer a {
+  color: var(--text-muted);
+  text-decoration: underline;
+  transition: var(--transition);
+}
+
+footer a:hover {
+  color: var(--accent);
+}
+
+/* Search overlay */
+.search-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 12vh 16px 0;
+  z-index: 1000;
+}
+
+.search-overlay[hidden] {
+  display: none;
+}
+
+.search-panel {
+  width: min(560px, 100%);
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.search-input-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.search-icon {
+  width: 18px;
+  height: 18px;
+  fill: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.search-close {
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 2px;
+  transition: var(--transition);
+}
+
+.search-close:hover {
+  color: var(--text);
+}
+
+.search-results {
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.search-results-list {
+  list-style: none;
+}
+
+.search-result-link {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 16px;
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  transition: var(--transition);
+}
+
+.search-result-link:last-child {
+  border-bottom: none;
+}
+
+.search-result-link:hover {
+  background: var(--badge-bg);
+}
+
+.search-result-title {
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.search-result-desc {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.search-empty {
+  padding: 16px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
 }
 
 /* Dynamic fade utility */

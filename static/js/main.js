@@ -1,7 +1,8 @@
 // Entry point: wires up modules on page load
-(function (navigation, utils) {
+(function (navigation, utils, search) {
   navigation.initTheme();
-  navigation.initLanguage();
   utils.updateFooterYear();
   navigation.initToc();
-})(window.Blog.navigation, window.Blog.utils);
+  navigation.initMobileMenu();
+  search.init();
+})(window.Blog.navigation, window.Blog.utils, window.Blog.search);

@@ -1,9 +1,4 @@
-{{- $parts := split .Text "|||" -}}
-{{- $ru := index $parts 0 -}}
-{{- $en := index $parts 1 | default $ru -}}
-{{- $seen := .Page.Scratch.Get "headingAnchors" | default slice -}}
-{{- if in $seen .Anchor -}}
-  {{- errorf "duplicate heading anchor #%s in %s — give one of the headings an explicit {#slug} to disambiguate" .Anchor .Page.File.Path -}}
+{{- if not (findRE "^[a-z0-9]+(-[a-z0-9]+)*$" .Anchor) -}}
+  {{- errorf "heading %q in %s has no explicit ASCII {#slug} anchor (got #%s) — Goldmark's auto-generated id breaks the JS scrollspy on non-ASCII headings" .Text .Page.File.Path .Anchor -}}
 {{- end -}}
-{{- .Page.Scratch.Set "headingAnchors" ($seen | append .Anchor) -}}
-<h{{ .Level }} id="{{ .Anchor }}"><span class="lang-ru">{{ $ru }}</span><span class="lang-en">{{ $en }}</span></h{{ .Level }}>
+<h{{ .Level }} id="{{ .Anchor }}">{{ .Text }}</h{{ .Level }}>

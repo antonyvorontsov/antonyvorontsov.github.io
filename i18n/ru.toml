@@ -1,0 +1,56 @@
+[navAvatarAria]
+other = "На главную"
+
+[langSwitchAria]
+other = "Переключить на английский"
+
+[themeSwitchAria]
+other = "Сменить тему"
+
+[searchAria]
+other = "Поиск"
+
+[menuAria]
+other = "Меню"
+
+[searchPlaceholder]
+other = "Поиск по постам и страницам…"
+
+[searchNoResults]
+other = "Ничего не найдено"
+
+[searchCloseAria]
+other = "Закрыть поиск"
+
+[footerCopyright]
+other = "© {{ .Year }} {{ .Name }}"
+
+[madeWithHugo]
+other = "Сделано с помощью <a href=\"https://gohugo.io/\" target=\"_blank\" rel=\"noopener\">Hugo</a>"
+
+[contactLabel]
+other = "Вы можете связаться со мной через:"
+
+[postsArchiveTitle]
+other = "Архив постов"
+
+[latestPostsTitle]
+other = "Последние посты"
+
+[showMore]
+other = "Показать ещё"
+
+[experienceTitle]
+other = "Профессиональный опыт"
+
+[speakingTitle]
+other = "Выступления и образование"
+
+[skillsTitle]
+other = "Ключевые навыки"
+
+[tocTitle]
+other = "Содержание"
+
+[siteTitleSuffix]
+other = "— Блог Антона Воронцова"

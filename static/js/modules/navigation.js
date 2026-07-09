@@ -1,4 +1,6 @@
-// Nav bar controls (theme, language) and in-page post navigation (table of contents scrollspy)
+// Nav bar controls (theme) and in-page post navigation (table of contents scrollspy).
+// Language switching is a native per-language page (layouts/partials/header.html
+// renders a real link via .Translations) — no client-side language logic here.
 window.Blog = window.Blog || {};
 
 window.Blog.navigation = (function () {
@@ -13,19 +15,13 @@ window.Blog.navigation = (function () {
   function updateThemeIcon(theme) {
     const sunIcon = document.querySelector('.theme-icon-light');
     const moonIcon = document.querySelector('.theme-icon-dark');
-    const textRu = document.getElementById('theme-text-ru');
-    const textEn = document.getElementById('theme-text-en');
 
     if (theme === 'dark') {
       sunIcon.style.display = 'inline-block';
       moonIcon.style.display = 'none';
-      textRu.textContent = 'Светлая тема';
-      textEn.textContent = 'Light Mode';
     } else {
       sunIcon.style.display = 'none';
       moonIcon.style.display = 'inline-block';
-      textRu.textContent = 'Темная тема';
-      textEn.textContent = 'Dark Mode';
     }
   }
 
@@ -44,39 +40,47 @@ window.Blog.navigation = (function () {
     document.getElementById('theme-btn').addEventListener('click', toggleTheme);
   }
 
-  function getSystemLanguage() {
-    if (localStorage.getItem('lang')) {
-      return localStorage.getItem('lang');
+  // Mobile nav: the three page links (nav-links) collapse into a dropdown
+  // toggled by nav-burger below the 767px breakpoint (see styles.css); above
+  // it .nav-links is always visible via CSS and this code has no effect.
+  function initMobileMenu() {
+    const burger = document.getElementById('nav-burger');
+    const links = document.getElementById('nav-links');
+    if (!burger || !links) return;
+
+    const iconOpen = burger.querySelector('.nav-burger-icon-open');
+    const iconClose = burger.querySelector('.nav-burger-icon-close');
+
+    function onOutsideClick(e) {
+      if (!links.contains(e.target) && !burger.contains(e.target)) close();
     }
-    // default to 'ru' if browser language matches Russian, else 'en'
-    const navLang = navigator.language || navigator.userLanguage;
-    return (navLang && navLang.toLowerCase().startsWith('ru')) ? 'ru' : 'en';
-  }
 
-  // Update SEO Title dynamically based on data-title-ru/data-title-en on <html>
-  function updatePageTitle(lang) {
-    const titleRu = document.documentElement.dataset.titleRu;
-    const titleEn = document.documentElement.dataset.titleEn;
-    if (lang === 'ru' && titleRu) {
-      document.title = titleRu;
-    } else if (lang === 'en' && titleEn) {
-      document.title = titleEn;
+    function onKeydown(e) {
+      if (e.key === 'Escape') close();
     }
-  }
 
-  function toggleLang() {
-    const activeLang = document.documentElement.getAttribute('lang');
-    const newLang = activeLang === 'ru' ? 'en' : 'ru';
-    document.documentElement.setAttribute('lang', newLang);
-    localStorage.setItem('lang', newLang);
-    updatePageTitle(newLang);
-  }
+    function open() {
+      links.classList.add('open');
+      burger.setAttribute('aria-expanded', 'true');
+      iconOpen.style.display = 'none';
+      iconClose.style.display = 'inline-block';
+      document.addEventListener('click', onOutsideClick);
+      document.addEventListener('keydown', onKeydown);
+    }
 
-  function initLanguage() {
-    const currentLang = getSystemLanguage();
-    document.documentElement.setAttribute('lang', currentLang);
-    updatePageTitle(currentLang);
-    document.getElementById('lang-btn').addEventListener('click', toggleLang);
+    function close() {
+      links.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+      iconOpen.style.display = 'inline-block';
+      iconClose.style.display = 'none';
+      document.removeEventListener('click', onOutsideClick);
+      document.removeEventListener('keydown', onKeydown);
+    }
+
+    burger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      links.classList.contains('open') ? close() : open();
+    });
   }
 
   // Table of Contents scrollspy: TOC links are rendered server-side by Hugo
@@ -108,5 +112,5 @@ window.Blog.navigation = (function () {
     headings.forEach((heading) => observer.observe(heading));
   }
 
-  return { initTheme, initLanguage, initToc };
+  return { initTheme, initToc, initMobileMenu };
 })();

@@ -1,14 +1,12 @@
 ---
 title: ""
-title_en: ""
 date: {{ .Date }}
 description: ""
-description_en: ""
 tags: []
 ---
 
-<p><span class="lang-ru"></span><span class="lang-en"></span></p>
+<p></p>
 
-## Заголовок раздела|||Section Heading
+## Section Heading {#section-heading}
 
-Текст раздела.
+Body text.
