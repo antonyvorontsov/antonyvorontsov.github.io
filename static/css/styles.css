@@ -569,20 +569,23 @@ section:has(.show-more-wrap) + footer {
   gap: 8px;
 }
 
-.skill-tag {
+.tag-pill {
   background-color: var(--badge-bg);
   color: var(--badge-text);
-  font-size: 0.85rem;
-  padding: 6px 12px;
   border-radius: 6px;
   font-weight: 500;
   transition: var(--transition);
   border: 1px solid transparent;
 }
 
-.skill-tag:hover {
+.tag-pill:hover {
   background-color: var(--bg);
   border-color: var(--border);
+}
+
+.skill-tag {
+  font-size: 0.85rem;
+  padding: 6px 12px;
 }
 
 /* Article View Layout */
@@ -615,8 +618,22 @@ section:has(.show-more-wrap) + footer {
 }
 
 .post-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
   font-size: 0.9rem;
   color: var(--text-muted);
+}
+
+.post-tag {
+  font-size: 0.8rem;
+  padding: 3px 10px;
+  text-decoration: none;
+}
+
+.post-tag:hover {
+  color: var(--accent);
 }
 
 .post-content {
@@ -690,15 +707,7 @@ section:has(.show-more-wrap) + footer {
 
 @media (max-width: 767px) {
   .toc-sidebar {
-    position: static;
-    max-height: none;
-    overflow: visible;
-    border-left: none;
-    border-top: 1px solid var(--border);
-    padding-left: 0;
-    padding-top: 20px;
-    order: -1;
-    margin-bottom: 8px;
+    display: none;
   }
 }
 

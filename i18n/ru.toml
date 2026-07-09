@@ -54,3 +54,6 @@ other = "Содержание"
 
 [siteTitleSuffix]
 other = "— Блог Антона Воронцова"
+
+[tagPageDescription]
+other = "Посты с тегом #{{ .Tag }}"

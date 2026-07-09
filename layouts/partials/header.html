@@ -1,4 +1,8 @@
 {{ $currentSection := .Section }}
+{{/* Tag term pages (kind "term") are a view into posts, not their own nav
+     destination — treat them as the "posts" section so the same nav item
+     highlights as on individual post pages. */}}
+{{ if eq .Kind "term" }}{{ $currentSection = "posts" }}{{ end }}
 {{ $langURL := "" }}
 {{ $otherLangName := "" }}
 {{ if .IsTranslated }}

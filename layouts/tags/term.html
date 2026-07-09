@@ -1,0 +1,11 @@
+{{ define "main" }}
+<header class="profile-header">
+  <h1 class="profile-name">#{{ .Data.Term }}</h1>
+</header>
+
+<div class="archive-list">
+  {{ range .Pages.ByDate.Reverse }}
+  {{ partial "archive-item.html" . }}
+  {{ end }}
+</div>
+{{ end }}

@@ -4,7 +4,7 @@ date: 2026-06-01
 description: Becoming a Tech Lead isn't just about new responsibilities — it's a complete
   shift in how you make decisions and measure your impact. Here's what changed in
   my thinking over the years.
-tags: []
+tags: [tech-lead, leadership, career]
 ---
 
 <p>Becoming a Tech Lead isn't just about new responsibilities — it's a complete shift in how you make decisions and measure your impact. Here's what changed in my thinking over the years.</p>

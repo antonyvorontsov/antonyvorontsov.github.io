@@ -18,14 +18,21 @@ defaultContentLanguage = "ru"
 # mechanism — there's no cross-language root redirect to generate.
 defaultContentLanguageInSubdir = false
 
-# Posts carry tags: [] for future use (see CLAUDE.md), but no tag-browsing UI
-# exists yet — disabling these two kinds stops Hugo from generating /tags/
-# taxonomy/term pages (and warning about the missing html layout for them)
-# until that UI is actually built.
-disableKinds = ["taxonomy", "term"]
+# Individual tag pages (kind "term", e.g. /tags/cqrs.html) are enabled and
+# rendered by layouts/tags/term.html. The site-wide "all tags" overview page
+# (kind "taxonomy", e.g. /tags.html) stays disabled — it's not part of the UI,
+# only per-tag term pages are.
+disableKinds = ["taxonomy"]
 
 [taxonomies]
   tag = "tags"
+
+# Term pages (individual tag pages) only need HTML — without this, Hugo's
+# default output formats also emit an RSS feed per tag (/tags/<tag>/index.xml)
+# that nothing links to or needs, mirroring the outputs: [html] restriction
+# already used on content/posts/_index.*.md for the same reason.
+[outputs]
+  term = ["html"]
 
 [markup.goldmark.renderer]
   unsafe = true

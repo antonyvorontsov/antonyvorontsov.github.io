@@ -4,7 +4,7 @@ date: 2025-08-02
 description: Real-world cases of applying CQRS in distributed systems — where the
   pattern genuinely solves performance and consistency problems, and where it just
   adds needless complexity.
-tags: []
+tags: [cqrs, distributed-systems, patterns]
 ---
 
 <p>Real-world cases of applying CQRS in distributed systems — where the pattern genuinely solves performance and consistency problems, and where it just adds needless complexity.</p>

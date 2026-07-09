@@ -4,6 +4,9 @@
     <div class="post-header">
       <h1>{{ .Title }}</h1>
       <p class="post-meta">
+        {{ with .GetTerms "tags" }}
+          {{ range . }}<a href="{{ .RelPermalink }}" class="tag-pill post-tag">#{{ .Data.Term }}</a>{{ end }}
+        {{ end }}
         {{ partial "post-date.html" . }}
       </p>
     </div>
