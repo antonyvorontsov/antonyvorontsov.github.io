@@ -1,0 +1,27 @@
+{{ define "main" }}
+{{ $seriesID := .File.ContentBaseName }}
+{{ $seriesPosts := where (where .Site.RegularPages "Section" "posts") "Params.series.name" $seriesID }}
+{{ $seriesPosts = sort $seriesPosts "Params.series.number" "asc" }}
+
+{{ $seen := slice }}
+{{ range $seriesPosts }}
+  {{ if not (isset .Params.series "number") }}{{ errorf "post %s belongs to series %q but is missing series.number" .File.Path $seriesID }}{{ end }}
+  {{ $n := printf "%v" .Params.series.number }}
+  {{ if in $seen $n }}{{ errorf "duplicate series number %v in series %q (%s)" .Params.series.number $seriesID .File.Path }}{{ end }}
+  {{ $seen = $seen | append $n }}
+{{ end }}
+
+<header class="profile-header">
+  <h1 class="profile-name">{{ .Title }}</h1>
+</header>
+
+{{ with .Content }}
+<div class="post-content">{{ . }}</div>
+{{ end }}
+
+<div class="archive-list">
+  {{ range $seriesPosts }}
+  {{ partial "archive-item.html" (dict "page" . "linkText" (printf "%s %s" (i18n "seriesItemNumber" (dict "Number" .Params.series.number)) .Title) "hideDate" true) }}
+  {{ end }}
+</div>
+{{ end }}

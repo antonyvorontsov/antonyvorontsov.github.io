@@ -5,6 +5,9 @@ description: A walkthrough of migrating a high-load WMS's primary datastore to a
   architecture without stopping warehouse operations. Covers shard key selection,
   data migration, and handling consistency edge cases.
 tags: [sharding, databases, distributed-systems]
+series:
+  name: "distributed-systems"
+  number: 1
 ---
 
 <p>A walkthrough of migrating a high-load WMS's primary datastore to a sharded architecture without stopping warehouse operations. Covers shard key selection, data migration, and handling consistency edge cases.</p>

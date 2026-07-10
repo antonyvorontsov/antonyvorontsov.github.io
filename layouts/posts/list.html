@@ -8,7 +8,7 @@
   <h2 class="archive-year">{{ .Key }}</h2>
   <div class="archive-list">
     {{ range .Pages }}
-    {{ partial "archive-item.html" . }}
+    {{ partial "archive-item.html" (dict "page" .) }}
     {{ end }}
   </div>
 </div>

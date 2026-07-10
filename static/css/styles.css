@@ -596,6 +596,19 @@ section:has(.show-more-wrap) + footer {
   margin-top: 32px;
 }
 
+/* For regular articles we leave 24px margin for footer */
+.post-layout + footer {
+  margin-top: 24px;
+}
+
+/* 
+  But if the article contains a series link and it is shown on mobile
+  we remove margin fully in order for that link to look symmetrical
+*/
+.post-layout:has(.post-series-mobile) + footer {
+  margin-top: 0px;
+}
+
 @media (min-width: 768px) {
   .post-layout {
     grid-template-columns: 3fr 1.2fr;
@@ -634,6 +647,39 @@ section:has(.show-more-wrap) + footer {
 
 .post-tag:hover {
   color: var(--accent);
+}
+
+.post-series-meta {
+  margin-top: 8px;
+}
+
+.post-series-link {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.post-series-link:hover {
+  color: var(--accent);
+}
+
+.post-series-mobile {
+  display: none;
+  margin-top: 32px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  text-decoration: none;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 767px) {
+  .post-series-mobile {
+    display: block;
+  }
 }
 
 .post-content {
@@ -703,6 +749,12 @@ section:has(.show-more-wrap) + footer {
 .toc-link.active {
   color: var(--accent);
   font-weight: 600;
+}
+
+.toc-series {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
 }
 
 @media (max-width: 767px) {

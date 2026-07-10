@@ -1,4 +1,24 @@
 {{ define "main" }}
+{{ $hasSeries := false }}
+{{ $seriesNumber := "" }}
+{{ $seriesHref := .RelPermalink }}
+{{ $seriesTitle := "" }}
+{{ with .Params.series }}
+  {{ $hasSeries = true }}
+  {{ if not (and (isset . "name") (isset . "number")) }}
+    {{ errorf "post %s has a series field but is missing name or number" $.File.Path }}
+  {{ end }}
+  {{ $seriesID := .name }}
+  {{ $seriesNumber = .number }}
+  {{ $seriesTitle = $seriesID }}
+  {{ $seriesPage := $.Site.GetPage (printf "series/%s" $seriesID) }}
+  {{ with $seriesPage }}
+    {{ $seriesHref = .RelPermalink }}
+    {{ $seriesTitle = .Title }}
+  {{ else }}
+    {{ warnf "post %s references series %q which has no series page yet (typo in series.name, or content/series/%s.*.md not created yet)" $.File.Path $seriesID $seriesID }}
+  {{ end }}
+{{ end }}
 <div class="post-layout">
   <article>
     <div class="post-header">
@@ -9,11 +29,22 @@
         {{ end }}
         {{ partial "post-date.html" . }}
       </p>
+      {{ if $hasSeries }}
+      <p class="post-series-meta">
+        <a href="{{ $seriesHref }}" class="post-series-link">{{ i18n "postSeriesMeta" (dict "Name" $seriesTitle "Number" $seriesNumber) }}</a>
+      </p>
+      {{ end }}
     </div>
 
     <div class="post-content" id="post-content">
       {{ .Content }}
     </div>
+
+    {{ if $hasSeries }}
+    <a href="{{ $seriesHref }}" class="post-series-mobile">
+      {{ i18n "seriesMobileText" (dict "Name" $seriesTitle) }}
+    </a>
+    {{ end }}
   </article>
 
   <aside class="toc-sidebar" id="toc-sidebar">
@@ -33,6 +64,12 @@
         {{ end }}
       {{ end }}
     </ul>
+    {{ end }}
+    {{ if $hasSeries }}
+    <div class="toc-series">
+      <div class="toc-title">{{ i18n "seriesTitle" }}</div>
+      <a href="{{ $seriesHref }}" class="toc-link">{{ $seriesTitle }}</a>
+    </div>
     {{ end }}
   </aside>
 </div>

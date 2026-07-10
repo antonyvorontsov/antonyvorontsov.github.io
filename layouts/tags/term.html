@@ -5,7 +5,7 @@
 
 <div class="archive-list">
   {{ range .Pages.ByDate.Reverse }}
-  {{ partial "archive-item.html" . }}
+  {{ partial "archive-item.html" (dict "page" .) }}
   {{ end }}
 </div>
 {{ end }}

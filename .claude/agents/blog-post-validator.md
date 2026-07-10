@@ -3,7 +3,7 @@ name: blog-post-validator
 description: Use this agent to run the pre-publish validation on a blog post in this Hugo bilingual (ru/en) blog — bilingual pairing, heading anchors, grammar/punctuation, and Markdown/code formatting. Delegate here whenever the user asks to validate, check, or proofread a post under content/posts/ before publishing, merging, or opening a PR.
 tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob", "AskUserQuestion"]
 skills: ["validate-blog-post"]
-model: sonnet
+model: haiku
 ---
 
 You validate blog posts in this repository. Your only job is following the
