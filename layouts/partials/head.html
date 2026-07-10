@@ -1,8 +1,14 @@
 {{ $isPostSingle := .Scratch.Get "isPostSingle" }}
+{{ $pageTitle := .Title }}
+{{ $pageDescription := .Params.description }}
+{{ if eq .Kind "term" }}
+  {{ $pageTitle = printf "#%s" .Data.Term }}
+  {{ $pageDescription = i18n "tagPageDescription" (dict "Tag" .Data.Term) }}
+{{ end }}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{ .Title }}{{ if $isPostSingle }} {{ i18n "siteTitleSuffix" }}{{ end }}</title>
-<meta name="description" content="{{ .Params.description }}">
+<title>{{ $pageTitle }}{{ if $isPostSingle }} {{ i18n "siteTitleSuffix" }}{{ end }}</title>
+<meta name="description" content="{{ $pageDescription }}">
 <link rel="icon" type="image/png" href="{{ "assets/favicon.png" | relURL }}">
 
 {{ range .AllTranslations }}
@@ -11,8 +17,8 @@
 
 {{ if not $isPostSingle }}
 <!-- SEO Open Graph -->
-<meta property="og:title" content="{{ .Title }}">
-<meta property="og:description" content="{{ .Params.og_description | default .Params.description }}">
+<meta property="og:title" content="{{ $pageTitle }}">
+<meta property="og:description" content="{{ .Params.og_description | default $pageDescription }}">
 <meta property="og:type" content="{{ .Params.og_type | default "website" }}">
 <meta property="og:url" content="{{ .Permalink }}">
 {{ end }}

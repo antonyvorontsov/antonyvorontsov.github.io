@@ -569,20 +569,23 @@ section:has(.show-more-wrap) + footer {
   gap: 8px;
 }
 
-.skill-tag {
+.tag-pill {
   background-color: var(--badge-bg);
   color: var(--badge-text);
-  font-size: 0.85rem;
-  padding: 6px 12px;
   border-radius: 6px;
   font-weight: 500;
   transition: var(--transition);
   border: 1px solid transparent;
 }
 
-.skill-tag:hover {
+.tag-pill:hover {
   background-color: var(--bg);
   border-color: var(--border);
+}
+
+.skill-tag {
+  font-size: 0.85rem;
+  padding: 6px 12px;
 }
 
 /* Article View Layout */
@@ -591,6 +594,19 @@ section:has(.show-more-wrap) + footer {
   grid-template-columns: 1fr;
   gap: 48px;
   margin-top: 32px;
+}
+
+/* For regular articles we leave 24px margin for footer */
+.post-layout + footer {
+  margin-top: 24px;
+}
+
+/* 
+  But if the article contains a series link and it is shown on mobile
+  we remove margin fully in order for that link to look symmetrical
+*/
+.post-layout:has(.post-series-mobile) + footer {
+  margin-top: 0px;
 }
 
 @media (min-width: 768px) {
@@ -615,8 +631,55 @@ section:has(.show-more-wrap) + footer {
 }
 
 .post-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
   font-size: 0.9rem;
   color: var(--text-muted);
+}
+
+.post-tag {
+  font-size: 0.8rem;
+  padding: 3px 10px;
+  text-decoration: none;
+}
+
+.post-tag:hover {
+  color: var(--accent);
+}
+
+.post-series-meta {
+  margin-top: 8px;
+}
+
+.post-series-link {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.post-series-link:hover {
+  color: var(--accent);
+}
+
+.post-series-mobile {
+  display: none;
+  margin-top: 32px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  text-decoration: none;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 767px) {
+  .post-series-mobile {
+    display: block;
+  }
 }
 
 .post-content {
@@ -688,17 +751,15 @@ section:has(.show-more-wrap) + footer {
   font-weight: 600;
 }
 
+.toc-series {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
 @media (max-width: 767px) {
   .toc-sidebar {
-    position: static;
-    max-height: none;
-    overflow: visible;
-    border-left: none;
-    border-top: 1px solid var(--border);
-    padding-left: 0;
-    padding-top: 20px;
-    order: -1;
-    margin-bottom: 8px;
+    display: none;
   }
 }
 

@@ -1,0 +1,10 @@
+{{ $page := .page }}
+{{ $linkText := .linkText | default $page.Title }}
+<div class="archive-item">
+  {{ if not .hideDate }}
+  <span class="archive-date">
+    {{ partial "archive-date.html" $page }}
+  </span>
+  {{ end }}
+  <a href="{{ $page.RelPermalink }}" class="archive-link">{{ $linkText }}</a>
+</div>

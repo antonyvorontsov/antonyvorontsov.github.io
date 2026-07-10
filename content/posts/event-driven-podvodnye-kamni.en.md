@@ -4,7 +4,7 @@ date: 2025-11-20
 description: Event-driven architecture sounds great on slides, but at scale it surfaces
   real problems with idempotency, delivery ordering, and debuggability. A collection
   of pitfalls my team has hit firsthand.
-tags: []
+tags: [event-driven, distributed-systems, architecture]
 ---
 
 <p>Event-driven architecture sounds great on slides, but at scale it surfaces real problems with idempotency, delivery ordering, and debuggability. A collection of pitfalls my team has hit firsthand.</p>

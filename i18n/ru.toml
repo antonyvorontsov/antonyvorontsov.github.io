@@ -54,3 +54,18 @@ other = "Содержание"
 
 [siteTitleSuffix]
 other = "— Блог Антона Воронцова"
+
+[tagPageDescription]
+other = "Посты с тегом #{{ .Tag }}"
+
+[seriesTitle]
+other = "Серия постов"
+
+[seriesMobileText]
+other = "Эта статья — часть серии «{{ .Name }}»."
+
+[postSeriesMeta]
+other = "Серия постов «{{ .Name }}» №{{ .Number }}"
+
+[seriesItemNumber]
+other = "№{{ .Number }}."

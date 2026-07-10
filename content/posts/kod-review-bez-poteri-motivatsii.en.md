@@ -4,7 +4,7 @@ date: 2026-02-10
 description: Code review can easily become a source of conflict and burnout. Sharing
   the principles that helped my team keep both code quality and a healthy atmosphere
   intact.
-tags: []
+tags: [code-review, engineering-management, team-culture]
 ---
 
 <p>Code review can easily become a source of conflict and burnout. Sharing the principles that helped my team keep both code quality and a healthy atmosphere intact.</p>
