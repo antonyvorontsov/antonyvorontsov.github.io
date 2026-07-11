@@ -164,14 +164,21 @@ Render-hook `layouts/_default/_markup/render-heading.html`:
 ```go-html-template
 {{/* post-date.html */}}
 {{- if eq .Language.Lang "ru" -}}
-  {{- partial "date-ru.html" .Date -}}      {{/* «2 августа 2025» — генитив */}}
+<span class="post-date">{{ partial "date-ru.html" .Date }}</span>     {{/* «2 августа 2025» — генитив */}}
 {{- else -}}
-  {{- .Date.Format "January 2, 2006" -}}    {{/* «August 2, 2025» */}}
+<span class="post-date">{{ .Date.Format "January 2, 2006" }}</span>   {{/* «August 2, 2025» */}}
 {{- end -}}
 ```
 
 Русских генитивных месяцев нет в Go/Hugo из коробки — `date-ru.html` хардкодит список
 месяцев. `archive-date.html` — отдельный, короткий формат `2006-01-02` для списков.
+
+Дата обёрнута в `<span class="post-date">`, чтобы `.post-meta .post-date {
+flex-basis: 100% }` форсировал перенос: `.post-meta` — `display: flex; flex-wrap:
+wrap`, и full-width flex-item не помещается в текущий ряд рядом с тегами, поэтому
+всегда уходит на новую строку под ними. Тот же `post-date.html` используется и в
+карточке на главной (`.card-meta`, не `.post-meta`) — там правило не действует,
+дата остаётся как раньше, отдельным элементом без тегов рядом.
 
 ## Отображение: desktop vs mobile
 

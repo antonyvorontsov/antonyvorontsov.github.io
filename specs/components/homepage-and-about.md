@@ -7,8 +7,8 @@
 Шапка профиля (аватар + имя + титул + био + соцсети). Используется **главной** и
 **«Обо мне»**.
 
-Вызывается через `dict` с двумя параметрами: `page` (контекст страницы) и
-`showAvatar` (явный bool).
+Вызывается через `dict` с параметрами: `page` (контекст страницы), `showAvatar`
+(явный bool) и `useHomeBio` (явный bool, см. ниже).
 
 ```go-html-template
 {{ $page := .page }}
@@ -19,7 +19,9 @@
   {{ if $showAvatar }}<div class="avatar-wrap"><img … class="avatar-img"></div>{{ end }}
   <h1 class="profile-name">{{ $site.Params.profileName }}</h1>
   <p class="profile-title">{{ $site.Params.profileTitle }}</p>
-  <div class="profile-bio">{{ range $site.Params.bio }}<p>{{ . }}</p>{{ end }}</div>
+  {{ $bio := $site.Params.bio }}
+  {{ if .useHomeBio }}{{ $bio = $site.Params.homeBio }}{{ end }}
+  <div class="profile-bio">{{ range $bio }}<p>{{ . }}</p>{{ end }}</div>
   {{ if $hasSocial }}… соцсети через social-icon.html …{{ end }}
 </header>
 ```
@@ -27,20 +29,27 @@
 Места вызова:
 ```go-html-template
 {{/* layouts/about.html */}}   {{ partial "profile-header.html" (dict "page" . "showAvatar" true) }}
-{{/* layouts/index.html */}}   {{ partial "profile-header.html" (dict "page" . "showAvatar" false) }}
+{{/* layouts/index.html */}}   {{ partial "profile-header.html" (dict "page" . "showAvatar" false "useHomeBio" true) }}
 ```
 
-**Две независимые развилки:**
+**Три независимые развилки:**
 - **Аватар** — по явному флагу `showAvatar` (передаётся из места вызова).
+- **Bio-текст** — по явному флагу `useHomeBio` (тот же принцип, что и у
+  `showAvatar` — видимость/выбор источника логически не зависит от данных, см.
+  [`patterns/shared-partial-pattern.md`](../patterns/shared-partial-pattern.md)).
+  Главная показывает короткий `homeBio` (одна фраза о теме блога), «Обо мне» —
+  полный `bio` (два абзаца с бэкграундом). Оба — отдельные site-параметры на
+  языках, не связаны друг с другом.
 - **Соцсети** — по наличию данных `social` во frontmatter (сами данные и есть то, что
   рендерится, поэтому блок физически не может существовать без них).
 
-Сейчас: «Обо мне» — `showAvatar true` + есть `social` (аватар и соцсети); главная —
-`showAvatar false`, `social` нет (ни того, ни другого). Развилки развязаны — будущая
-страница может показать аватар без соцсетей или наоборот.
+Сейчас: «Обо мне» — `showAvatar true`, `useHomeBio` не передан (→ `bio`) + есть
+`social` (аватар и соцсети); главная — `showAvatar false`, `useHomeBio true` (→
+`homeBio`), `social` нет. Развилки развязаны — будущая страница может показать
+аватар без соцсетей, или наоборот.
 
-Данные: `profileName`, `bio` — из `[languages.<lang>.params]` (переводятся);
-`profileTitle` — из `[params]` (общий). См.
+Данные: `profileName`, `bio`, `homeBio` — из `[languages.<lang>.params]`
+(переводятся); `profileTitle` — из `[params]` (общий). См.
 [`conventions/bilingual-model.md`](../conventions/bilingual-model.md).
 
 ## Ширина сайта — `.container`
@@ -98,10 +107,25 @@ profile-header (с аватаром и соцсетями)
 Рендерит одну запись `experience`/`speaking`, параметризован `showCompany`:
 ```go-html-template
 <span class="timeline-role">{{ $item.role }}</span>
-{{ if .showCompany }}<span class="timeline-company">{{ $item.company }}</span>{{ end }}
-<span class="timeline-date">{{ $item.date }}</span>
+<span class="timeline-meta">
+  {{ if .showCompany }}<span class="timeline-company">{{ $item.company }}</span>{{ end }}
+  <span class="timeline-date">{{ $item.date }}</span>
+</span>
 <p>{{ $item.desc | safeHTML }}</p>     {{/* safeHTML → допускает <strong> в desc */}}
 ```
+
+`role` и `.timeline-meta` — ровно два top-level flex-child в `.timeline-header`
+(`justify-content: space-between`), независимо от того, есть ли `company`.
+Раньше role/company/date были тремя прямыми flex-child в одном ряду — при трёх
+элементах `company` «плавал» в свободном пространстве между role и date, смещаясь
+от длины role. Группировка company+date в один `.timeline-meta`
+(`flex-direction: column; align-items: flex-end`) ставит их друг над другом,
+прижатыми к правому краю, — устойчиво независимо от длины role, и работает
+одинаково что для `experience` (есть company), что для `speaking` (только date).
+
+По формату `date` — оба языка используют одинаковое слово **"Present"** для
+незавершённых записей (не "настоящее время" в ru) — единообразие важнее перевода
+здесь, т.к. это короткая метка в интерфейсе-таймлайне, а не текст поста.
 
 ### `social-icon.html`
 Возвращает инлайн-svg по ключу `icon`: `linkedin` | `github` | `getmentor` |

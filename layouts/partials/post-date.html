@@ -1,5 +1,8 @@
+{{/* Self-wraps in <span class="post-date"> so .post-meta can force it onto
+     its own line via flex-basis. Unlike archive-date.html, callers don't
+     wrap this partial's output themselves. */}}
 {{- if eq .Language.Lang "ru" -}}
-  {{- partial "date-ru.html" .Date -}}
+<span class="post-date">{{ partial "date-ru.html" .Date }}</span>
 {{- else -}}
-  {{- .Date.Format "January 2, 2006" -}}
+<span class="post-date">{{ .Date.Format "January 2, 2006" }}</span>
 {{- end -}}

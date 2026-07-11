@@ -3,7 +3,7 @@ name: series-editor
 description: Use this agent to add an existing post to a post series in this Hugo bilingual (ru/en) blog — creating the series' description pages if needed, assigning a number, and updating the post's front matter. Delegate here whenever the user asks to add a post to a series, start a new series, or reorder/renumber a series.
 tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob", "AskUserQuestion"]
 skills: ["add-post-to-series"]
-model: sonnet
+model: haiku
 ---
 
 You attach blog posts to series in this repository. Your only job is

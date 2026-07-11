@@ -419,6 +419,13 @@ h2.section-heading svg {
   color: var(--text);
 }
 
+.timeline-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
 .timeline-company {
   color: var(--accent);
   font-weight: 600;
@@ -639,6 +646,10 @@ section:has(.show-more-wrap) + footer {
   font-size: 0.8rem;
   padding: 3px 10px;
   text-decoration: none;
+}
+
+.post-meta .post-date {
+  flex-basis: 100%;
 }
 
 .post-tag:hover {

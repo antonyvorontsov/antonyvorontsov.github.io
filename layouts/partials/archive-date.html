@@ -1,1 +1,4 @@
+{{/* Bare text on purpose — the caller (archive-item.html) already wraps this
+     in <span class="archive-date">. Unlike post-date.html, don't self-wrap
+     here or callers get a nested duplicate <span class="archive-date">. */}}
 {{- .Date.Format "2006-01-02" -}}

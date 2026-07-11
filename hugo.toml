@@ -41,7 +41,7 @@ disableKinds = ["taxonomy"]
   title = true
 
 [params]
-  profileTitle = "Software Engineering Manager / Tech Lead @ Ozon Tech"
+  profileTitle = "Software Engineering Manager / Tech Lead"
 
 # Site-wide search index (see layouts/index.searchindex.json): one JSON file
 # per language, listing every searchable page (home, about, posts list,
@@ -66,6 +66,9 @@ disableKinds = ["taxonomy"]
         "Проектирую и создаю надежные распределенные системы. Мой путь в разработке начался в 2016 году, а с 2017 года я активно использую .NET. Специализируюсь на WMS (системах управления складом), проектировании Event-Driven архитектуры, CQRS, DDD и высоконагруженных (Highload) системах.",
         "Всегда открыт к менторингу и помощи коллегам. Передача знаний и обмен практическим опытом — моя страсть."
       ]
+      homeBio = [
+        "Блог о разработке на C#/.NET — Event Sourcing, DDD и всё, что окружает мир dotnet."
+      ]
 
   [languages.en]
     label = "English"
@@ -78,4 +81,7 @@ disableKinds = ["taxonomy"]
       bio = [
         "Designing and building reliable distributed systems. My software engineering journey started in 2016, and I have been actively using .NET since 2017. Specializing in Warehouse Management Systems (WMS), Event-Driven Architecture, CQRS, DDD, and highload systems.",
         "I am always open to mentoring others. Sharing experience and knowledge transfer is my passion."
+      ]
+      homeBio = [
+        "A blog about C#/.NET development — Event Sourcing, DDD, and everything around the dotnet world."
       ]

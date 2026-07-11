@@ -13,8 +13,10 @@
 
   <p class="profile-title">{{ $site.Params.profileTitle }}</p>
 
+  {{ $bio := $site.Params.bio }}
+  {{ if .useHomeBio }}{{ $bio = $site.Params.homeBio }}{{ end }}
   <div class="profile-bio">
-    {{ range $i, $p := $site.Params.bio }}
+    {{ range $i, $p := $bio }}
     <p{{ if gt $i 0 }} style="margin-top: 12px;"{{ end }}>{{ $p }}</p>
     {{ end }}
   </div>

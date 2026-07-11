@@ -61,6 +61,20 @@
 
 ## Вариант: параметр-флаг
 
+`profile-header.html` использует явный флаг `useHomeBio`, чтобы выбрать между
+двумя независимыми site-параметрами (`bio` для «Обо мне», `homeBio` для главной)
+— видимость/источник данных тут не выводится из наличия данных (оба параметра
+всегда заданы), поэтому это явный флаг, а не гейт по данным (см. «Вариант: явный
+флаг vs. связка по данным» ниже):
+```go-html-template
+{{ $bio := $site.Params.bio }}
+{{ if .useHomeBio }}{{ $bio = $site.Params.homeBio }}{{ end }}
+```
+```go-html-template
+{{ partial "profile-header.html" (dict "page" . "showAvatar" true) }}                     {{/* Обо мне — bio */}}
+{{ partial "profile-header.html" (dict "page" . "showAvatar" false "useHomeBio" true) }}   {{/* главная — homeBio */}}
+```
+
 `timeline-item.html` включает/выключает часть разметки булевым флагом:
 ```go-html-template
 {{ $item := .item }}
