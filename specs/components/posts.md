@@ -24,14 +24,17 @@
 `baseof.html` один раз вычисляет `$isPostSingle = (and .IsPage (eq .Section "posts"))`
 через `.Scratch` и переиспользует в `head.html`. Для страницы поста это даёт:
 - суффикс в `<title>` (i18n `siteTitleSuffix`);
-- класс `container-wide` (шире, чтобы влезал ToC-сайдбар);
 - **отсутствие** OG-мета-тегов (у постов их нет).
+
+Ширина страницы поста **не** зависит от `$isPostSingle` — все страницы сайта
+используют один и тот же `.container` (см. [`homepage-and-about.md`](homepage-and-about.md#ширина-сайта--container)).
 
 ## Страница поста: структура (`posts/single.html`)
 
 ```
 .post-layout                          (grid: article + sidebar на desktop)
 ├── article
+│   ├── .post-cover (если cover)  ← partial cover-image.html, ПЕРЕД заголовком
 │   ├── .post-header
 │   │   ├── h1  (title)
 │   │   ├── .post-meta
@@ -45,8 +48,49 @@
     └── .toc-series (если series)  ← только заголовок серии
 ```
 
+`.post-cover` — первый элемент внутри `<article>`, до `.post-header`: обложка
+показывается выше заголовка и метаданных, как первый визуальный блок страницы.
+
 Метка серии рендерится в **трёх** местах — полностью описано в
 [`series.md`](series.md).
+
+## Обложка (`cover`) и инлайн-картинки
+
+Изображения поста ограничены **двумя** механизмами — обложка и инлайн-картинки в
+теле. Картинок в карточках на главной **нет** (см.
+[`homepage-and-about.md`](homepage-and-about.md)) — карточка чисто текстовая.
+
+- `cover` — опциональный объект `{src, alt}` во frontmatter. Позиция рендера
+  (`.post-cover`, до `.post-header`) — см. структуру выше.
+- Поле валидируется в начале `single.html` через общий partial
+  `partials/assert-image-field.html` (по образцу `assert-unique.html` — сам
+  partial не знает конкретного текста ошибки, только механику проверки, текст
+  строит вызывающий шаблон через `printf`): если объект присутствует, но не
+  хватает `src` или `alt` — сборка падает с `errorf`.
+- Сам рендер идёт через отдельный partial `partials/cover-image.html`, вызываемый
+  как `{{ partial "cover-image.html" .Params.cover }}` (значение напрямую как `.`,
+  без `dict` — единственный параметр, по образцу `post-date.html`, см.
+  [`patterns/shared-partial-pattern.md`](../patterns/shared-partial-pattern.md)).
+  Partial **повторно** проверяет форму (`isset src`/`isset alt`) перед тем, как
+  вывести `<img>`, и молча ничего не рендерит, если форма невалидна. Это не избыточность:
+  `errorf` в Hugo только логирует ошибку и не прерывает выполнение шаблона
+  (ADR-8), поэтому без этой повторной проверки невалидный `cover` (например,
+  строка вместо объекта) обваливает сборку необработанной Go-паникой на
+  `{{ .src }}` вместо контролируемого `errorf`. Оба partial'а сейчас используются
+  только здесь (единственное место с изображением поста вне тела), но остаются
+  отдельными файлами ради этого разделения проверка/рендер, а не ради переиспользования
+  между несколькими шаблонами — см. [`patterns/shared-partial-pattern.md`](../patterns/shared-partial-pattern.md).
+- Никакого Hugo-пайплайна ресайза (ADR-5) — `src` указывает на уже готовый
+  статический файл, `cover-image.html` только прогоняет его через `relURL`.
+- Файлы лежат в `static/assets/images/posts/<slug>/` (`cover.jpg`, инлайн-картинки —
+  произвольные имена). **Держите `cover` разумного размера** — ресайза на сборке
+  нет, файл идёт в браузер как есть, только сжатый CSS-ом под размер `.post-cover`.
+- **Инлайн-картинки в теле** — обычный Markdown `![alt](/assets/images/posts/<slug>/name.jpg)`,
+  без отдельного поля frontmatter. Путь **с ведущим `/`** (в отличие от
+  `cover.src` — без него), т.к. полагается на Hugo-постпроцессинг
+  `relativeURLs = true`, а не на явный `relURL` в шаблоне. См.
+  [`frontmatter-reference.md`](../data-model/frontmatter-reference.md#пост) —
+  полная схема полей.
 
 ## Оглавление (ToC) и скроллспай
 
@@ -131,8 +175,8 @@ Render-hook `layouts/_default/_markup/render-heading.html`:
 
 ## Отображение: desktop vs mobile
 
-- **Desktop:** `.post-layout` — двухколоночный grid: статья + `.toc-sidebar` справа.
-  `container-wide` даёт дополнительную ширину.
+- **Desktop:** `.post-layout` — двухколоночный grid (`3fr 1.2fr`) внутри
+  `.container`: статья + `.toc-sidebar` справа.
 - **Mobile (`≤767px`):** `.toc-sidebar { display: none }` — сайдбар (с ToC и блоком
   серии) скрыт. Вместо блока серии показывается отдельная `.post-series-mobile`
   ссылка под контентом.

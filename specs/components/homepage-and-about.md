@@ -43,6 +43,16 @@
 `profileTitle` — из `[params]` (общий). См.
 [`conventions/bilingual-model.md`](../conventions/bilingual-model.md).
 
+## Ширина сайта — `.container`
+
+`.container` (обёртка всего контента, задаётся в `baseof.html`) — `max-width: 900px`.
+Единое **сайт-вайд** значение: применяется одинаково к главной, архиву, тегам,
+сериям, «Обо мне» и странице поста — все страницы используют один и тот же класс
+`.container`, отдельного «широкого» варианта для поста больше нет (было раньше —
+класс `container-wide`, убран, когда ширину унифицировали под ширину страницы
+поста, т.к. на ней рендерится grid статья+ToC-сайдбар и ей нужно было больше места;
+теперь этой ширины (900px) просто хватает всем).
+
 ## Главная (`layouts/index.html`)
 
 ```
@@ -51,7 +61,10 @@ profile-header (без соцсетей)
     ├── h2.section-heading (svg + i18n latestPostsTitle)
     ├── .cards-grid
     │   └── {{ range first 5 (where .Site.RegularPages "Section" "posts").ByDate.Reverse }}
-    │       a.card  (title + дата + description)
+    │       a.card
+    │       ├── .card-title-row
+    │       ├── .card-meta
+    │       └── .card-description
     └── a.btn-show-more → архив постов (i18n showMore)
 ```
 
@@ -59,6 +72,13 @@ profile-header (без соцсетей)
 - Карточка — **один `<a class="card">`**, оборачивающий весь блок → внутри не может
   быть вложенных `<a>` (поэтому теги на карточках не показываются, см.
   [`tags.md`](tags.md)).
+- **Карточка чисто текстовая — без изображений.** Раньше карточка показывала
+  превью (`thumbnail` с fallback на `cover`), но в текущем дизайне картинка
+  выглядела плохо в сжатом виде — функционал полностью убран (метаданные,
+  рендер, CSS). Единственное место, где показывается изображение поста —
+  `.post-cover` на странице самого поста (см. [`posts.md`](posts.md)); карточки
+  на главной картинок не показывают.
+  Схема полей — [`frontmatter-reference.md`](../data-model/frontmatter-reference.md#пост).
 - Ссылка «Показать ещё» ведёт на `/posts` (архив).
 
 ## «Обо мне» (`layouts/about.html`)

@@ -8,6 +8,9 @@ tags: [sharding, databases, distributed-systems]
 series:
   name: "distributed-systems"
   number: 1
+cover:
+  src: "assets/images/posts/shardirovanie-bez-daountaima/cover.jpg"
+  alt: "Схема шардирования базы данных по диапазону ключей"
 ---
 
 <p>Разбираю, как перевести ключевое хранилище высоконагруженной WMS на шардированную схему без остановки склада. Рассказываю про выбор ключа шардирования, миграцию данных и обработку граничных случаев с консистентностью.</p>
@@ -25,6 +28,8 @@ Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dolor
 ### Рост нагрузки {#growing-load}
 
 Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.
+
+![Схема шардирования по диапазону ключей](/assets/images/posts/shardirovanie-bez-daountaima/inline-diagram.jpg)
 
 ### Ограничения одного узла {#single-node-limits}
 

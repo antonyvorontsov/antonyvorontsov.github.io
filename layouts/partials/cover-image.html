@@ -1,0 +1,16 @@
+{{/*
+  Renders the post cover <img> from a {src, alt}-shaped frontmatter object
+  (cover), if present and well-formed. Shape validation/errorf is the
+  caller's responsibility (see assert-image-field.html) — this partial only
+  guards the render itself, so a malformed value (e.g. a plain string instead
+  of {src, alt}) can't crash the build with a raw "can't evaluate field"
+  panic — it just silently renders nothing.
+  . - the frontmatter object (or nil)
+*/}}
+{{ with . }}
+  {{ if and (isset . "src") (isset . "alt") }}
+<div class="post-cover">
+  <img src="{{ .src | relURL }}" alt="{{ .alt }}" class="post-cover-img">
+</div>
+  {{ end }}
+{{ end }}

@@ -5,9 +5,14 @@ description: Code review can easily become a source of conflict and burnout. Sha
   the principles that helped my team keep both code quality and a healthy atmosphere
   intact.
 tags: [code-review, engineering-management, team-culture]
+cover:
+  src: "assets/images/posts/kod-review-bez-poteri-motivatsii/cover.jpg"
+  alt: "Illustration of the code review process"
 ---
 
 <p>Code review can easily become a source of conflict and burnout. Sharing the principles that helped my team keep both code quality and a healthy atmosphere intact.</p>
+
+![Placeholder image for testing inline image rendering](/assets/images/posts/kod-review-bez-poteri-motivatsii/inline-square.jpg)
 
 ## Context {#context}
 
