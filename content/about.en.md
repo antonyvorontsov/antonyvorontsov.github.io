@@ -32,7 +32,7 @@ experience:
   desc: Built reliable backend services using .NET Core and C#. Designed RESTful APIs,
     optimized complex SQL queries, and integrated message queues with third-party
     providers.
-  company: Fintech & Logistics Projects
+  company: Fintech & PaaS Projects
 speaking:
 - role: DotNext 2025 Speaker
   date: '2025'

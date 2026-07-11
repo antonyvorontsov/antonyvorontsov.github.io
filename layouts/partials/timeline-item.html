@@ -3,8 +3,10 @@
   <span class="timeline-dot"></span>
   <div class="timeline-header">
     <span class="timeline-role">{{ $item.role }}</span>
-    {{ if .showCompany }}<span class="timeline-company">{{ $item.company }}</span>{{ end }}
-    <span class="timeline-date">{{ $item.date }}</span>
+    <span class="timeline-meta">
+      {{ if .showCompany }}<span class="timeline-company">{{ $item.company }}</span>{{ end }}
+      <span class="timeline-date">{{ $item.date }}</span>
+    </span>
   </div>
   <div class="timeline-desc">
     <p>{{ $item.desc | safeHTML }}</p>

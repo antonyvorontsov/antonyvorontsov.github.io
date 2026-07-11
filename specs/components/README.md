@@ -27,10 +27,12 @@
 | `partials/profile-header.html`          | [homepage-and-about](homepage-and-about.md) |
 | `partials/timeline-item.html`           | [homepage-and-about](homepage-and-about.md) (about) |
 | `partials/social-icon.html`             | [homepage-and-about](homepage-and-about.md) (about) |
-| `partials/archive-item.html`            | [posts](posts.md) / [tags](tags.md) / [series](series.md) (общий ряд списка) |
+| `partials/archive-item.html`            | [posts](posts.md) / [tags](tags.md) / [series](series.md) (общий ряд списка; закрытый контракт параметров — см. [`patterns/shared-partial-pattern.md`](../patterns/shared-partial-pattern.md)) |
 | `partials/archive-date.html`            | archive-item (дата в списке)       |
 | `partials/post-date.html`               | [posts](posts.md), [homepage](homepage-and-about.md) (дата поста) |
 | `partials/date-ru.html`                 | русское форматирование даты        |
+| `partials/cover-image.html`             | [posts](posts.md) (рендер обложки поста) |
+| `partials/assert-image-field.html`      | [posts](posts.md) (валидация обложки поста) |
 | `index.html`                            | [homepage-and-about](homepage-and-about.md) (главная) |
 | `about.html`                            | [homepage-and-about](homepage-and-about.md) («Обо мне») |
 | `posts/list.html`                       | [homepage-and-about](homepage-and-about.md) (архив постов) |

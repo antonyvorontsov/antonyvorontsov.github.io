@@ -8,6 +8,9 @@ tags: [sharding, databases, distributed-systems]
 series:
   name: "distributed-systems"
   number: 1
+cover:
+  src: "assets/images/posts/shardirovanie-bez-daountaima/cover.jpg"
+  alt: "Diagram of range-based database sharding"
 ---
 
 <p>A walkthrough of migrating a high-load WMS's primary datastore to a sharded architecture without stopping warehouse operations. Covers shard key selection, data migration, and handling consistency edge cases.</p>
@@ -25,6 +28,8 @@ Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dolor
 ### Growing Load {#growing-load}
 
 Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.
+
+![Range-based sharding diagram](/assets/images/posts/shardirovanie-bez-daountaima/inline-diagram.jpg)
 
 ### Single-Node Limits {#single-node-limits}
 

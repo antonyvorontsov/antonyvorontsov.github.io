@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 {{ .Scratch.Set "isPostSingle" (and .IsPage (eq .Section "posts")) }}
-{{ $isPostSingle := .Scratch.Get "isPostSingle" }}
 <html lang="{{ .Language.Lang }}">
 <head>
   {{ partial "head.html" . }}
 </head>
 <body>
 
-  <div class="container{{ if $isPostSingle }} container-wide{{ end }} fade-in">
+  <div class="container fade-in">
     {{ partial "header.html" . }}
     {{ block "main" . }}{{ end }}
     {{ partial "footer.html" . }}

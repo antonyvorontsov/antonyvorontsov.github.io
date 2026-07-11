@@ -19,8 +19,11 @@
     {{ warnf "post %s references series %q which has no series page yet (typo in series.name, or content/series/%s.*.md not created yet)" $.File.Path $seriesID $seriesID }}
   {{ end }}
 {{ end }}
+{{ partial "assert-image-field.html" (dict "value" .Params.cover "message" (printf "post %s has a cover field but is missing src or alt" .File.Path)) }}
 <div class="post-layout">
   <article>
+    {{ partial "cover-image.html" .Params.cover }}
+
     <div class="post-header">
       <h1>{{ .Title }}</h1>
       <p class="post-meta">
@@ -54,12 +57,10 @@
     {{ $seen := slice }}
     <ul class="toc-list">
       {{ range $root.Headings }}
-        {{ if in $seen .ID }}{{ errorf "duplicate heading anchor #%s in %s — give one of the headings an explicit {#slug} to disambiguate" .ID $.File.Path }}{{ end }}
-        {{ $seen = $seen | append .ID }}
+        {{ $seen = partial "assert-unique.html" (dict "seen" $seen "key" .ID "message" (printf "duplicate heading anchor #%s in %s — give one of the headings an explicit {#slug} to disambiguate" .ID $.File.Path)) }}
         <li><a href="#{{ .ID }}" class="toc-link">{{ .Title }}</a></li>
         {{ range .Headings }}
-          {{ if in $seen .ID }}{{ errorf "duplicate heading anchor #%s in %s — give one of the headings an explicit {#slug} to disambiguate" .ID $.File.Path }}{{ end }}
-          {{ $seen = $seen | append .ID }}
+          {{ $seen = partial "assert-unique.html" (dict "seen" $seen "key" .ID "message" (printf "duplicate heading anchor #%s in %s — give one of the headings an explicit {#slug} to disambiguate" .ID $.File.Path)) }}
           <li><a href="#{{ .ID }}" class="toc-link" style="padding-left:16px">{{ .Title }}</a></li>
         {{ end }}
       {{ end }}

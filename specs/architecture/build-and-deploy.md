@@ -47,6 +47,21 @@
 > ⚠️ Рабочая ветка — **`blog`**, а деплоится **`master`**. Пуш в `blog` **не**
 > триггерит деплой — нужно смёржить в `master`.
 
+### PR-gate (build без деплоя)
+
+Файл: [`.github/workflows/hugo-pr-check.yml`](../../.github/workflows/hugo-pr-check.yml).
+
+Триггер — `pull_request` в `master`. Тот же образ, та же версия Hugo, тот же
+install-шаг (`wget`+`dpkg`, без кэша — см. ниже), но **только** `hugo --gc --minify`
+без `--baseURL` и без деплой-шагов. Цель — ловить `errorf`-падения (ADR-8:
+[`decisions/architecture-decisions.md`](../decisions/architecture-decisions.md#adr-build-validation))
+на PR, а не только при мерже в `master`/деплое. Отдельный файл от `hugo.yml`,
+чтобы не трогать проверенный деплой-пайплайн.
+
+`HUGO_VERSION` в этом файле держите синхронно с `hugo.yml` — это два независимых
+источника версии (единственный «авторитетный» в смысле раздела ниже — который
+реально попадает в прод, `hugo.yml`).
+
 ### Пайплайн
 
 ```

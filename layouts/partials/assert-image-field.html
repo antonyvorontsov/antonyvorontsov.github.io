@@ -1,0 +1,11 @@
+{{/*
+  Build-time shape check for {src, alt}-object frontmatter fields (cover).
+  Params (dict):
+    value   - the frontmatter value (or nil if unset)
+    message - errorf text to raise verbatim if value is set but missing src or alt
+*/}}
+{{ with .value }}
+  {{ if not (and (isset . "src") (isset . "alt")) }}
+    {{ errorf "%s" $.message }}
+  {{ end }}
+{{ end }}

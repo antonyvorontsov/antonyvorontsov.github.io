@@ -1,0 +1,12 @@
+{{/*
+  Build-time uniqueness check (ADR-8, specs/decisions/architecture-decisions.md).
+  Params (dict):
+    seen    - slice of already-seen string keys
+    key     - string key for the current item
+    message - errorf text to raise verbatim if key is a duplicate of one in seen
+  Returns the seen slice with key appended; caller must reassign, e.g.
+  {{ $seen = partial "assert-unique.html" (dict "seen" $seen "key" .ID "message" "...") }}
+*/}}
+{{ $seen := .seen }}
+{{ if in $seen .key }}{{ errorf "%s" .message }}{{ end }}
+{{ return ($seen | append .key) }}

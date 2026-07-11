@@ -137,6 +137,8 @@ defaultContentLanguageInSubdir = false
 | `profileTitle`                    | нет (общий)                | `[params]`                             |
 | `tags` (слаги)                    | **нет** (англ. слаги)      | frontmatter поста                      |
 | `series.name`                     | **нет** (id)               | frontmatter поста                      |
+| `cover.src`                       | **нет** (путь к файлу)     | frontmatter поста                      |
+| `cover.alt`                       | да                        | frontmatter поста                      |
 | `company` в `experience`          | **нет** (общий)            | `about.*.md`                           |
 | `skills`, `social`                | **нет** (термины/URL)      | `about.*.md` (дублируются дословно)    |
 | Якоря заголовков                  | не обязаны совпадать        | тело поста                             |

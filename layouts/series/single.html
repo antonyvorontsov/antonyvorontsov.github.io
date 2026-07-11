@@ -7,8 +7,7 @@
 {{ range $seriesPosts }}
   {{ if not (isset .Params.series "number") }}{{ errorf "post %s belongs to series %q but is missing series.number" .File.Path $seriesID }}{{ end }}
   {{ $n := printf "%v" .Params.series.number }}
-  {{ if in $seen $n }}{{ errorf "duplicate series number %v in series %q (%s)" .Params.series.number $seriesID .File.Path }}{{ end }}
-  {{ $seen = $seen | append $n }}
+  {{ $seen = partial "assert-unique.html" (dict "seen" $seen "key" $n "message" (printf "duplicate series number %v in series %q (%s)" .Params.series.number $seriesID .File.Path)) }}
 {{ end }}
 
 <header class="profile-header">
