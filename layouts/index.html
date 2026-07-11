@@ -1,5 +1,5 @@
 {{ define "main" }}
-{{ partial "profile-header.html" . }}
+{{ partial "profile-header.html" (dict "page" . "showAvatar" false) }}
 
 <!-- Latest Posts -->
 <section>
