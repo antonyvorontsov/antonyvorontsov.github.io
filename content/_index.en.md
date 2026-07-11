@@ -1,9 +1,9 @@
 ---
 title: Anton Vorontsov — Software Engineering Blog
-description: Личный блог Антона Воронцова о разработке распределенных систем, архитектуре
-  WMS, .NET и инженерном лидерстве.
-og_description: Разработка распределенных систем на .NET, архитектура WMS, масштабирование
-  и инженерное лидерство.
+description: Anton Vorontsov's personal blog on building distributed systems, WMS
+  architecture, .NET, and engineering leadership.
+og_description: Building distributed systems in .NET, WMS architecture, scaling, and
+  engineering leadership.
 og_type: website
 outputs: ["html", "rss", "searchindex"]
 ---

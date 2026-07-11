@@ -1,7 +1,9 @@
-{{ $site := .Site }}
-{{ $hasSocial := .Params.social }}
+{{ $page := .page }}
+{{ $showAvatar := .showAvatar }}
+{{ $site := $page.Site }}
+{{ $hasSocial := $page.Params.social }}
 <header class="profile-header profile-header-center">
-  {{ if $hasSocial }}
+  {{ if $showAvatar }}
   <div class="avatar-wrap">
     <img src="{{ "assets/images/avatar.jpeg" | relURL }}" alt="Anton Vorontsov" class="avatar-img">
   </div>

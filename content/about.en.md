@@ -1,8 +1,8 @@
 ---
 title: About — Anton Vorontsov
-description: Антон Воронцов — Senior .NET Engineer & Tech Lead. Опыт, выступления
-  и ключевые навыки.
-og_description: Опыт работы, выступления на конференциях, менторство и ключевые навыки.
+description: Anton Vorontsov — Senior .NET Engineer & Tech Lead. Experience, talks,
+  and core skills.
+og_description: Work experience, conference talks, mentoring, and core skills.
 og_type: profile
 layout: about
 social:
