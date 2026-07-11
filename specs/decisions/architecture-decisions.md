@@ -155,15 +155,20 @@ Hugo taxonomy (как теги).
 страницу. Дешевле любых внешних тестов, которых у контентного сайта нет.
 
 **Последствия (текущие проверки).**
-| Проверка                        | Где                    | Уровень |
-|---------------------------------|------------------------|---------|
-| Формат якоря заголовка          | `render-heading.html`  | errorf  |
-| Уникальность якоря в файле      | `posts/single.html`    | errorf  |
-| `series` без `name`/`number`    | `posts/single.html`    | errorf  |
-| Дубликат `series.number`        | `series/single.html`   | errorf  |
-| `series.name` без страницы серии| `posts/single.html`    | warnf   |
+| Проверка                        | Где                                          | Уровень |
+|---------------------------------|-----------------------------------------------|---------|
+| Формат якоря заголовка          | `render-heading.html`                        | errorf  |
+| Уникальность якоря в файле      | `posts/single.html` (через `assert-unique.html`) | errorf  |
+| `series` без `name`/`number`    | `posts/single.html`                          | errorf  |
+| Дубликат `series.number`        | `series/single.html` (через `assert-unique.html`) | errorf  |
+| `series.name` без страницы серии| `posts/single.html`                          | warnf   |
 
-Новые инварианты добавляйте тем же приёмом.
+Новые инварианты добавляйте тем же приёмом. Проверка «уникальность ключа в списке»
+(якоря, номера серий) вынесена в общий partial `layouts/partials/assert-unique.html` —
+он копит `seen`-слайс и падает `errorf` с готовым текстом ошибки, переданным
+вызывающим шаблоном (сам partial не знает специфику сообщения, только механику
+дубль-проверки). Новую проверку такого же вида (дубликат ключа) добавляйте через
+него, а не копированием цикла `if in $seen / errorf / append`.
 
 **См.** [`conventions/naming.md`](../conventions/naming.md).
 

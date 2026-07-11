@@ -39,7 +39,9 @@ antonyvorontsov.github.io/
 │   ├── js/                   # ванильный JS без сборки
 │   └── CNAME                 # единственное место, где встречается vorontsov.dev
 ├── archetypes/posts.md       # шаблон нового поста (для `hugo new`)
-└── .github/workflows/hugo.yml # CI: сборка + деплой на GitHub Pages
+└── .github/workflows/
+    ├── hugo.yml               # CI: сборка + деплой на GitHub Pages (push в master)
+    └── hugo-pr-check.yml      # CI: build-gate без деплоя (pull_request в master)
 ```
 
 `legacy-site/` — доисторическая версия сайта (рукописный HTML/CSS/JS), хранится

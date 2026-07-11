@@ -1,3 +1,14 @@
+{{/*
+  Shared archive-list row (posts archive, tag term page, series page — see
+  specs/patterns/shared-partial-pattern.md and specs/components/README.md).
+  Params (dict):
+    page     - required, a Hugo Page to link to
+    linkText - optional, overrides page.Title (e.g. series' "№1. <title>")
+    hideDate - optional bool, hides the archive-date span (series pages: order
+               is by series.number, not date, so showing a date is misleading)
+  Adding a fourth archive-style list? Reuse this partial with this exact
+  param set rather than adding a new ad hoc param — keep the contract closed.
+*/}}
 {{ $page := .page }}
 {{ $linkText := .linkText | default $page.Title }}
 <div class="archive-item">

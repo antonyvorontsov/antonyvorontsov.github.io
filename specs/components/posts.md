@@ -60,16 +60,20 @@ ToC строится в `posts/single.html` из **`.Fragments.Headings`** (не
 {{ $seen := slice }}
 <ul class="toc-list">
   {{ range $root.Headings }}
-    {{ if in $seen .ID }}{{ errorf "duplicate heading anchor #%s …" .ID $.File.Path }}{{ end }}
-    {{ $seen = $seen | append .ID }}
+    {{ $seen = partial "assert-unique.html" (dict "seen" $seen "key" .ID "message" (printf "duplicate heading anchor #%s …" .ID $.File.Path)) }}
     <li><a href="#{{ .ID }}" class="toc-link">{{ .Title }}</a></li>
     {{ range .Headings }}   {{/* h3 внутри h2 */}}
-      …проверка дубликата + <a style="padding-left:16px">…
+      …та же проверка через assert-unique.html + <a style="padding-left:16px">…
     {{ end }}
   {{ end }}
 </ul>
 {{ end }}
 ```
+
+Дубликат-проверка (`if in $seen / errorf / append`) вынесена в общий partial
+`layouts/partials/assert-unique.html` (см. ADR-8 в
+[`decisions/architecture-decisions.md`](../decisions/architecture-decisions.md)) —
+используется и здесь, и в `series/single.html` для `series.number`.
 
 Проверка **уникальности** якорей живёт здесь (а не в render-hook) — потому что
 `Page.Scratch` протекал между рендер-проходами дев-сервера Hugo. Render-hook
