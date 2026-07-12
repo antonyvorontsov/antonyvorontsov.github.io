@@ -69,3 +69,12 @@ other = "Серия постов «{{ .Name }}» №{{ .Number }}"
 
 [seriesItemNumber]
 other = "№{{ .Number }}."
+
+[copyCodeAria]
+other = "Скопировать код"
+
+[expandCodeAria]
+other = "Развернуть код"
+
+[codeModalCloseAria]
+other = "Закрыть окно с кодом"

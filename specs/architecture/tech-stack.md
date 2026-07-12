@@ -68,12 +68,23 @@ CI-время, обновления зависимостей, уязвимост
 Единый файл. Организован так:
 - `:root { … }` — **design tokens** (светлая тема): цвета, шрифты, тени, транзишены.
 - `[data-theme="dark"] { … }` — переопределение токенов для тёмной темы.
-- Дальше — компонентные стили, сгруппированные по секциям.
+- Дальше — компонентные стили, сгруппированные по секциям, включая раздел
+  Chroma (подсветка кода — сгенерированные `vs`/`vulcan` правила, см.
+  ниже) и `.code-block-wrapper`/`.copy-btn`.
 - `@media`-брейкпоинты: основной мобильный порог — **`767px`** (`max-width: 767px`).
 
 Тема переключается атрибутом `data-theme` на `<html>`, который ставит JS
 (`navigation.js`). Все цвета — через переменные, поэтому смена темы = смена значений
-переменных, без дублирования правил.
+переменных, без дублирования правил. Та же схема (`:root` / `[data-theme="dark"]`)
+переиспользована для темы подсветки кода: правила из `hugo gen chromastyles
+--style=vs` — дефолт, правила из `--style=vulcan` — обёрнуты
+`[data-theme="dark"]`. Chroma поддерживает десятки встроенных именованных
+стилей (в т.ч. узнаваемые по названиям VS Code/редакторских тем — `dracula`,
+`nord`, `onedark`, `gruvbox`, `solarized-dark`/`-light`, `monokai`, `xcode`,
+`vs`, `vulcan`…), но не принимает произвольный кастомный файл темы — заменить
+можно только на другое имя из этого списка, тем же способом. Подробности и
+обоснование — в
+[`components/posts.md`](../components/posts.md#подсветка-кода-code-blocks).
 
 ### JS — `static/js/`
 
@@ -81,10 +92,20 @@ CI-время, обновления зависимостей, уязвимост
 - `modules/utils.js` — `window.Blog.utils` (например, год в футере).
 - `modules/navigation.js` — `window.Blog.navigation` (тема, бургер-меню, скроллспай ToC).
 - `modules/search.js` — `window.Blog.search` (клиентский поиск).
+- `modules/copy-button.js` — `window.Blog.copyButton` (copy-to-clipboard в code blocks).
+- `modules/code-expand.js` — `window.Blog.codeExpand` (кнопка Expand code blocks →
+  модалка по центру экрана, одна модалка на страницу).
 - `main.js` — точка входа, вызывает `init`-функции модулей.
 
 Порядок подключения задан в `baseof.html` (`utils` → `navigation` → `search` →
-`main`), все с `defer`. Общий неймспейс — `window.Blog`.
+`copy-button` → `code-expand` → `main`), все с `defer`. Общий неймспейс — `window.Blog`.
+
+`copy-button` и `code-expand` — единственные модули, подключаемые **не** на
+каждой странице: их `<script>`-теги обёрнуты в `{{ if .Scratch.Get
+"isPostSingle" }}` (код-блоки есть только на страницах постов), поэтому на
+остальных страницах `window.Blog.copyButton`/`codeExpand` вообще не существуют.
+`main.js` вызывает их через `if (copyButton) copyButton.init();` — падать
+на `undefined.init()` на нестраницах-постов нельзя.
 
 ## Связанные специфы
 - [`build-and-deploy.md`](build-and-deploy.md) — как это собирается и деплоится.

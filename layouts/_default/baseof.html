@@ -6,15 +6,20 @@
 </head>
 <body>
 
-  <div class="container fade-in">
+  <div class="container{{ if .Scratch.Get "isPostSingle" }} container-wide{{ end }} fade-in">
     {{ partial "header.html" . }}
     {{ block "main" . }}{{ end }}
     {{ partial "footer.html" . }}
   </div>
   {{ partial "search-modal.html" . }}
+  {{ if .Scratch.Get "isPostSingle" }}{{ partial "code-modal.html" . }}{{ end }}
   <script src="{{ "js/modules/utils.js" | relURL }}" defer></script>
   <script src="{{ "js/modules/navigation.js" | relURL }}" defer></script>
   <script src="{{ "js/modules/search.js" | relURL }}" defer></script>
+  {{ if .Scratch.Get "isPostSingle" }}
+  <script src="{{ "js/modules/copy-button.js" | relURL }}" defer></script>
+  <script src="{{ "js/modules/code-expand.js" | relURL }}" defer></script>
+  {{ end }}
   <script src="{{ "js/main.js" | relURL }}" defer></script>
 </body>
 </html>

@@ -69,3 +69,12 @@ other = "A part of series “{{ .Name }}” #{{ .Number }}"
 
 [seriesItemNumber]
 other = "#{{ .Number }}."
+
+[copyCodeAria]
+other = "Copy code"
+
+[expandCodeAria]
+other = "Expand code"
+
+[codeModalCloseAria]
+other = "Close code view"
