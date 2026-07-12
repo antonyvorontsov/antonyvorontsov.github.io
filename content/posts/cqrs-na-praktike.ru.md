@@ -42,6 +42,27 @@ Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et d
 
 Quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae.
 
+```csharp
+public class PlaceOrderCommandHandler : ICommandHandler<PlaceOrderCommand>
+{
+    private readonly IOrderRepository _orders;
+
+    public PlaceOrderCommandHandler(IOrderRepository orders)
+    {
+        _orders = orders;
+    }
+
+    public async Task HandleAsync(PlaceOrderCommand command, CancellationToken ct)
+    {
+        if (command.Items is null || command.Items.Count == 0)
+          throw new InvalidOperationException();
+          
+        var order = Order.Place(command.CustomerId, command.Items);
+        await _orders.SaveAsync(order, ct);
+    }
+}
+```
+
 ## Итоги {#takeaways}
 
 Sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat, nihil impedit quo minus.

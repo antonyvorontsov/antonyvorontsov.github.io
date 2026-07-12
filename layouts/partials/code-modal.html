@@ -1,0 +1,12 @@
+<!-- Code modal: opened by any .expand-btn (render-codeblock.html), driven by
+     static/js/modules/code-expand.js. One instance per page (like
+     search-modal.html) — JS clones the clicked code block's .highlight into
+     #code-modal-content on open. -->
+<div class="code-modal-overlay" id="code-modal-overlay" hidden>
+  <div class="code-modal-panel" role="dialog" aria-modal="true" aria-label="{{ i18n "expandCodeAria" }}">
+    <div class="code-modal-header">
+      <button type="button" id="code-modal-close" class="code-modal-close" aria-label="{{ i18n "codeModalCloseAria" }}">&times;</button>
+    </div>
+    <div class="code-modal-content" id="code-modal-content"></div>
+  </div>
+</div>

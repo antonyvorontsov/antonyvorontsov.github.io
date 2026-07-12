@@ -1,0 +1,25 @@
+{{- /* Reproduces Hugo's default fenced-code-block rendering (transform.Highlight
+     with no options = same output as if this hook didn't exist) and adds
+     copy-to-clipboard and expand-to-modal buttons. Highlight theme (vs/vulcan)
+     is a pure CSS concern, scoped by [data-theme] in styles.css — nothing here
+     branches on the site's theme. See specs/components/posts.md. */ -}}
+{{- $result := transform.Highlight .Inner .Type -}}
+<div class="code-block-wrapper">
+  <div class="code-block-actions">
+    <button class="copy-btn btn-control btn-control-icon" type="button" aria-label="{{ i18n "copyCodeAria" }}">
+      <svg class="copy-icon-default" viewBox="0 0 24 24">
+        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+      </svg>
+      <svg class="copy-icon-success" viewBox="0 0 24 24" style="display: none;">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </button>
+    <button class="expand-btn btn-control btn-control-icon" type="button" aria-label="{{ i18n "expandCodeAria" }}">
+      <svg viewBox="0 0 24 24">
+        <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+      </svg>
+    </button>
+  </div>
+  {{ $result }}
+</div>

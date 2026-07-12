@@ -20,10 +20,12 @@
 |-----------------------------------------|------------------------------------|
 | `_default/baseof.html`                  | все (базовый каркас)               |
 | `_default/_markup/render-heading.html`  | [posts](posts.md) (якоря заголовков) |
+| `_default/_markup/render-codeblock.html` | [posts](posts.md) (подсветка кода: обёртка + copy/expand кнопки вокруг штатного вывода Chroma) |
 | `partials/head.html`                    | все (`<head>`, мета, SEO)          |
 | `partials/header.html`                  | [navigation-and-theme](navigation-and-theme.md) |
 | `partials/footer.html`                  | [navigation-and-theme](navigation-and-theme.md) |
 | `partials/search-modal.html`            | [search](search.md)                |
+| `partials/code-modal.html`              | [posts](posts.md) (модалка Expand для code blocks, одна на страницу) |
 | `partials/profile-header.html`          | [homepage-and-about](homepage-and-about.md) |
 | `partials/timeline-item.html`           | [homepage-and-about](homepage-and-about.md) (about) |
 | `partials/social-icon.html`             | [homepage-and-about](homepage-and-about.md) (about) |
@@ -49,6 +51,8 @@
 | `modules/navigation.js`     | тема, бургер-меню, скроллспай ToC ([nav](navigation-and-theme.md), [posts](posts.md)) |
 | `modules/search.js`         | [search](search.md)                                |
 | `modules/utils.js`          | год в футере                                        |
+| `modules/copy-button.js`    | [posts](posts.md) (copy-to-clipboard в code blocks) |
+| `modules/code-expand.js`    | [posts](posts.md) (Expand → модалка code blocks) |
 
 ## Как читать специфу компонента
 

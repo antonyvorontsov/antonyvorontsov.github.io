@@ -618,6 +618,17 @@ section:has(.show-more-wrap) + footer {
   }
 }
 
+/* Grid items default to min-width: auto, i.e. their track can never shrink
+   below the content's min-content size. An unbreakable long code line (Chroma
+   uses white-space: pre, so it never wraps) has a huge min-content width,
+   which without this rule inflates the article track past its 3fr share and
+   pushes .toc-sidebar out - the sidebar doesn't just narrow, it visually
+   disappears. min-width: 0 lets the track respect its fr share; .chroma's own
+   overflow-x: auto then handles the actual long-line scrolling. */
+.post-layout > article {
+  min-width: 0;
+}
+
 .post-header {
   margin-bottom: 32px;
   border-bottom: 1px solid var(--border);
@@ -988,6 +999,64 @@ footer a:hover {
   font-size: 0.9rem;
 }
 
+/* Code modal: same fixed-overlay/click-outside-closes/Escape pattern as
+   .search-overlay above, but centered vertically (not top-aligned) and sized
+   for code rather than a text input. .code-modal-content carries no
+   background/border of its own — code-expand.js clones the code block's own
+   .highlight > .chroma into it, so theme colors and font-size come along for
+   free without duplicating styles here. */
+.code-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5vh 16px;
+  z-index: 1000;
+}
+
+.code-modal-overlay[hidden] {
+  display: none;
+}
+
+.code-modal-panel {
+  width: min(900px, 100%);
+  max-height: 90vh;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+}
+
+.code-modal-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 8px 8px 0;
+}
+
+.code-modal-close {
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 6px;
+  transition: var(--transition);
+}
+
+.code-modal-close:hover {
+  color: var(--text);
+}
+
+.code-modal-content {
+  padding: 0 16px 16px;
+  overflow: auto;
+}
+
 /* Dynamic fade utility */
 .fade-in {
   animation: fadeIn 0.4s ease-out;
@@ -1002,4 +1071,233 @@ footer a:hover {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Code blocks (Chroma) — vs (light site theme) / vulcan (dark site theme),
+   mapped directly to the site's own light/dark theme via [data-theme], same
+   mechanism as the design tokens in :root / [data-theme="dark"] at the top of
+   this file. Chroma's token class names (.k, .s, .c1, ...) are the same
+   regardless of style — only colors differ below — so this is a pure CSS
+   swap, no template branching for theme. Regenerate the two blocks below
+   with:
+     hugo gen chromastyles --style=vs
+     hugo gen chromastyles --style=vulcan
+   then wrap every selector from the second command in [data-theme="dark"].
+   vs defines far fewer token classes than vulcan (it's a plainer, more
+   monochrome style by design) — tokens it doesn't color simply inherit
+   .chroma's own text color, that's expected, not a gap to fill in. */
+
+/* vs — default (site light theme) */
+/* Background */ .bg { background-color:#fff; }
+/* PreWrapper */ .chroma { background-color:#fff;-webkit-text-size-adjust:none; }
+/* LineLink */ .chroma .lnlinks { outline:none;text-decoration:none;color:inherit }
+/* LineTableTD */ .chroma .lntd { vertical-align:top;padding:0;margin:0;border:0; }
+/* LineTable */ .chroma .lntable { border-spacing:0;padding:0;margin:0;border:0; }
+/* LineHighlight */ .chroma .hl { background-color:#e5e5e5 }
+/* LineNumbersTable */ .chroma .lnt { white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f }
+/* LineNumbers */ .chroma .ln { white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f }
+/* Line */ .chroma .line { display:flex; }
+/* Keyword */ .chroma .k { color:#00f }
+/* KeywordConstant */ .chroma .kc { color:#00f }
+/* KeywordDeclaration */ .chroma .kd { color:#00f }
+/* KeywordNamespace */ .chroma .kn { color:#00f }
+/* KeywordPseudo */ .chroma .kp { color:#00f }
+/* KeywordReserved */ .chroma .kr { color:#00f }
+/* KeywordType */ .chroma .kt { color:#2b91af }
+/* NameClass */ .chroma .nc { color:#2b91af }
+/* LiteralString */ .chroma .s { color:#a31515 }
+/* LiteralStringAffix */ .chroma .sa { color:#a31515 }
+/* LiteralStringBacktick */ .chroma .sb { color:#a31515 }
+/* LiteralStringChar */ .chroma .sc { color:#a31515 }
+/* LiteralStringDelimiter */ .chroma .dl { color:#a31515 }
+/* LiteralStringDoc */ .chroma .sd { color:#a31515 }
+/* LiteralStringDouble */ .chroma .s2 { color:#a31515 }
+/* LiteralStringEscape */ .chroma .se { color:#a31515 }
+/* LiteralStringHeredoc */ .chroma .sh { color:#a31515 }
+/* LiteralStringInterpol */ .chroma .si { color:#a31515 }
+/* LiteralStringOther */ .chroma .sx { color:#a31515 }
+/* LiteralStringRegex */ .chroma .sr { color:#a31515 }
+/* LiteralStringSingle */ .chroma .s1 { color:#a31515 }
+/* LiteralStringSymbol */ .chroma .ss { color:#a31515 }
+/* OperatorWord */ .chroma .ow { color:#00f }
+/* Comment */ .chroma .c { color:#008000 }
+/* CommentHashbang */ .chroma .ch { color:#008000 }
+/* CommentMultiline */ .chroma .cm { color:#008000 }
+/* CommentSingle */ .chroma .c1 { color:#008000 }
+/* CommentSpecial */ .chroma .cs { color:#008000 }
+/* CommentPreproc */ .chroma .cp { color:#00f }
+/* CommentPreprocFile */ .chroma .cpf { color:#00f }
+/* GenericEmph */ .chroma .ge { font-style:italic }
+/* GenericHeading */ .chroma .gh { font-weight:bold }
+/* GenericPrompt */ .chroma .gp { font-weight:bold }
+/* GenericStrong */ .chroma .gs { font-weight:bold }
+/* GenericSubheading */ .chroma .gu { font-weight:bold }
+
+/* vulcan — [data-theme="dark"] (site dark theme) */
+/* Background */ [data-theme="dark"] .bg { color:#c9c9c9;background-color:#282c34; }
+/* PreWrapper */ [data-theme="dark"] .chroma { color:#c9c9c9;background-color:#282c34;-webkit-text-size-adjust:none; }
+/* Other */ [data-theme="dark"] .chroma .x { color:#c9c9c9 }
+/* Error */ [data-theme="dark"] .chroma .err { color:#cf5967 }
+/* LineLink */ [data-theme="dark"] .chroma .lnlinks { outline:none;text-decoration:none;color:inherit }
+/* LineTableTD */ [data-theme="dark"] .chroma .lntd { vertical-align:top;padding:0;margin:0;border:0; }
+/* LineTable */ [data-theme="dark"] .chroma .lntable { border-spacing:0;padding:0;margin:0;border:0; }
+/* LineHighlight */ [data-theme="dark"] .chroma .hl { background-color:#3d4148 }
+/* LineNumbersTable */ [data-theme="dark"] .chroma .lnt { white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f }
+/* LineNumbers */ [data-theme="dark"] .chroma .ln { white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f }
+/* Line */ [data-theme="dark"] .chroma .line { display:flex; }
+/* Keyword */ [data-theme="dark"] .chroma .k { color:#7fbaf5 }
+/* KeywordConstant */ [data-theme="dark"] .chroma .kc { color:#cf5967;background-color:#43454f }
+/* KeywordDeclaration */ [data-theme="dark"] .chroma .kd { color:#7fbaf5 }
+/* KeywordNamespace */ [data-theme="dark"] .chroma .kn { color:#bc74c4 }
+/* KeywordPseudo */ [data-theme="dark"] .chroma .kp { color:#bc74c4 }
+/* KeywordReserved */ [data-theme="dark"] .chroma .kr { color:#7fbaf5 }
+/* KeywordType */ [data-theme="dark"] .chroma .kt { color:#57c7ff;font-weight:bold }
+/* NameAttribute */ [data-theme="dark"] .chroma .na { color:#bc74c4 }
+/* NameClass */ [data-theme="dark"] .chroma .nc { color:#ecbe7b }
+/* NameConstant */ [data-theme="dark"] .chroma .no { color:#ecbe7b }
+/* NameDecorator */ [data-theme="dark"] .chroma .nd { color:#ecbe7b }
+/* NameEntity */ [data-theme="dark"] .chroma .ni { color:#c9c9c9 }
+/* NameException */ [data-theme="dark"] .chroma .ne { color:#cf5967 }
+/* NameLabel */ [data-theme="dark"] .chroma .nl { color:#cf5967 }
+/* NameNamespace */ [data-theme="dark"] .chroma .nn { color:#c9c9c9 }
+/* NameOther */ [data-theme="dark"] .chroma .nx { color:#c9c9c9 }
+/* NameTag */ [data-theme="dark"] .chroma .nt { color:#bc74c4 }
+/* NameBuiltin */ [data-theme="dark"] .chroma .nb { color:#7fbaf5 }
+/* NameBuiltinPseudo */ [data-theme="dark"] .chroma .bp { color:#7fbaf5 }
+/* NameVariable */ [data-theme="dark"] .chroma .nv { color:#bc74c4;font-style:italic }
+/* NameVariableClass */ [data-theme="dark"] .chroma .vc { color:#57c7ff;font-weight:bold;font-style:italic }
+/* NameVariableGlobal */ [data-theme="dark"] .chroma .vg { color:#ecbe7b;font-style:italic }
+/* NameVariableInstance */ [data-theme="dark"] .chroma .vi { color:#57c7ff;font-style:italic }
+/* NameVariableMagic */ [data-theme="dark"] .chroma .vm { color:#bc74c4;font-style:italic }
+/* NameFunction */ [data-theme="dark"] .chroma .nf { color:#57c7ff }
+/* NameFunctionMagic */ [data-theme="dark"] .chroma .fm { color:#57c7ff }
+/* LiteralDate */ [data-theme="dark"] .chroma .ld { color:#57c7ff }
+/* LiteralString */ [data-theme="dark"] .chroma .s { color:#82cc6a }
+/* LiteralStringAffix */ [data-theme="dark"] .chroma .sa { color:#82cc6a }
+/* LiteralStringBacktick */ [data-theme="dark"] .chroma .sb { color:#57c7ff }
+/* LiteralStringChar */ [data-theme="dark"] .chroma .sc { color:#57c7ff }
+/* LiteralStringDelimiter */ [data-theme="dark"] .chroma .dl { color:#82cc6a }
+/* LiteralStringDoc */ [data-theme="dark"] .chroma .sd { color:#82cc6a }
+/* LiteralStringDouble */ [data-theme="dark"] .chroma .s2 { color:#82cc6a }
+/* LiteralStringEscape */ [data-theme="dark"] .chroma .se { color:#56b6c2 }
+/* LiteralStringHeredoc */ [data-theme="dark"] .chroma .sh { color:#56b6c2 }
+/* LiteralStringInterpol */ [data-theme="dark"] .chroma .si { color:#82cc6a }
+/* LiteralStringOther */ [data-theme="dark"] .chroma .sx { color:#82cc6a }
+/* LiteralStringRegex */ [data-theme="dark"] .chroma .sr { color:#57c7ff }
+/* LiteralStringSingle */ [data-theme="dark"] .chroma .s1 { color:#82cc6a }
+/* LiteralStringSymbol */ [data-theme="dark"] .chroma .ss { color:#82cc6a }
+/* LiteralNumber */ [data-theme="dark"] .chroma .m { color:#56b6c2 }
+/* LiteralNumberBin */ [data-theme="dark"] .chroma .mb { color:#57c7ff }
+/* LiteralNumberFloat */ [data-theme="dark"] .chroma .mf { color:#56b6c2 }
+/* LiteralNumberHex */ [data-theme="dark"] .chroma .mh { color:#57c7ff }
+/* LiteralNumberInteger */ [data-theme="dark"] .chroma .mi { color:#56b6c2 }
+/* LiteralNumberIntegerLong */ [data-theme="dark"] .chroma .il { color:#56b6c2 }
+/* LiteralNumberOct */ [data-theme="dark"] .chroma .mo { color:#57c7ff }
+/* Operator */ [data-theme="dark"] .chroma .o { color:#bc74c4 }
+/* OperatorWord */ [data-theme="dark"] .chroma .ow { color:#bc74c4 }
+/* OperatorReserved */ [data-theme="dark"] .chroma .or { color:#bc74c4 }
+/* Punctuation */ [data-theme="dark"] .chroma .p { color:#56b6c2 }
+/* Comment */ [data-theme="dark"] .chroma .c { color:#3e4460 }
+/* CommentHashbang */ [data-theme="dark"] .chroma .ch { color:#3e4460;font-style:italic }
+/* CommentMultiline */ [data-theme="dark"] .chroma .cm { color:#3e4460 }
+/* CommentSingle */ [data-theme="dark"] .chroma .c1 { color:#3e4460 }
+/* CommentSpecial */ [data-theme="dark"] .chroma .cs { color:#bc74c4;font-style:italic }
+/* CommentPreproc */ [data-theme="dark"] .chroma .cp { color:#7fbaf5 }
+/* CommentPreprocFile */ [data-theme="dark"] .chroma .cpf { color:#7fbaf5 }
+/* GenericDeleted */ [data-theme="dark"] .chroma .gd { color:#cf5967 }
+/* GenericEmph */ [data-theme="dark"] .chroma .ge { text-decoration:underline }
+/* GenericError */ [data-theme="dark"] .chroma .gr { color:#cf5967;font-weight:bold }
+/* GenericHeading */ [data-theme="dark"] .chroma .gh { color:#ecbe7b;font-weight:bold }
+/* GenericInserted */ [data-theme="dark"] .chroma .gi { color:#ecbe7b }
+/* GenericOutput */ [data-theme="dark"] .chroma .go { color:#43454f }
+/* GenericPrompt */ [data-theme="dark"] .chroma .gp { color:#c9c9c9 }
+/* GenericStrong */ [data-theme="dark"] .chroma .gs { color:#cf5967;font-weight:bold }
+/* GenericSubheading */ [data-theme="dark"] .chroma .gu { color:#cf5967;font-style:italic }
+/* GenericTraceback */ [data-theme="dark"] .chroma .gt { color:#c9c9c9 }
+/* GenericUnderline */ [data-theme="dark"] .chroma .gl { text-decoration:underline }
+/* TextWhitespace */ [data-theme="dark"] .chroma .w { color:#c9c9c9 }
+
+/* Chroma wraps output in .highlight > pre.chroma; .chroma itself already sets
+   border-radius via the rule below so the copy button's rounded corner and
+   the code block's rounded corner line up. Chroma emits no padding of its
+   own - padding-top clears the absolutely positioned .copy-btn so a long
+   first line never renders underneath it; overflow-x keeps a long line
+   scrolling inside the block instead of widening the page (paired with
+   min-width: 0 on .post-layout > article above - without that, the line's
+   min-content size still inflates the grid track and pushes .toc-sidebar out
+   before overflow-x ever gets a chance to kick in). Border only goes on
+   .chroma (the pre that actually has a background) - .highlight is a bare
+   wrapper div with no fill, so bordering it too would draw a second, visibly
+   offset outline around the same box. */
+.highlight,
+.chroma {
+  border-radius: 8px;
+}
+
+.chroma {
+  padding: 44px 16px 16px;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  font-size: 14px;
+}
+
+/* vs's stock background (set above, generated by `hugo gen chromastyles`) is
+   pure white, same as --card-bg, and the block blends into the page. Override
+   background-color only, with an existing design token, so it stays visually
+   distinct - re-apply after regenerating the vs block above. vulcan needs no
+   such override: its own #282c34 is already lighter than both --bg and
+   --card-bg, and several of its own rules (.hl, .kc) set backgrounds relative
+   to that exact base color - overriding it here would both undo the
+   intentional contrast and desync those relative shades. */
+.chroma {
+  background-color: var(--badge-bg);
+}
+
+.code-block-wrapper {
+  position: relative;
+  margin: 1.5em 0;
+}
+
+/* Groups copy + expand into one positioned element instead of each button
+   positioning/hiding itself — .code-block-actions owns the placement and the
+   hover/focus reveal, buttons inside are plain flex items. :focus-within
+   (rather than :focus-visible per button) reveals the whole group when either
+   button is focused, so Tab-ing to one doesn't leave the other invisible.
+   Hidden until hover/focus so it doesn't sit on screen permanently; always
+   shown below the mobile breakpoint since touch has no reliable hover
+   affordance. */
+.code-block-actions {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  gap: 8px;
+  opacity: 0;
+}
+
+.code-block-wrapper:hover .code-block-actions,
+.code-block-actions:focus-within {
+  opacity: 1;
+}
+
+@media (max-width: 767px) {
+  .code-block-actions {
+    opacity: 1;
+  }
+}
+
+/* Reuses .btn-control / .btn-control-icon (nav theme/search buttons) for
+   sizing, border, shadow and hover-lift — only icon style (stroke-based, like
+   .nav-burger, not filled like sun/moon) is new. */
+.copy-btn svg,
+.expand-btn svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.copy-icon-success {
+  color: var(--status-text);
 }

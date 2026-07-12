@@ -40,6 +40,14 @@ disableKinds = ["taxonomy"]
 [markup.goldmark.parser.attribute]
   title = true
 
+# Chroma emits the same token class names (.kn, .s, .c1, ...) regardless of
+# `style` - the style only changes color values, which we override ourselves
+# via hand-written CSS (static/css/styles.css, GitHub Light/Dark rules scoped
+# by [data-theme]). noClasses=false is already Hugo's default; set explicitly
+# so the class-based-output decision is visible here, not just implied.
+[markup.highlight]
+  noClasses = false
+
 [params]
   profileTitle = "Software Engineering Manager / Tech Lead"
 
