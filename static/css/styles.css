@@ -17,6 +17,8 @@
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-display: 'Outfit', sans-serif;
   --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --container-width: 900px;
+  --toc-width: 230px;
 }
 
 [data-theme="dark"] {
@@ -54,9 +56,17 @@ body {
 }
 
 .container {
-  max-width: 900px;
+  max-width: var(--container-width);
   margin: 0 auto;
   padding: 80px 24px;
+}
+
+/* Post pages need extra room for the article+ToC grid (see .post-layout below) -
+   width = site-wide container width + the ToC sidebar's own width, so the article
+   column keeps roughly the same working width as everywhere else instead of being
+   squeezed by the sidebar. Applied via .Scratch "isPostSingle" in baseof.html. */
+.container-wide {
+  max-width: calc(var(--container-width) + var(--toc-width));
 }
 
 /* Navigation Container */
@@ -612,9 +622,13 @@ section:has(.show-more-wrap) + footer {
   margin-top: 0px;
 }
 
+/* Sidebar is a fixed var(--toc-width) column, not a proportional fr share -
+   that's what makes .container-wide's "container width + toc width" formula
+   (see .container-wide above) actually true: every extra pixel of container
+   width goes to <article>, not split proportionally with the sidebar. */
 @media (min-width: 768px) {
   .post-layout {
-    grid-template-columns: 3fr 1.2fr;
+    grid-template-columns: 1fr var(--toc-width);
   }
 }
 
@@ -1021,7 +1035,7 @@ footer a:hover {
 }
 
 .code-modal-panel {
-  width: min(900px, 100%);
+  width: min(var(--container-width), 100%);
   max-height: 90vh;
   background: var(--card-bg);
   border: 1px solid var(--border);
@@ -1264,8 +1278,9 @@ footer a:hover {
    (rather than :focus-visible per button) reveals the whole group when either
    button is focused, so Tab-ing to one doesn't leave the other invisible.
    Hidden until hover/focus so it doesn't sit on screen permanently; always
-   shown below the mobile breakpoint since touch has no reliable hover
-   affordance. */
+   shown below the mobile breakpoint, or on any device that reports no real
+   hover/a coarse pointer (e.g. a touch-capable tablet/2-in-1 wider than the
+   breakpoint) — width alone isn't a reliable proxy for touch. */
 .code-block-actions {
   position: absolute;
   top: 8px;
@@ -1280,7 +1295,7 @@ footer a:hover {
   opacity: 1;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 767px), (hover: none), (pointer: coarse) {
   .code-block-actions {
     opacity: 1;
   }

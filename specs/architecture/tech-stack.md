@@ -100,6 +100,13 @@ CI-время, обновления зависимостей, уязвимост
 Порядок подключения задан в `baseof.html` (`utils` → `navigation` → `search` →
 `copy-button` → `code-expand` → `main`), все с `defer`. Общий неймспейс — `window.Blog`.
 
+`copy-button` и `code-expand` — единственные модули, подключаемые **не** на
+каждой странице: их `<script>`-теги обёрнуты в `{{ if .Scratch.Get
+"isPostSingle" }}` (код-блоки есть только на страницах постов), поэтому на
+остальных страницах `window.Blog.copyButton`/`codeExpand` вообще не существуют.
+`main.js` вызывает их через `if (copyButton) copyButton.init();` — падать
+на `undefined.init()` на нестраницах-постов нельзя.
+
 ## Связанные специфы
 - [`build-and-deploy.md`](build-and-deploy.md) — как это собирается и деплоится.
 - [`overview.md`](overview.md) — общая картина.

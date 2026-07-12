@@ -1,9 +1,10 @@
 {{- /* Reproduces Hugo's default fenced-code-block rendering (transform.Highlight
-     with no options = same output as if this hook didn't exist) and adds
-     copy-to-clipboard and expand-to-modal buttons. Highlight theme (vs/vulcan)
-     is a pure CSS concern, scoped by [data-theme] in styles.css — nothing here
-     branches on the site's theme. See specs/components/posts.md. */ -}}
-{{- $result := transform.Highlight .Inner .Type -}}
+     with .Options forwarded = same output as if this hook didn't exist,
+     including fence attributes like hl_lines/linenos) and adds copy-to-clipboard
+     and expand-to-modal buttons. Highlight theme (vs/vulcan) is a pure CSS
+     concern, scoped by [data-theme] in styles.css — nothing here branches on
+     the site's theme. See specs/components/posts.md. */ -}}
+{{- $result := transform.Highlight .Inner .Type .Options -}}
 <div class="code-block-wrapper">
   <div class="code-block-actions">
     <button class="copy-btn btn-control btn-control-icon" type="button" aria-label="{{ i18n "copyCodeAria" }}">
