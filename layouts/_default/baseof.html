@@ -1,5 +1,19 @@
 <!DOCTYPE html>
 {{ .Scratch.Set "isPostSingle" (and .IsPage (eq .Section "posts")) }}
+{{/*
+  isCommentable is the single source of truth for whether Giscus actually
+  renders on this page — includes the site-wide config presence check
+  (giscusRepoId/giscusDefaultCategoryId are known at Hugo build time, unlike
+  the widget's theme) and the per-page enableComments opt-out, not just the
+  section check, so the <script> tag below and layouts/partials/giscus.html's
+  own container never disagree. See specs/components/comments.md.
+*/}}
+{{ .Scratch.Set "isCommentable" (and
+  (or (.Scratch.Get "isPostSingle") (and .IsPage (eq .Section "series")))
+  .Site.Params.giscusRepoId
+  .Site.Params.giscusDefaultCategoryId
+  (ne .Params.enableComments false)
+) }}
 <html lang="{{ .Language.Lang }}">
 <head>
   {{ partial "head.html" . }}
@@ -19,6 +33,9 @@
   {{ if .Scratch.Get "isPostSingle" }}
   <script src="{{ "js/modules/copy-button.js" | relURL }}" defer></script>
   <script src="{{ "js/modules/code-expand.js" | relURL }}" defer></script>
+  {{ end }}
+  {{ if .Scratch.Get "isCommentable" }}
+  <script src="{{ "js/modules/giscus.js" | relURL }}" defer></script>
   {{ end }}
   <script src="{{ "js/main.js" | relURL }}" defer></script>
 </body>

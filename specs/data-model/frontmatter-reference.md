@@ -22,6 +22,7 @@ series:                                                   # опциональн
 cover:                                                    # опционально, объект
   src: "assets/images/posts/cqrs-na-praktike/cover.jpg"  # без ведущего /, рендерится через relURL, НЕ переводится
   alt: "Схема потоков команд и запросов в CQRS"          # переводится, как title/description
+enableComments: false                                     # опционально, bool, по умолчанию true
 ---
 ```
 
@@ -33,6 +34,7 @@ cover:                                                    # опциональн
 | `tags`        | []string | да    | Английские kebab-case слаги. **Одинаковые** в ru/en. Может быть `[]`. |
 | `series`      | object   | нет   | `{name, number}`. `name` не переводится. См. [`components/series.md`](../components/series.md). |
 | `cover`       | object   | нет   | `{src, alt}`. Обложка на странице поста — единственное место, где показывается изображение поста вне его тела (карточки на главной картинок не показывают). `src` не переводится (путь без ведущего `/`, идёт через `relURL`), `alt` переводится. См. [`components/posts.md`](../components/posts.md). |
+| `enableComments` | bool | нет   | По умолчанию `true` (комментарии включены). `false` отключает Giscus на этой конкретной странице. См. [`components/comments.md`](../components/comments.md). |
 
 - `og_description` у поста **не бывает** (только у трёх корневых страниц).
 - Про формат тегов и якорей — [`conventions/naming.md`](../conventions/naming.md).
@@ -149,6 +151,7 @@ title: "Распределённые системы"
 description: "Серия постов о паттернах…"   # зеркалит абзац тела; идёт в мета + поиск
 url: /series/distributed-systems.html      # ru; en-файл: /en/series/…
 outputs: [html]                            # та же причина, что и у архива
+enableComments: false                      # опционально, bool, по умолчанию true
 ---
 
 Серия постов о паттернах и практических решениях…   # опциональное тело-абзац
@@ -158,6 +161,8 @@ outputs: [html]                            # та же причина, что и
   напр. `distributed-systems`.
 - `description:` обязателен, иначе результат в поиске будет без описания.
 - Тело опционально (`{{ with .Content }}` в шаблоне).
+- `enableComments: false` отключает Giscus на этой странице серии — см.
+  [`components/comments.md`](../components/comments.md).
 
 Служебные `content/series/_index.{ru,en}.md` содержат только
 `build: {list: false, render: false}` — см.
@@ -175,6 +180,7 @@ outputs: [html]                            # та же причина, что и
 | `tags`           | ✅   | —       | —       | —     | —     |
 | `series`         | опц. | —       | —       | —     | —     |
 | `cover`          | опц. | —       | —       | —     | —     |
+| `enableComments` | опц. | —       | —       | —     | опц.  |
 | `og_description` | —    | ✅      | ✅      | ✅    | —     |
 | `og_type`        | —    | ✅      | ✅      | ✅    | —     |
 | `url`            | —    | —       | —       | ✅    | ✅    |

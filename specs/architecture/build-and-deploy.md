@@ -96,6 +96,35 @@ push в master
 Поменять `HUGO_VERSION` в `env` job'а `build`. Это единственный авторитетный
 источник версии (см. [`tech-stack.md`](tech-stack.md)).
 
+### Секреты — первое (и пока единственное) применение в этом репозитории
+
+Шаг «Build with Hugo» в `hugo.yml` — единственное место, где в CI используются
+GitHub repo secrets. Два опаковых Giscus GraphQL node ID (`GISCUS_DATA_REPO_ID`,
+`GISCUS_DATA_CATEGORY_ID`) пробрасываются в сборку через встроенный механизм Hugo
+«env var переопределяет config», без единой строчки кастомного кода:
+
+```yaml
+env:
+  HUGO_PARAMS_GISCUSREPOID: ${{ secrets.GISCUS_DATA_REPO_ID }}
+  HUGO_PARAMS_GISCUSDEFAULTCATEGORYID: ${{ secrets.GISCUS_DATA_CATEGORY_ID }}
+```
+
+Hugo (через Viper) хранит все ключи `[params]` в нижнем регистре, поэтому
+`HUGO_PARAMS_GISCUSREPOID` резолвится в шаблоне как `.Site.Params.giscusRepoId`
+регистронезависимо — сопоставление всей закорючки `GISCUSREPOID` целиком, без
+попытки Hugo угадывать границы слов в camelCase.
+
+**Намеренно НЕ в `hugo-pr-check.yml`.** Секреты не должны быть доступны PR-сборкам
+(особенно из форков) — поэтому там эти два значения всегда пусты, и партиал
+`layouts/partials/giscus.html` рендерит no-op (см.
+[`components/comments.md`](../components/comments.md)). Это ожидаемая асимметрия
+между двумя workflow-файлами, а не недосмотр — не «чинить» добавлением секретов
+туда же.
+
+Остальные два Giscus-параметра (`giscusRepo`, `giscusDefaultCategory`) не
+секретны и прописаны прямо в `hugo.toml [params]` — доступны и в CI, и в
+локальном `hugo server`/`hugo`.
+
 ## Выходной артефакт (`public/`)
 
 Собранный сайт — плоский набор `.html` (из-за `uglyURLs = true`) с dot-relative

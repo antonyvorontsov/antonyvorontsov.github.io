@@ -53,6 +53,7 @@
   тема, переключатель языка, футер.
 - [`homepage-and-about.md`](components/homepage-and-about.md) — главная, «Обо мне»,
   архив постов.
+- [`comments.md`](components/comments.md) — комментарии (Giscus) на постах и сериях.
 
 ### `patterns/` — повторяющиеся паттерны
 - [`taxonomy-pattern.md`](patterns/taxonomy-pattern.md) — как добавить taxonomy
