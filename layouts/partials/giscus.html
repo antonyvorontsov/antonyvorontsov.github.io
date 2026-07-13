@@ -1,0 +1,28 @@
+{{/*
+  Giscus (GitHub Discussions comments) mount point — see specs/components/comments.md.
+  Rendering is driven by the "isCommentable" scratch var set once in
+  baseof.html (single source of truth, also gates static/js/modules/giscus.js's
+  <script> tag) — it already folds in the giscusRepoId/giscusDefaultCategoryId
+  presence check and the enableComments opt-out, so this partial's condition
+  can never drift out of sync with the script include.
+  Actual widget is injected client-side by static/js/modules/giscus.js, which reads
+  the data-* attributes below — the real giscus <script> can't be rendered here
+  because its data-theme must match the site's manual theme toggle, which is only
+  known in the browser.
+*/}}
+{{ $enableCommentsType := printf "%T" .Params.enableComments }}
+{{ if and (ne $enableCommentsType "<nil>") (ne $enableCommentsType "bool") }}
+  {{ errorf "page %s sets enableComments to a non-boolean value (%v) — it must be an unquoted true/false, otherwise Giscus stays enabled regardless of intent" .File.Path .Params.enableComments }}
+{{ end }}
+{{ if and (or .Site.Params.giscusRepoId .Site.Params.giscusDefaultCategoryId) (not (and .Site.Params.giscusRepoId .Site.Params.giscusDefaultCategoryId)) }}
+  {{ warnf "Giscus is partially configured (giscusRepoId=%q, giscusDefaultCategoryId=%q) — comments won't render anywhere until both giscusRepoId and giscusDefaultCategoryId are set, see specs/architecture/build-and-deploy.md" (or .Site.Params.giscusRepoId "") (or .Site.Params.giscusDefaultCategoryId "") }}
+{{ end }}
+{{ if .Scratch.Get "isCommentable" }}
+<div class="giscus-container"
+     data-repo="{{ .Site.Params.giscusRepo }}"
+     data-repo-id="{{ .Site.Params.giscusRepoId }}"
+     data-category="{{ .Site.Params.giscusDefaultCategory }}"
+     data-category-id="{{ .Site.Params.giscusDefaultCategoryId }}"
+     data-lang="{{ .Language.Lang }}">
+</div>
+{{ end }}

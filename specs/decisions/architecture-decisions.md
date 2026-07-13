@@ -191,6 +191,57 @@ Hugo taxonomy (как теги).
 
 ---
 
+## ADR-9. Giscus — единственное явное исключение из ADR-5 {#adr-giscus-exception}
+
+**Решение.** Комментарии на постах и страницах серий реализованы через
+[Giscus](https://giscus.app) (GitHub Discussions): один `<script>`-виджет,
+подключаемый динамически из `static/js/modules/giscus.js` в placeholder-контейнер,
+который рендерит `layouts/partials/giscus.html`. Опт-аут — `enableComments: false`
+во frontmatter конкретной страницы.
+
+**Почему.**
+1. **`specs/FUTURE_IMPROVEMENTS.md` требовал явного решения владельца** — сторонний
+   виджет заведомо «противоречит духу ADR-5». Детальный запрос на интеграцию (с
+   именем репозитория, embed-сниппетом и уже созданными GitHub-секретами) и есть
+   это явное решение.
+2. **Реальный компромисс — не про сборочный конвейер.** ADR-5 запрещает npm/бандлер/
+   build step; Giscus ничего из этого не добавляет — это runtime `<script>`, той же
+   категории, что и гипотетическая «Аналитика» из `FUTURE_IMPROVEMENTS.md`. Настоящая
+   цена — сетевая зависимость от `giscus.app` и GitHub Discussions в браузере
+   пользователя (приватность/производительность), а не нарушение принципа «нет
+   конвейера».
+3. **Тема виджета не может быть выставлена на сборке.** Тема сайта — ручной
+   client-side тоггл (`localStorage`, `data-theme`), а не `prefers-color-scheme`.
+   Поэтому Hugo-шаблон рендерит только placeholder с data-атрибутами; сам
+   `<script src="https://giscus.app/client.js">` собирается в браузере
+   (`giscus.js`), с `data-theme` от текущего `data-theme` на `<html>`, и живо
+   переключается через документированный Giscus postMessage API
+   (`{ giscus: { setConfig: { theme } } }` в `iframe.giscus-frame`) при клике на
+   тоггл темы — без перезагрузки страницы.
+
+**Последствия.**
+- Конфиг разделён: `giscusRepo`/`giscusDefaultCategory` (не секретны) — в
+  `hugo.toml [params]`; `giscusRepoId`/`giscusDefaultCategoryId` (непрозрачные
+  GraphQL node ID) — только из GitHub-секретов `GISCUS_DATA_REPO_ID`/
+  `GISCUS_DATA_CATEGORY_ID`, инжектятся в `.github/workflows/hugo.yml` через
+  `HUGO_PARAMS_GISCUSREPOID`/`HUGO_PARAMS_GISCUSDEFAULTCATEGORYID` (встроенный
+  механизм Hugo, без кастомного кода).
+- Локальный `hugo server` и `hugo-pr-check.yml` не видят эти секреты (последнее —
+  намеренно: секреты не должны доставаться PR из форков) → комментарии там просто
+  не рендерятся (no-op), это ожидаемое поведение, а не баг.
+- Новая связка `isCommentable` (посты **и** серии) рядом с существующей
+  `isPostSingle` (только посты, только код-блоки) в `baseof.html` — два разных
+  scratch-флага для двух разных наборов страниц.
+- Новую сторонюю зависимость такого рода снова тянуть **нельзя** без аналогичного
+  явного запроса — исключение не открывает дверь остальным пунктам
+  `FUTURE_IMPROVEMENTS.md` (напр. «Аналитика» так и остаётся отдельным решением).
+
+**См.** [`components/comments.md`](../components/comments.md),
+[`architecture/build-and-deploy.md`](../architecture/build-and-deploy.md),
+ADR-5.
+
+---
+
 ## Связанные специфы
 - [`architecture/overview.md`](../architecture/overview.md) — как решения складываются
   в общую картину.

@@ -48,6 +48,8 @@
       {{ i18n "seriesMobileText" (dict "Name" $seriesTitle) }}
     </a>
     {{ end }}
+
+    {{ partial "giscus.html" . }}
   </article>
 
   <aside class="toc-sidebar" id="toc-sidebar">

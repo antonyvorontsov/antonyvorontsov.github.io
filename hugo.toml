@@ -50,6 +50,13 @@ disableKinds = ["taxonomy"]
 
 [params]
   profileTitle = "Software Engineering Manager / Tech Lead"
+  # Giscus (GitHub Discussions comments, see ADR-9 and specs/components/comments.md).
+  # Only the non-sensitive identifiers live here; giscusRepoId/giscusDefaultCategoryId
+  # are opaque GraphQL node IDs and come ONLY from CI via HUGO_PARAMS_GISCUSREPOID /
+  # HUGO_PARAMS_GISCUSDEFAULTCATEGORYID env vars (.github/workflows/hugo.yml) — never
+  # set here, so local `hugo server` and PR-check builds render comments as a no-op.
+  giscusRepo = "antonyvorontsov/antonyvorontsov.github.io"
+  giscusDefaultCategory = "General"
 
 # Site-wide search index (see layouts/index.searchindex.json): one JSON file
 # per language, listing every searchable page (home, about, posts list,

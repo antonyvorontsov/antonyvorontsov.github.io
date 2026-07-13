@@ -4,6 +4,8 @@
 window.Blog = window.Blog || {};
 
 window.Blog.navigation = (function () {
+  let giscus = null;
+
   function getStoredTheme() {
     return localStorage.getItem('theme');
   }
@@ -31,9 +33,11 @@ window.Blog.navigation = (function () {
     document.documentElement.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
     updateThemeIcon(newTheme);
+    if (giscus) giscus.syncTheme(newTheme);
   }
 
-  function initTheme() {
+  function initTheme(giscusModule) {
+    giscus = giscusModule || null;
     const currentTheme = getSystemTheme();
     document.documentElement.setAttribute('data-theme', currentTheme);
     updateThemeIcon(currentTheme);

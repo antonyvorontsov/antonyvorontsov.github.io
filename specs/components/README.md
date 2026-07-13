@@ -13,6 +13,7 @@
 | [`search.md`](search.md)                           | Клиентский поиск                            | JSON-индекс + ванильный JS |
 | [`navigation-and-theme.md`](navigation-and-theme.md) | Шапка, бургер, тема, переключатель языка, футер | шаблон + JS          |
 | [`homepage-and-about.md`](homepage-and-about.md)   | Главная, «Обо мне», архив постов            | list/single-шаблоны       |
+| [`comments.md`](comments.md)                       | Комментарии (Giscus) на постах и сериях     | сторонний виджет + JS      |
 
 ## Матрица «шаблон → компонент»
 
@@ -35,11 +36,12 @@
 | `partials/date-ru.html`                 | русское форматирование даты        |
 | `partials/cover-image.html`             | [posts](posts.md) (рендер обложки поста) |
 | `partials/assert-image-field.html`      | [posts](posts.md) (валидация обложки поста) |
+| `partials/giscus.html`                  | [comments](comments.md) (placeholder-контейнер) |
 | `index.html`                            | [homepage-and-about](homepage-and-about.md) (главная) |
 | `about.html`                            | [homepage-and-about](homepage-and-about.md) («Обо мне») |
 | `posts/list.html`                       | [homepage-and-about](homepage-and-about.md) (архив постов) |
-| `posts/single.html`                     | [posts](posts.md) (страница поста + ToC + серия) |
-| `series/single.html`                    | [series](series.md)                |
+| `posts/single.html`                     | [posts](posts.md) (страница поста + ToC + серия), [comments](comments.md) |
+| `series/single.html`                    | [series](series.md), [comments](comments.md) |
 | `tags/term.html`                        | [tags](tags.md)                    |
 | `index.searchindex.json`                | [search](search.md)                |
 
@@ -53,6 +55,7 @@
 | `modules/utils.js`          | год в футере                                        |
 | `modules/copy-button.js`    | [posts](posts.md) (copy-to-clipboard в code blocks) |
 | `modules/code-expand.js`    | [posts](posts.md) (Expand → модалка code blocks) |
+| `modules/giscus.js`         | [comments](comments.md) (инициализация виджета + синхронизация темы) |
 
 ## Как читать специфу компонента
 

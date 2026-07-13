@@ -1,11 +1,12 @@
-// Entry point: wires up modules on page load. copyButton/codeExpand are only
-// loaded on post pages (see baseof.html) since code blocks only appear there.
-(function (navigation, utils, search, copyButton, codeExpand) {
-  navigation.initTheme();
+// Entry point: wires up modules on page load. copyButton/codeExpand/giscus are
+// only loaded on page types where they apply (see baseof.html).
+(function (navigation, utils, search, copyButton, codeExpand, giscus) {
+  navigation.initTheme(giscus);
   utils.updateFooterYear();
   navigation.initToc();
   navigation.initMobileMenu();
   search.init();
   if (copyButton) copyButton.init();
   if (codeExpand) codeExpand.init();
-})(window.Blog.navigation, window.Blog.utils, window.Blog.search, window.Blog.copyButton, window.Blog.codeExpand);
+  if (giscus) giscus.init();
+})(window.Blog.navigation, window.Blog.utils, window.Blog.search, window.Blog.copyButton, window.Blog.codeExpand, window.Blog.giscus);

@@ -23,4 +23,6 @@
   {{ partial "archive-item.html" (dict "page" . "linkText" (printf "%s %s" (i18n "seriesItemNumber" (dict "Number" .Params.series.number)) .Title) "hideDate" true) }}
   {{ end }}
 </div>
+
+{{ partial "giscus.html" . }}
 {{ end }}
