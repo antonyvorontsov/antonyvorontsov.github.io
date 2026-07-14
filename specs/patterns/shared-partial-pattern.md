@@ -137,7 +137,7 @@
 - [ ] единый CSS-класс во всех вызовах
 - [ ] проверить каждое место вызова после изменения partial
 
-## Связанные специфы
+## Связанные спецификации
 - [`components/homepage-and-about.md`](../components/homepage-and-about.md) —
   `archive-item`, `timeline-item`, `profile-header`.
 - [`components/README.md`](../components/README.md) — матрица «partial → компонент».
