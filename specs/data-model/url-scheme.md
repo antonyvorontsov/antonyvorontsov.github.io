@@ -96,7 +96,7 @@ outputs: [html]       # гасит RSS, чтобы фид не «увёл» URL 
 механизм (реальная ссылка на перевод), см.
 [`components/navigation-and-theme.md`](../components/navigation-and-theme.md).
 
-## Связанные специфы
+## Связанные спецификации
 - [`architecture/build-and-deploy.md`](../architecture/build-and-deploy.md) — как
   `baseURL` подставляется на CI.
 - [`decisions/architecture-decisions.md`](../decisions/architecture-decisions.md) —

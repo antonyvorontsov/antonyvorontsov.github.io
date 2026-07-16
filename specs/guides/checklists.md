@@ -93,6 +93,6 @@
       **после** мержа)
 - [ ] Домен не просочился никуда, кроме `static/CNAME` (ADR-4)
 
-## Связанные специфы
+## Связанные спецификации
 - [`guides/add-new-post.md`](add-new-post.md)
 - [`guides/add-new-feature.md`](add-new-feature.md)

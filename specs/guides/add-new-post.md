@@ -104,7 +104,7 @@ series:
 - [ ] прогнан `blog-post-validator`
 - [ ] если есть `cover` — файл картинки добавлен в git (не только frontmatter)
 
-## Связанные специфы
+## Связанные спецификации
 - [`components/posts.md`](../components/posts.md)
 - [`data-model/frontmatter-reference.md`](../data-model/frontmatter-reference.md#пост)
 - [`checklists.md`](checklists.md)

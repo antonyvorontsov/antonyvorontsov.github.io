@@ -19,6 +19,6 @@
   явной просьбы. Исключение — ADR-9 и подключение Giscus для комментариев) — [`architecture/tech-stack.md`](architecture/tech-stack.md).
 - **Двуязычность** — работать на ru и en ([`conventions/bilingual-model.md`](conventions/bilingual-model.md)).
 - **Домен** — только в `static/CNAME` (ADR-4).
-- **Обновлять специфы** в том же изменении.
+- **Обновлять спецификации** в том же изменении.
 
 См. [`guides/add-new-feature.md`](guides/add-new-feature.md).

@@ -148,7 +148,7 @@ enableComments: false
 - Комментарии на PR-check сборках (`hugo-pr-check.yml`) никогда не появляются —
   секреты туда намеренно не передаются (PR из форков не должны их видеть).
 
-## Связанные специфы
+## Связанные спецификации
 - [`decisions/architecture-decisions.md`](../decisions/architecture-decisions.md#adr-giscus-exception) — ADR-9.
 - [`architecture/build-and-deploy.md`](../architecture/build-and-deploy.md) — секреты и CI.
 - [`data-model/frontmatter-reference.md`](../data-model/frontmatter-reference.md) — `enableComments`.

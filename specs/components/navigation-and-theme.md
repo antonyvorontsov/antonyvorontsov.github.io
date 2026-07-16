@@ -116,6 +116,6 @@ function toggleTheme() {
 - ToC-скроллспай — тот же модуль `navigation.js` ([posts.md](posts.md)).
 - Язык — [`conventions/bilingual-model.md`](../conventions/bilingual-model.md).
 
-## Связанные специфы
+## Связанные спецификации
 - [`conventions/bilingual-model.md`](../conventions/bilingual-model.md) — меню и язык.
 - [`architecture/tech-stack.md`](../architecture/tech-stack.md) — структура JS-модулей.

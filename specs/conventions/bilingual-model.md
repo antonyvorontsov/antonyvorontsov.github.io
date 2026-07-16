@@ -159,7 +159,7 @@ defaultContentLanguageInSubdir = false
 
 Полный чек-лист — [`guides/checklists.md`](../guides/checklists.md).
 
-## Связанные специфы
+## Связанные спецификации
 - [`data-model/url-scheme.md`](../data-model/url-scheme.md) — как язык влияет на URL.
 - [`patterns/i18n-string-pattern.md`](../patterns/i18n-string-pattern.md) — паттерн
   добавления строки.

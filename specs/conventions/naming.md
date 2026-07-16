@@ -99,7 +99,7 @@ percent-энкодится и не совпадает между `href` и `id`,
 | Дубликат `series.number` в серии       | `series/single.html`                 | ⛔ errorf |
 | `series.name` без страницы серии       | `posts/single.html`                  | ⚠️ warnf |
 
-## Связанные специфы
+## Связанные спецификации
 - [`bilingual-model.md`](bilingual-model.md) — двуязычные конвенции.
 - [`data-model/frontmatter-reference.md`](../data-model/frontmatter-reference.md) —
   где эти значения используются.

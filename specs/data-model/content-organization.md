@@ -97,7 +97,7 @@ build:
   Hugo-пайплайна ресайза — файлы кладутся уже готового размера (ADR-5).
 - Фавикон: `static/assets/favicon.png`.
 
-## Связанные специфы
+## Связанные спецификации
 - [`frontmatter-reference.md`](frontmatter-reference.md) — все поля по типам.
 - [`url-scheme.md`](url-scheme.md) — как из файла получается URL.
 - [`conventions/naming.md`](../conventions/naming.md) — правила имён файлов и слагов.

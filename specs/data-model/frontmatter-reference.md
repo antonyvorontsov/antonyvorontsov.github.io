@@ -190,7 +190,7 @@ enableComments: false                      # опционально, bool, по 
 
 \* у главной `outputs` включает `searchindex`; у архива/серии — только для гашения RSS.
 
-## Связанные специфы
+## Связанные спецификации
 - [`content-organization.md`](content-organization.md) — где лежат файлы.
 - [`conventions/naming.md`](../conventions/naming.md) — правила значений (слаги, якоря).
 - [`components/`](../components/) — как каждое поле рендерится.

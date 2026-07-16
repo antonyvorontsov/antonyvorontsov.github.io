@@ -91,6 +91,6 @@ Taxonomy в Hugo **per-language автоматически** — term-стран
 - [ ] i18n-ключ описания в оба TOML
 - [ ] проверка ru + en в `hugo server`
 
-## Связанные специфы
+## Связанные спецификации
 - [`components/tags.md`](../components/tags.md) — эталонная реализация.
 - [`content-section-pattern.md`](content-section-pattern.md) — альтернатива.

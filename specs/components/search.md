@@ -123,7 +123,7 @@ function matches(entry, query) {     // регистронезависимо, п
 В `layouts/index.searchindex.json` добавить ещё один `range where .Site.RegularPages
 "Section" "<новый-раздел>"`. Убедиться, что у страниц есть `description`.
 
-## Связанные специфы
+## Связанные спецификации
 - [`data-model/frontmatter-reference.md`](../data-model/frontmatter-reference.md) —
   `outputs` с `searchindex`.
 - [`architecture/tech-stack.md`](../architecture/tech-stack.md) — почему без
