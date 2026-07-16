@@ -6,10 +6,12 @@
   (giscusRepoId/giscusDefaultCategoryId are known at Hugo build time, unlike
   the widget's theme) and the per-page enableComments opt-out, not just the
   section check, so the <script> tag below and layouts/partials/giscus.html's
-  own container never disagree. See specs/components/comments.md.
+  own container never disagree. Posts only — series pages dropped comments
+  after real-world use showed per-post discussion made more sense than one
+  thread per series. See specs/components/comments.md.
 */}}
 {{ .Scratch.Set "isCommentable" (and
-  (or (.Scratch.Get "isPostSingle") (and .IsPage (eq .Section "series")))
+  (.Scratch.Get "isPostSingle")
   .Site.Params.giscusRepoId
   .Site.Params.giscusDefaultCategoryId
   (ne .Params.enableComments false)

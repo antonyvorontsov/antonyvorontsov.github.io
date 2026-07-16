@@ -130,7 +130,7 @@ series:
 Добавление поста в серию автоматизировано скиллом `add-post-to-series` (через
 субагента `series-editor`). См. [`guides/add-new-feature.md`](../guides/add-new-feature.md).
 
-## Связанные специфы
+## Связанные спецификации
 - [`components/posts.md`](posts.md) — три места рендеринга в контексте страницы поста.
 - [`patterns/content-section-pattern.md`](../patterns/content-section-pattern.md).
 - [`conventions/naming.md`](../conventions/naming.md#id-серий-) — id и номера.

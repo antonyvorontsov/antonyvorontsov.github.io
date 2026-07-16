@@ -200,7 +200,7 @@ header.profile-header (h1 = i18n postsArchiveTitle)
 - `archive-item.html` — общий с [tags](tags.md) и [series](series.md).
 - Данные профиля — [bilingual-model](../conventions/bilingual-model.md).
 
-## Связанные специфы
+## Связанные спецификации
 - [`data-model/frontmatter-reference.md`](../data-model/frontmatter-reference.md#обо-мне) —
   схема данных «Обо мне».
 - [`patterns/shared-partial-pattern.md`](../patterns/shared-partial-pattern.md).

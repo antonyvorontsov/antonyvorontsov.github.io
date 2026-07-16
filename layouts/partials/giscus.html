@@ -1,6 +1,7 @@
 {{/*
   Giscus (GitHub Discussions comments) mount point — see specs/components/comments.md.
-  Rendering is driven by the "isCommentable" scratch var set once in
+  Posts only (called from layouts/posts/single.html) — series pages don't call
+  this partial. Rendering is driven by the "isCommentable" scratch var set once in
   baseof.html (single source of truth, also gates static/js/modules/giscus.js's
   <script> tag) — it already folds in the giscusRepoId/giscusDefaultCategoryId
   presence check and the enableComments opt-out, so this partial's condition

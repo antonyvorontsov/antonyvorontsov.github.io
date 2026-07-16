@@ -119,6 +119,6 @@ desktop и mobile.
   класс `.tag-pill`.
 - [`search.md`](search.md) — term-страницы в индекс поиска **не** попадают.
 
-## Связанные специфы
+## Связанные спецификации
 - [`conventions/naming.md`](../conventions/naming.md#теги) — формат слагов.
 - [`patterns/taxonomy-pattern.md`](../patterns/taxonomy-pattern.md).

@@ -98,7 +98,7 @@ i18n — только для UI-строк, зашитых в шаблоны.
 - [ ] если HTML — `| safeHTML`
 - [ ] проверка на обоих языках
 
-## Связанные специфы
+## Связанные спецификации
 - [`conventions/bilingual-model.md`](../conventions/bilingual-model.md) — уровень
   UI-строк в двуязычной модели.
 - [`conventions/naming.md`](../conventions/naming.md#ключи-i18n-строк) — именование ключей.

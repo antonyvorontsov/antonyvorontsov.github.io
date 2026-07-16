@@ -1,19 +1,15 @@
 ---
-title: 'Zero-Downtime Sharding: A Practical Breakdown'
-date: 2025-03-14
-description: A walkthrough of migrating a high-load WMS's primary datastore to a sharded
-  architecture without stopping warehouse operations. Covers shard key selection,
-  data migration, and handling consistency edge cases.
-tags: [sharding, databases, distributed-systems]
-series:
-  name: "distributed-systems"
-  number: 1
-cover:
-  src: "assets/images/posts/shardirovanie-bez-daountaima/cover.jpg"
-  alt: "Diagram of range-based database sharding"
+title: 'From Senior to Tech Lead: A Mindset Shift, Not Just New Duties'
+date: 2026-06-01
+description: Becoming a Tech Lead isn't just about new responsibilities — it's a complete
+  shift in how you make decisions and measure your impact. Here's what changed in
+  my thinking over the years.
+tags: [tech-lead, leadership, career]
+slug: "from-senior-to-tech-lead"
+aliases: ["/posts/ot-senior-k-tech-lead.html"]
 ---
 
-<p>A walkthrough of migrating a high-load WMS's primary datastore to a sharded architecture without stopping warehouse operations. Covers shard key selection, data migration, and handling consistency edge cases.</p>
+<p>Becoming a Tech Lead isn't just about new responsibilities — it's a complete shift in how you make decisions and measure your impact. Here's what changed in my thinking over the years.</p>
 
 ## Context {#context}
 
@@ -25,25 +21,23 @@ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
 
 Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
 
-### Growing Load {#growing-load}
+### From Individual to Team Impact {#from-individual-to-team-impact}
 
 Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.
 
-![Range-based sharding diagram](/assets/images/posts/shardirovanie-bez-daountaima/inline-diagram.jpg)
-
-### Single-Node Limits {#single-node-limits}
+### Owning Architectural Decisions {#owning-architectural-decisions}
 
 Consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.
 
-## Technical Solution {#technical-solution}
+## Practical Solutions {#practical-solutions}
 
 At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.
 
-### Choosing a Shard Key {#choosing-a-shard-key}
+### Delegating Without Losing Control {#delegating-without-losing-control}
 
 Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit.
 
-### Live Migration {#live-migration}
+### New Success Metrics {#new-success-metrics}
 
 Quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae.
 

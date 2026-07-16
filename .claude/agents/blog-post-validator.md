@@ -1,6 +1,6 @@
 ---
 name: blog-post-validator
-description: Use this agent to run the pre-publish validation on a blog post in this Hugo bilingual (ru/en) blog — bilingual pairing, heading anchors, grammar/punctuation, and Markdown/code formatting. Delegate here whenever the user asks to validate, check, or proofread a post under content/posts/ before publishing, merging, or opening a PR.
+description: Use this agent to run the pre-publish validation on a blog post in this Hugo bilingual (ru/en) blog — bilingual pairing, heading anchors, grammar/punctuation, and Markdown/code formatting — or to turn pasted raw text into a brand-new post (asking about translation, tags, and date, then scaffolding the bundle). Delegate here whenever the user asks to validate, check, or proofread a post under content/posts/ before publishing, merging, or opening a PR, or asks to validate/convert pasted text into a new post.
 tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob", "AskUserQuestion"]
 skills: ["validate-blog-post"]
 model: haiku

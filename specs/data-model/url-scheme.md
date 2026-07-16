@@ -26,6 +26,15 @@ defaultContentLanguageInSubdir = false
 выводит правильное плоское имя файла с учётом языкового префикса — поэтому обычному
 посту и `about.*.md` **не нужен** ручной `url:`.
 
+Посты — Hugo page bundles (см.
+[`content-organization.md`](content-organization.md#посты-page-bundle-на-пост-номер-префикс-для-сортировки)),
+и это сочетается с `uglyURLs`/`relativeURLs` ровно так, как ожидается: сама
+страница публикуется как плоский `<slug>.html`, а картинки поста (page
+resources из `images/`) публикуются в соседнюю директорию `<slug>/images/…` —
+т.е. `<slug>.html` и `<slug>/` сосуществуют как файл и директория с одним именем
+на одном уровне `public/posts/`, без коллизии. Markdown-ссылки на такие ресурсы
+(`![alt](images/foo.jpg)`) Hugo переписывает автоматически при рендере.
+
 ### `defaultContentLanguage = "ru"` + `defaultContentLanguageInSubdir = false`
 Русский (язык по умолчанию) кладётся **без префикса** в корень; английский получает
 префикс `/en/` автоматически. Это осознанное решение (лучше UX для основной,
@@ -69,6 +78,29 @@ outputs: [html]       # гасит RSS, чтобы фид не «увёл» URL 
 > ключа. Английский вариант получает префикс `/en/` вручную в `url:` — Hugo не умеет
 > переставлять префикс для таких страниц.
 
+## Алиасы старых URL (`aliases`)
+
+Пост, у которого поменялся `slug` (обычно — исправление транслита на нормальный
+английский, см. [`conventions/naming.md`](../conventions/naming.md#слаг--всегда-настоящий-английский-не-транслит)),
+может объявить старый URL через `aliases:` во frontmatter — Hugo сгенерирует по
+этому пути отдельную HTML-страницу-заглушку с `<meta http-equiv="refresh">` +
+`<link rel="canonical">`, ведущими на актуальный URL поста.
+
+```yaml
+aliases: ["/posts/old-slug.html"]
+```
+
+> ⚠️ **`aliases` пишется БЕЗ языкового префикса — в отличие от `url:`.** Это
+> противоположность правилу для ручного `url:` выше (там префикс `/en/` нужен
+> явно). `aliases` проходит через ту же языковую URL-изацию, что обычный
+> permalink страницы, — Hugo сам добавляет `/en/` для английского файла.
+> Написать `aliases: ["/en/posts/old-slug.html"]` в `index.en.md` — реальная,
+> легко допустимая ошибка: Hugo задвоит префикс (`/en/en/posts/old-slug.html`),
+> и заглушка окажется по невидимому пути, а не по ожидаемому старому URL.
+> Проверено сборкой: `aliases: ["/posts/old-slug.html"]` в `index.en.md` даёт
+> корректный `public/en/posts/old-slug.html`; с префиксом в значении — заглушка
+> уезжает в `public/en/en/posts/old-slug.html`, недостижимый снаружи.
+
 ## Особенности рендеринга Markdown (Goldmark)
 
 Заданы в `hugo.toml`:
@@ -96,7 +128,7 @@ outputs: [html]       # гасит RSS, чтобы фид не «увёл» URL 
 механизм (реальная ссылка на перевод), см.
 [`components/navigation-and-theme.md`](../components/navigation-and-theme.md).
 
-## Связанные специфы
+## Связанные спецификации
 - [`architecture/build-and-deploy.md`](../architecture/build-and-deploy.md) — как
   `baseURL` подставляется на CI.
 - [`decisions/architecture-decisions.md`](../decisions/architecture-decisions.md) —

@@ -13,7 +13,7 @@
 | [`search.md`](search.md)                           | Клиентский поиск                            | JSON-индекс + ванильный JS |
 | [`navigation-and-theme.md`](navigation-and-theme.md) | Шапка, бургер, тема, переключатель языка, футер | шаблон + JS          |
 | [`homepage-and-about.md`](homepage-and-about.md)   | Главная, «Обо мне», архив постов            | list/single-шаблоны       |
-| [`comments.md`](comments.md)                       | Комментарии (Giscus) на постах и сериях     | сторонний виджет + JS      |
+| [`comments.md`](comments.md)                       | Комментарии (Giscus) на постах               | сторонний виджет + JS      |
 
 ## Матрица «шаблон → компонент»
 
@@ -41,7 +41,7 @@
 | `about.html`                            | [homepage-and-about](homepage-and-about.md) («Обо мне») |
 | `posts/list.html`                       | [homepage-and-about](homepage-and-about.md) (архив постов) |
 | `posts/single.html`                     | [posts](posts.md) (страница поста + ToC + серия), [comments](comments.md) |
-| `series/single.html`                    | [series](series.md), [comments](comments.md) |
+| `series/single.html`                    | [series](series.md)                |
 | `tags/term.html`                        | [tags](tags.md)                    |
 | `index.searchindex.json`                | [search](search.md)                |
 
@@ -57,7 +57,7 @@
 | `modules/code-expand.js`    | [posts](posts.md) (Expand → модалка code blocks) |
 | `modules/giscus.js`         | [comments](comments.md) (инициализация виджета + синхронизация темы) |
 
-## Как читать специфу компонента
+## Как читать спецификацию компонента
 
 Каждая специфа компонента отвечает на:
 1. **Что и зачем** — назначение фичи.
@@ -65,6 +65,6 @@
 3. **Как отображается** — desktop/mobile, примеры разметки.
 4. **Интеграция** — связи с другими компонентами.
 
-## Связанные специфы
+## Связанные спецификации
 - [`../patterns/`](../patterns/) — обобщённые паттерны за этими компонентами.
 - [`../guides/add-new-feature.md`](../guides/add-new-feature.md) — как добавить новый.

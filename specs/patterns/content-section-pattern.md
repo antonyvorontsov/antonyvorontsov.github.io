@@ -112,6 +112,6 @@ fallback**, если вернулся `nil` (страницы ещё нет):
 - [ ] раздел в `index.searchindex.json`
 - [ ] проверка ru + en
 
-## Связанные специфы
+## Связанные спецификации
 - [`components/series.md`](../components/series.md) — эталонная реализация.
 - [`taxonomy-pattern.md`](taxonomy-pattern.md) — альтернатива.

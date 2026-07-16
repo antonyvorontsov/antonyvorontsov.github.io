@@ -38,8 +38,11 @@
 
 ### Уровень 1 — контент: один файл на язык
 
-`content/posts/<slug>.ru.md` / `content/posts/<slug>.en.md`. Hugo сопоставляет
-переводы **автоматически по совпадающему базовому имени** — `translationKey` не
+Для большинства типов страниц — `<base>.ru.md` / `<base>.en.md` с совпадающим
+базовым именем. **Посты** — исключение: `content/posts/<NN>-<slug>/index.ru.md` /
+`index.en.md`, оба файла в одной директории (page bundle, см.
+[`data-model/content-organization.md`](../data-model/content-organization.md)).
+В обоих случаях Hugo сопоставляет переводы **автоматически** — `translationKey` не
 нужен. Каждый файл — самодостаточный одноязычный Markdown; никакого маркер-синтаксиса.
 
 Пост может иметь **только один язык** — просто не создавайте второй файл. Тогда:
@@ -159,7 +162,7 @@ defaultContentLanguageInSubdir = false
 
 Полный чек-лист — [`guides/checklists.md`](../guides/checklists.md).
 
-## Связанные специфы
+## Связанные спецификации
 - [`data-model/url-scheme.md`](../data-model/url-scheme.md) — как язык влияет на URL.
 - [`patterns/i18n-string-pattern.md`](../patterns/i18n-string-pattern.md) — паттерн
   добавления строки.
