@@ -151,7 +151,6 @@ title: "Распределённые системы"
 description: "Серия постов о паттернах…"   # зеркалит абзац тела; идёт в мета + поиск
 url: /series/distributed-systems.html      # ru; en-файл: /en/series/…
 outputs: [html]                            # та же причина, что и у архива
-enableComments: false                      # опционально, bool, по умолчанию true
 ---
 
 Серия постов о паттернах и практических решениях…   # опциональное тело-абзац
@@ -161,8 +160,8 @@ enableComments: false                      # опционально, bool, по 
   напр. `distributed-systems`.
 - `description:` обязателен, иначе результат в поиске будет без описания.
 - Тело опционально (`{{ with .Content }}` в шаблоне).
-- `enableComments: false` отключает Giscus на этой странице серии — см.
-  [`components/comments.md`](../components/comments.md).
+- Страницы серий **не** поддерживают `enableComments` — Giscus на них не рендерится
+  вовсе (только посты), см. [`components/comments.md`](../components/comments.md).
 
 Служебные `content/series/_index.{ru,en}.md` содержат только
 `build: {list: false, render: false}` — см.
@@ -180,7 +179,7 @@ enableComments: false                      # опционально, bool, по 
 | `tags`           | ✅   | —       | —       | —     | —     |
 | `series`         | опц. | —       | —       | —     | —     |
 | `cover`          | опц. | —       | —       | —     | —     |
-| `enableComments` | опц. | —       | —       | —     | опц.  |
+| `enableComments` | опц. | —       | —       | —     | —     |
 | `og_description` | —    | ✅      | ✅      | ✅    | —     |
 | `og_type`        | —    | ✅      | ✅      | ✅    | —     |
 | `url`            | —    | —       | —       | ✅    | ✅    |

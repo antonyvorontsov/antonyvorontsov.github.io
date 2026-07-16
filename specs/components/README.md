@@ -13,7 +13,7 @@
 | [`search.md`](search.md)                           | Клиентский поиск                            | JSON-индекс + ванильный JS |
 | [`navigation-and-theme.md`](navigation-and-theme.md) | Шапка, бургер, тема, переключатель языка, футер | шаблон + JS          |
 | [`homepage-and-about.md`](homepage-and-about.md)   | Главная, «Обо мне», архив постов            | list/single-шаблоны       |
-| [`comments.md`](comments.md)                       | Комментарии (Giscus) на постах и сериях     | сторонний виджет + JS      |
+| [`comments.md`](comments.md)                       | Комментарии (Giscus) на постах               | сторонний виджет + JS      |
 
 ## Матрица «шаблон → компонент»
 
@@ -41,7 +41,7 @@
 | `about.html`                            | [homepage-and-about](homepage-and-about.md) («Обо мне») |
 | `posts/list.html`                       | [homepage-and-about](homepage-and-about.md) (архив постов) |
 | `posts/single.html`                     | [posts](posts.md) (страница поста + ToC + серия), [comments](comments.md) |
-| `series/single.html`                    | [series](series.md), [comments](comments.md) |
+| `series/single.html`                    | [series](series.md)                |
 | `tags/term.html`                        | [tags](tags.md)                    |
 | `index.searchindex.json`                | [search](search.md)                |
 
