@@ -1,0 +1,20 @@
+- Про обычные паттерны
+  - [x] Scrutor
+  - [ ] DI паттерн с Applies for
+  - [ ] Builder для создания тестируемых объектов
+- Паттерны распределенных систем
+  - [ ] Outbox + local channels
+  - [ ] Шардирование аутбокса
+- Kafka
+  - [ ] Consumer для N топиков + channel
+  - [ ]  
+- Серия про наивный Event Sourcing
+  - [ ] Создание базового Event Store с помощью PostgreSQL
+  - [ ] Чтение событий (projections). Чтение напрямую vs Broker (Kafka / RabbitMq) via outbox
+  - [ ] Snapshots
+  - [ ] Advanced вещи: хранение proto, партиционирование таблички событий, агрегаты per timeframe, очистка данных (не всегда нужна)
+  - [ ] Шардирование (?)
+  - [ ] CQRS вместе с проекциями (как и зачем)
+- Management
+  - [ ] Оценка задач
+  - [ ] Смена ролей, ротации
