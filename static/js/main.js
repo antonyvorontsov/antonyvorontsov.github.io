@@ -2,6 +2,7 @@
 // only loaded on page types where they apply (see baseof.html).
 (function (navigation, utils, search, copyButton, codeExpand, giscus) {
   navigation.initTheme(giscus);
+  navigation.initCleanHomeURL();
   utils.updateFooterYear();
   navigation.initToc();
   navigation.initMobileMenu();
