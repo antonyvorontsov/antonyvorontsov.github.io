@@ -1,16 +1,21 @@
 ---
-title: 'CQRS in Practice: When the Complexity Pays Off'
-date: 2025-08-02
-description: Real-world cases of applying CQRS in distributed systems — where the
-  pattern genuinely solves performance and consistency problems, and where it just
-  adds needless complexity.
-tags: [cqrs, distributed-systems, patterns]
+title: 'Zero-Downtime Sharding: A Practical Breakdown'
+date: 2025-03-14
+description: A walkthrough of migrating a high-load WMS's primary datastore to a sharded
+  architecture without stopping warehouse operations. Covers shard key selection,
+  data migration, and handling consistency edge cases.
+tags: [sharding, databases, distributed-systems]
 series:
   name: "distributed-systems"
-  number: 2
+  number: 1
+cover:
+  src: "images/cover.jpg"
+  alt: "Diagram of range-based database sharding"
+slug: "sharding-without-downtime"
+aliases: ["/posts/shardirovanie-bez-daountaima.html"]
 ---
 
-<p>Real-world cases of applying CQRS in distributed systems — where the pattern genuinely solves performance and consistency problems, and where it just adds needless complexity.</p>
+<p>A walkthrough of migrating a high-load WMS's primary datastore to a sharded architecture without stopping warehouse operations. Covers shard key selection, data migration, and handling consistency edge cases.</p>
 
 ## Context {#context}
 
@@ -22,11 +27,13 @@ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
 
 Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
 
-### Splitting Reads and Writes {#splitting-reads-and-writes}
+### Growing Load {#growing-load}
 
 Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.
 
-### Model Consistency {#model-consistency}
+![Range-based sharding diagram](images/inline-diagram.jpg)
+
+### Single-Node Limits {#single-node-limits}
 
 Consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.
 
@@ -34,34 +41,13 @@ Consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut 
 
 At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.
 
-### Read Projections {#read-projections}
+### Choosing a Shard Key {#choosing-a-shard-key}
 
 Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit.
 
-### Command Handling {#command-handling}
+### Live Migration {#live-migration}
 
 Quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae.
-
-```csharp
-public class PlaceOrderCommandHandler : ICommandHandler<PlaceOrderCommand>
-{
-    private readonly IOrderRepository _orders;
-
-    public PlaceOrderCommandHandler(IOrderRepository orders)
-    {
-        _orders = orders;
-    }
-
-    public async Task HandleAsync(PlaceOrderCommand command, CancellationToken ct)
-    {
-        if (command.Items is null || command.Items.Count == 0)
-            throw new InvalidOperationException();
-
-        var order = Order.Place(command.CustomerId, command.Items);
-        await _orders.SaveAsync(order, ct);
-    }
-}
-```
 
 ## Takeaways {#takeaways}
 

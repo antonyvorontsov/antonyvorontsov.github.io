@@ -1,13 +1,15 @@
 ---
-title: 'Event-Driven архитектура: подводные камни при масштабировании'
-date: 2025-11-20
-description: Событийная архитектура отлично звучит на слайдах, но на масштабе всплывают
-  проблемы с идемпотентностью, порядком доставки и отладкой. Собрал грабли, на которые
-  наступала моя команда.
-tags: [event-driven, distributed-systems, architecture]
+title: 'От Senior к Tech Lead: смена мышления, а не только обязанностей'
+date: 2026-06-01
+description: Переход в Tech Lead — это не просто новые обязанности, а полная перестройка
+  того, как ты принимаешь решения и измеряешь свой вклад. Рассказываю, что изменилось
+  в моей голове за эти годы.
+tags: [tech-lead, leadership, career]
+slug: "from-senior-to-tech-lead"
+aliases: ["/posts/ot-senior-k-tech-lead.html"]
 ---
 
-<p>Событийная архитектура отлично звучит на слайдах, но на масштабе всплывают проблемы с идемпотентностью, порядком доставки и отладкой. Собрал грабли, на которые наступала моя команда.</p>
+<p>Переход в Tech Lead — это не просто новые обязанности, а полная перестройка того, как ты принимаешь решения и измеряешь свой вклад. Рассказываю, что изменилось в моей голове за эти годы.</p>
 
 ## Контекст {#context}
 
@@ -19,23 +21,23 @@ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
 
 Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
 
-### Порядок доставки сообщений {#message-ordering}
+### От личного вклада к вкладу команды {#from-individual-to-team-impact}
 
 Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.
 
-### Идемпотентность обработчиков {#handler-idempotency}
+### Ответственность за архитектурные решения {#owning-architectural-decisions}
 
 Consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.
 
-## Техническое решение {#technical-solution}
+## Практические решения {#practical-solutions}
 
 At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.
 
-### Трассировка событий {#event-tracing}
+### Делегирование без потери контроля {#delegating-without-losing-control}
 
 Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit.
 
-### Dead-letter очереди {#dead-letter-queues}
+### Новые метрики успеха {#new-success-metrics}
 
 Quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae.
 

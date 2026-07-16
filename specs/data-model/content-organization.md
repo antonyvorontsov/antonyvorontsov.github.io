@@ -14,8 +14,10 @@ content/
 ├── posts/
 │   ├── _index.ru.md        # разводящая страница архива постов (ru), url: /posts.html
 │   ├── _index.en.md        # то же (en), url: /en/posts.html
-│   ├── <slug>.ru.md        # пост (ru) → /posts/<slug>.html
-│   └── <slug>.en.md        # пост (en) → /en/posts/<slug>.html
+│   └── <NN>-<slug>/        # ОДНА папка на пост — Hugo page bundle, см. ниже
+│       ├── index.ru.md     # пост (ru) → /posts/<slug>.html (slug из frontmatter, НЕ из <NN>-<slug>)
+│       ├── index.en.md     # пост (en) → /en/posts/<slug>.html
+│       └── images/         # опционально: cover + инлайн-картинки ЭТОГО поста
 └── series/
     ├── _index.ru.md        # СЛУЖЕБНЫЙ: гасит авто-страницу /series.html (build.render=false)
     ├── _index.en.md        # то же (en)
@@ -23,30 +25,77 @@ content/
     └── <name>.en.md        # то же (en), url: /en/series/<name>.html
 ```
 
+Серии **не** используют page bundles — они остаются плоскими одиночными файлами, как
+и раньше. Только `posts/` было переструктурировано.
+
+## Посты: page bundle на пост, номер-префикс для сортировки
+
+Каждый пост — отдельная директория `content/posts/<NN>-<slug>/`, а не пара плоских
+файлов. Причины (три проблемы, которые решает эта структура):
+1. **Хронологический порядок в файловой системе.** Плоский `content/posts/*.md`
+   сортируется лексикографически по слагу — посты о разных темах "перемешаны", дата
+   публикации никак не видна на уровне файлов. `<NN>` — двузначный, zero-padded,
+   по возрастанию даты публикации (`01` = самый старый пост) — **только** для
+   сортировки в файловой системе, в URL никогда не попадает (см. ниже).
+2. **Одна папка на пост вместо двух файлов в общей куче.** `content/posts/` больше
+   не "раздувается" параллельными `.ru.md`/`.en.md` — у каждого поста своя папка.
+3. **Локальность картинок.** `images/` внутри папки поста — картинки лежат рядом с
+   текстом, а не в отдельном дереве `static/assets/images/posts/<slug>/` (см. ниже).
+
+### Директория = Hugo page bundle (leaf bundle)
+
+`content/posts/<NN>-<slug>/` — это [Hugo leaf bundle]: директория с контент-файлом
+`index.<lang>.md` внутри. **Имя файла обязано быть ровно `index.<lang>.md`** — это
+жёсткое требование Hugo для page bundles, не стиль. `content.<lang>.md` или любое
+другое имя **не** будет распознано как контент бандла.
+
+### `<NN>` — префикс для сортировки, НЕ часть URL
+
+Директория `02-sharding-without-downtime` даёт URL `/posts/sharding-without-downtime.html`,
+**без** `02-`, потому что каждый пост обязан задавать explicit `slug:` во frontmatter
+(см. [`frontmatter-reference.md`](frontmatter-reference.md#пост)) — Hugo резолвит URL
+по `slug`, а не по имени директории, если `slug` задан. `<NN>` существует только для
+того, чтобы `ls content/posts/` показывал посты в хронологическом порядке — Hugo его
+никак не использует и не видит смысла в нём (это просто часть имени директории).
+Формат — двузначный (`01`…`99`); при достижении 100 постов увеличьте ширину везде
+разом (не смешивайте 2- и 3-значные префиксы в одном дереве).
+
+### `images/` — картинки этого поста, и только этого поста
+
+Опциональная поддиректория `content/posts/<NN>-<slug>/images/` — обложка (`cover.jpg`)
+и/или инлайн-картинки тела, только для этого конкретного поста (в отличие от старой
+схемы, где все посты делили одно дерево `static/assets/images/posts/`). Это Hugo
+"page resources" — Hugo публикует их рядом с отрендеренной страницей
+(`public/posts/<slug>/images/...`), автоматически, без Hugo Pipes/ресайза (ADR-5 не
+нарушается — картинки не обрабатываются, только копируются как есть). Подробности
+подключения — [`frontmatter-reference.md`](frontmatter-reference.md#пост) (`cover`) и
+[`components/posts.md`](../components/posts.md#обложка-cover-и-инлайн-картинки).
+
 ## Принцип: один файл = один язык
 
-Каждая страница существует как **отдельный файл на каждый язык** с общим базовым
-именем:
-- `content/posts/cqrs-na-praktike.ru.md`
-- `content/posts/cqrs-na-praktike.en.md`
+Каждый пост существует как **отдельный файл на каждый язык внутри своей папки**, с
+одинаковым именем `index.<lang>.md`:
+- `content/posts/03-cqrs-in-practice/index.ru.md`
+- `content/posts/03-cqrs-in-practice/index.en.md`
 
-Hugo сам сопоставляет их как переводы по совпадающему базовому имени
-`cqrs-na-praktike` — **`translationKey` не нужен**. Подробнее — в
+Hugo сам сопоставляет их как переводы, потому что оба файла лежат в одной директории
+(page bundle) — **`translationKey` не нужен**. Подробнее — в
 [`conventions/bilingual-model.md`](../conventions/bilingual-model.md).
 
-Пост может иметь **только один язык** (создать только `.ru.md` или только `.en.md`) —
-тогда на другом языке страницы просто не будет, а переключатель языка ведёт на
-главную того языка. См. [`guides/add-new-post.md`](../guides/add-new-post.md).
+Пост может иметь **только один язык** (создать только `index.ru.md` или только
+`index.en.md` в папке) — тогда на другом языке страницы просто не будет, а
+переключатель языка ведёт на главную того языка. См.
+[`guides/add-new-post.md`](../guides/add-new-post.md).
 
 ## Категории страниц по содержимому frontmatter
 
 Контент в этом проекте бывает трёх принципиально разных «форм»:
 
 ### 1. Пост — frontmatter-мета + Markdown-тело
-`content/posts/<slug>.{ru,en}.md`. Frontmatter — только метаданные (`title`, `date`,
-`description`, `tags`, опционально `series`), а само содержимое — Markdown после
-`---`. Тело начинается с интро-абзаца в `<p>...</p>` и дальше идут секции
-`## Заголовок {#anchor}`.
+`content/posts/<NN>-<slug>/index.{ru,en}.md`. Frontmatter — только метаданные
+(`title`, `date`, `description`, `tags`, `slug`, опционально `series`/`cover`/
+`aliases`), а само содержимое — Markdown после `---`. Тело начинается с
+интро-абзаца в `<p>...</p>` и дальше идут секции `## Заголовок {#anchor}`.
 
 Полная схема — [`frontmatter-reference.md`](frontmatter-reference.md#пост).
 Как устроен рендеринг — [`components/posts.md`](../components/posts.md).
@@ -89,13 +138,12 @@ build:
 ## Статические ассеты контента
 
 - Аватар: `static/assets/images/avatar.jpeg`.
-- Картинки постов: `static/assets/images/posts/<slug>/` — по одной поддиректории на
-  пост: `cover.jpg` (обложка поста, опционально), инлайн-картинки тела с
-  произвольными именами. Подключаются через frontmatter `cover` (см.
-  [`frontmatter-reference.md`](frontmatter-reference.md#пост)) или напрямую из
-  Markdown-тела. Карточки на главной картинок не показывают. Никакого
-  Hugo-пайплайна ресайза — файлы кладутся уже готового размера (ADR-5).
 - Фавикон: `static/assets/favicon.png`.
+
+Картинок постов в `static/` больше **нет** — они переехали в `images/` внутри
+директории каждого поста (page bundle resources), см. «Посты: page bundle на
+пост» выше. `static/` теперь используется только для сайт-wide ассетов
+(аватар, фавикон), не для контента конкретных страниц.
 
 ## Связанные спецификации
 - [`frontmatter-reference.md`](frontmatter-reference.md) — все поля по типам.

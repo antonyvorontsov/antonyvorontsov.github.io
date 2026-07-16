@@ -4,6 +4,7 @@ date: 2024-11-04
 description: Рассказываю, как паттерн «Декоратор» и библиотека Scrutor помогают
   разделить бизнес-логику и технические concern'ы — метрики, трейсинг, логи и кеширование.
 tags: [dotnet, design-patterns]
+slug: "scrutor-or-how-to-decorate-anything"
 ---
 
 ## Предыстория {#history}

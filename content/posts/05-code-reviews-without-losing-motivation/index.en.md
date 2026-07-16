@@ -1,68 +1,51 @@
 ---
-title: 'CQRS на практике: когда усложнение оправдано'
-date: 2025-08-02
-description: 'Разбираю реальные кейсы применения CQRS в распределенных системах: где
-  паттерн реально решает проблему производительности и консистентности, а где добавляет
-  лишний слой сложности без пользы.'
-tags: [cqrs, distributed-systems, patterns]
-series:
-  name: "distributed-systems"
-  number: 2
+title: Code Review Without Killing Team Morale
+date: 2026-02-10
+description: Code review can easily become a source of conflict and burnout. Sharing
+  the principles that helped my team keep both code quality and a healthy atmosphere
+  intact.
+tags: [code-review, engineering-management, team-culture]
+cover:
+  src: "images/cover.jpg"
+  alt: "Illustration of the code review process"
+slug: "code-reviews-without-losing-motivation"
+aliases: ["/posts/kod-review-bez-poteri-motivatsii.html"]
 ---
 
-<p>Разбираю реальные кейсы применения CQRS в распределенных системах: где паттерн реально решает проблему производительности и консистентности, а где добавляет лишний слой сложности без пользы.</p>
+<p>Code review can easily become a source of conflict and burnout. Sharing the principles that helped my team keep both code quality and a healthy atmosphere intact.</p>
 
-## Контекст {#context}
+![Placeholder image for testing inline image rendering](images/inline-square.jpg)
+
+## Context {#context}
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 
 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-## Проблема {#the-problem}
+## The Problem {#the-problem}
 
 Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
 
-### Разделение чтения и записи {#splitting-reads-and-writes}
+### Comment Tone {#comment-tone}
 
 Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.
 
-### Согласованность моделей {#model-consistency}
+### Long Approval Cycles {#long-approval-cycles}
 
 Consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.
 
-## Техническое решение {#technical-solution}
+## Practical Solutions {#practical-solutions}
 
 At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.
 
-### Проекции для чтения {#read-projections}
+### Checklists Over Debates {#checklists-over-debates}
 
 Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit.
 
-### Обработка команд {#command-handling}
+### Reviewer Rotation {#reviewer-rotation}
 
 Quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae.
 
-```csharp
-public class PlaceOrderCommandHandler : ICommandHandler<PlaceOrderCommand>
-{
-    private readonly IOrderRepository _orders;
-
-    public PlaceOrderCommandHandler(IOrderRepository orders)
-    {
-        _orders = orders;
-    }
-
-    public async Task HandleAsync(PlaceOrderCommand command, CancellationToken ct)
-    {
-        if (command.Items is null || command.Items.Count == 0)
-          throw new InvalidOperationException();
-          
-        var order = Order.Place(command.CustomerId, command.Items);
-        await _orders.SaveAsync(order, ct);
-    }
-}
-```
-
-## Итоги {#takeaways}
+## Takeaways {#takeaways}
 
 Sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat, nihil impedit quo minus.

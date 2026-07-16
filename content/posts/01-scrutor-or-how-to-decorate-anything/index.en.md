@@ -1,8 +1,9 @@
 ---
 title: Scrutor, or How to Decorate Any Component
-date: 2026-07-15
+date: 2024-11-04
 description: How the Decorator pattern and the Scrutor library help separate business logic from technical concerns — metrics, tracing, logs, and caching.
 tags: [decorator-pattern, dependency-injection, dotnet, design-patterns]
+slug: "scrutor-or-how-to-decorate-anything"
 ---
 
 ## History {#history}

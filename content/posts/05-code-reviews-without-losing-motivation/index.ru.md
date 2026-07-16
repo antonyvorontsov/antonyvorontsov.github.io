@@ -1,44 +1,50 @@
 ---
-title: 'Event-Driven Architecture: Pitfalls at Scale'
-date: 2025-11-20
-description: Event-driven architecture sounds great on slides, but at scale it surfaces
-  real problems with idempotency, delivery ordering, and debuggability. A collection
-  of pitfalls my team has hit firsthand.
-tags: [event-driven, distributed-systems, architecture]
+title: Как проводить код-ревью, не убивая мотивацию команды
+date: 2026-02-10
+description: Код-ревью легко превращается в источник конфликтов и выгорания. Делюсь
+  принципами, которые помогли моей команде сохранить и качество кода, и здоровую атмосферу.
+tags: [code-review, engineering-management, team-culture]
+cover:
+  src: "images/cover.jpg"
+  alt: "Иллюстрация к процессу код-ревью"
+slug: "code-reviews-without-losing-motivation"
+aliases: ["/posts/kod-review-bez-poteri-motivatsii.html"]
 ---
 
-<p>Event-driven architecture sounds great on slides, but at scale it surfaces real problems with idempotency, delivery ordering, and debuggability. A collection of pitfalls my team has hit firsthand.</p>
+<p>Код-ревью легко превращается в источник конфликтов и выгорания. Делюсь принципами, которые помогли моей команде сохранить и качество кода, и здоровую атмосферу.</p>
 
-## Context {#context}
+![Изображение-заглушка для проверки отображения инлайн-картинок](images/inline-square.jpg)
+
+## Контекст {#context}
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 
 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-## The Problem {#the-problem}
+## Проблема {#the-problem}
 
 Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
 
-### Message Ordering {#message-ordering}
+### Тон комментариев {#comment-tone}
 
 Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.
 
-### Handler Idempotency {#handler-idempotency}
+### Долгие циклы согласования {#long-approval-cycles}
 
 Consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.
 
-## Technical Solution {#technical-solution}
+## Практические решения {#practical-solutions}
 
 At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.
 
-### Event Tracing {#event-tracing}
+### Чек-листы вместо споров {#checklists-over-debates}
 
 Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit.
 
-### Dead-Letter Queues {#dead-letter-queues}
+### Ротация ревьюеров {#reviewer-rotation}
 
 Quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae.
 
-## Takeaways {#takeaways}
+## Итоги {#takeaways}
 
 Sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat, nihil impedit quo minus.

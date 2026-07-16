@@ -5,12 +5,21 @@
   guards the render itself, so a malformed value (e.g. a plain string instead
   of {src, alt}) can't crash the build with a raw "can't evaluate field"
   panic — it just silently renders nothing.
-  . - the frontmatter object (or nil)
+  cover.src is a page-bundle-relative resource path (e.g. "images/cover.jpg"),
+  not a site-root path — the post is a Hugo page bundle (see
+  specs/data-model/content-organization.md), so the cover file lives next to
+  the post's own index.<lang>.md and must be resolved via Page.Resources,
+  not relURL (relURL would treat it as site-root-relative, which it isn't).
+  Params (dict):
+    cover - the frontmatter object (or nil)
+    page  - the current Page, needed to resolve .cover.src as a bundle resource
 */}}
-{{ with . }}
+{{ with .cover }}
   {{ if and (isset . "src") (isset . "alt") }}
+    {{ with $.page.Resources.GetMatch .src }}
 <div class="post-cover">
-  <img src="{{ .src | relURL }}" alt="{{ .alt }}" class="post-cover-img">
+  <img src="{{ .RelPermalink }}" alt="{{ $.cover.alt }}" class="post-cover-img">
 </div>
+    {{ end }}
   {{ end }}
 {{ end }}

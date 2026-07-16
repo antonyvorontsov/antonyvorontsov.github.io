@@ -1,19 +1,18 @@
 ---
-title: 'Шардирование без даунтайма: практический разбор'
-date: 2025-03-14
-description: Разбираю, как перевести ключевое хранилище высоконагруженной WMS на шардированную
-  схему без остановки склада. Рассказываю про выбор ключа шардирования, миграцию данных
-  и обработку граничных случаев с консистентностью.
-tags: [sharding, databases, distributed-systems]
+title: 'CQRS на практике: когда усложнение оправдано'
+date: 2025-08-02
+description: 'Разбираю реальные кейсы применения CQRS в распределенных системах: где
+  паттерн реально решает проблему производительности и консистентности, а где добавляет
+  лишний слой сложности без пользы.'
+tags: [cqrs, distributed-systems, patterns]
 series:
   name: "distributed-systems"
-  number: 1
-cover:
-  src: "assets/images/posts/shardirovanie-bez-daountaima/cover.jpg"
-  alt: "Схема шардирования базы данных по диапазону ключей"
+  number: 2
+slug: "cqrs-in-practice"
+aliases: ["/posts/cqrs-na-praktike.html"]
 ---
 
-<p>Разбираю, как перевести ключевое хранилище высоконагруженной WMS на шардированную схему без остановки склада. Рассказываю про выбор ключа шардирования, миграцию данных и обработку граничных случаев с консистентностью.</p>
+<p>Разбираю реальные кейсы применения CQRS в распределенных системах: где паттерн реально решает проблему производительности и консистентности, а где добавляет лишний слой сложности без пользы.</p>
 
 ## Контекст {#context}
 
@@ -25,13 +24,11 @@ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
 
 Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
 
-### Рост нагрузки {#growing-load}
+### Разделение чтения и записи {#splitting-reads-and-writes}
 
 Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.
 
-![Схема шардирования по диапазону ключей](/assets/images/posts/shardirovanie-bez-daountaima/inline-diagram.jpg)
-
-### Ограничения одного узла {#single-node-limits}
+### Согласованность моделей {#model-consistency}
 
 Consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.
 
@@ -39,13 +36,34 @@ Consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut 
 
 At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.
 
-### Выбор ключа шардирования {#choosing-a-shard-key}
+### Проекции для чтения {#read-projections}
 
 Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit.
 
-### Миграция без остановки {#live-migration}
+### Обработка команд {#command-handling}
 
 Quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae.
+
+```csharp
+public class PlaceOrderCommandHandler : ICommandHandler<PlaceOrderCommand>
+{
+    private readonly IOrderRepository _orders;
+
+    public PlaceOrderCommandHandler(IOrderRepository orders)
+    {
+        _orders = orders;
+    }
+
+    public async Task HandleAsync(PlaceOrderCommand command, CancellationToken ct)
+    {
+        if (command.Items is null || command.Items.Count == 0)
+          throw new InvalidOperationException();
+          
+        var order = Order.Place(command.CustomerId, command.Items);
+        await _orders.SaveAsync(order, ct);
+    }
+}
+```
 
 ## Итоги {#takeaways}
 

@@ -22,9 +22,12 @@ and derive candidate slugs from any new/modified files.
 - None → ask the user for a slug/path.
 - Several → ask the user which one.
 
-Check which of `content/posts/<slug>.ru.md` / `.en.md` exist, and whether
-either already has a `series:` field (if so, confirm with the user that
-they want to reassign it rather than silently overwriting).
+Check which of `content/posts/*-<slug>/index.ru.md` / `index.en.md` exist
+(each post is a page bundle — a numbered directory containing `index.<lang>.md`
+files, not a flat `<slug>.<lang>.md` pair; the numeric prefix is sort-order only
+and isn't part of the slug), and whether either already has a `series:` field
+(if so, confirm with the user that they want to reassign it rather than
+silently overwriting).
 
 ## 1. Choose the series
 
@@ -45,7 +48,7 @@ If new, ask for:
 List existing posts in that series on the language(s) being edited. YAML
 allows `name:` to be written double-quoted, single-quoted, or unquoted, so
 grep for the id loosely rather than assuming double quotes —
-(`grep -lE "name: *[\"']?<id>[\"']?\s*$" content/posts/*.<lang>.md`, then
+(`grep -lE "name: *[\"']?<id>[\"']?\s*$" content/posts/*/index.<lang>.md`, then
 read each matched file's `series.number`, and also read the same file's
 `series.number` *type* as written — an unquoted `2` and a quoted `"2"` both
 display as "2" but are different YAML types, and the build-time duplicate

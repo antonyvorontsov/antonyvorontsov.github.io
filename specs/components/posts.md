@@ -9,7 +9,9 @@
 ## Как устроено
 
 ### Данные
-`content/posts/<slug>.{ru,en}.md`. Frontmatter — см.
+`content/posts/<NN>-<slug>/index.{ru,en}.md` — page bundle, одна директория на
+пост (см. [`data-model/content-organization.md`](../data-model/content-organization.md#посты-page-bundle-на-пост-номер-префикс-для-сортировки)).
+Frontmatter — см.
 [`data-model/frontmatter-reference.md`](../data-model/frontmatter-reference.md#пост).
 Тело: интро-абзац `<p>...</p>`, дальше секции `## Заголовок {#anchor}` / `### … {#anchor}`.
 
@@ -86,9 +88,11 @@
   строит вызывающий шаблон через `printf`): если объект присутствует, но не
   хватает `src` или `alt` — сборка падает с `errorf`.
 - Сам рендер идёт через отдельный partial `partials/cover-image.html`, вызываемый
-  как `{{ partial "cover-image.html" .Params.cover }}` (значение напрямую как `.`,
-  без `dict` — единственный параметр, по образцу `post-date.html`, см.
-  [`patterns/shared-partial-pattern.md`](../patterns/shared-partial-pattern.md)).
+  как `{{ partial "cover-image.html" (dict "cover" .Params.cover "page" .) }}` —
+  `dict`, а не значение напрямую как `.` (было так до перехода постов на page
+  bundles), потому что резолвинг `cover.src` теперь требует саму `Page` (см.
+  ниже), не только объект `cover`, см.
+  [`patterns/shared-partial-pattern.md`](../patterns/shared-partial-pattern.md).
   Partial **повторно** проверяет форму (`isset src`/`isset alt`) перед тем, как
   вывести `<img>`, и молча ничего не рендерит, если форма невалидна. Это не избыточность:
   `errorf` в Hugo только логирует ошибку и не прерывает выполнение шаблона
@@ -98,15 +102,26 @@
   только здесь (единственное место с изображением поста вне тела), но остаются
   отдельными файлами ради этого разделения проверка/рендер, а не ради переиспользования
   между несколькими шаблонами — см. [`patterns/shared-partial-pattern.md`](../patterns/shared-partial-pattern.md).
-- Никакого Hugo-пайплайна ресайза (ADR-5) — `src` указывает на уже готовый
-  статический файл, `cover-image.html` только прогоняет его через `relURL`.
-- Файлы лежат в `static/assets/images/posts/<slug>/` (`cover.jpg`, инлайн-картинки —
-  произвольные имена). **Держите `cover` разумного размера** — ресайза на сборке
-  нет, файл идёт в браузер как есть, только сжатый CSS-ом под размер `.post-cover`.
-- **Инлайн-картинки в теле** — обычный Markdown `![alt](/assets/images/posts/<slug>/name.jpg)`,
-  без отдельного поля frontmatter. Путь **с ведущим `/`** (в отличие от
-  `cover.src` — без него), т.к. полагается на Hugo-постпроцессинг
-  `relativeURLs = true`, а не на явный `relURL` в шаблоне. См.
+- Никакого Hugo-пайплайна ресайза (ADR-5) — `src` указывает на уже готовый файл,
+  который лежит рядом с постом как page resource (см. ниже). `cover-image.html`
+  резолвит его через `{{ $.page.Resources.GetMatch $.cover.src }}` и берёт
+  `.RelPermalink` найденного ресурса — **не** `relURL` (та функция трактует
+  значение как site-root-относительный путь, а `cover.src` теперь bundle-
+  относительный, т.к. пост — page bundle). Если `Resources.GetMatch` не находит
+  файл (опечатка в пути) — partial молча ничего не рендерит, без ошибки сборки.
+- Файлы лежат в `content/posts/<NN>-<slug>/images/` — **рядом с постом**, не в
+  отдельном дереве `static/` (page bundle resources, см.
+  [`data-model/content-organization.md`](../data-model/content-organization.md)).
+  `cover.jpg`, инлайн-картинки — произвольные имена. **Держите `cover` разумного
+  размера** — ресайза на сборке нет, файл идёт в браузер как есть, только сжатый
+  CSS-ом под размер `.post-cover`.
+- **Инлайн-картинки в теле** — обычный Markdown `![alt](images/name.jpg)`, без
+  отдельного поля frontmatter. Путь bundle-относительный, **без** ведущего `/`
+  (в отличие от старой схемы со `static/`) — Hugo сам переписывает такую ссылку на
+  реальный URL page resource при рендере Markdown, без явного `relURL` в
+  шаблоне (это единственное различие с `cover.src`: `cover` рендерится
+  Go-шаблоном, поэтому резолвится явно через `Resources.GetMatch`, а инлайн-ссылка
+  — часть Markdown-текста, который Hugo обрабатывает сам). См.
   [`frontmatter-reference.md`](../data-model/frontmatter-reference.md#пост) —
   полная схема полей.
 
