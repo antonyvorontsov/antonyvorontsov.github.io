@@ -116,5 +116,19 @@ window.Blog.navigation = (function () {
     headings.forEach((heading) => observer.observe(heading));
   }
 
-  return { initTheme, initToc, initMobileMenu };
+  // Cosmetic only: relativeURLs+uglyURLs means the Home link (header.html) must
+  // literally target ".../index.html" so it still works when public/ is opened
+  // via file:// (see specs/data-model/url-scheme.md). Over http(s) we can clean
+  // the address bar back to ".../" after the fact without affecting anything —
+  // resolving further relative links from ".../index.html" vs ".../" is
+  // identical since they're the same directory.
+  function initCleanHomeURL() {
+    if (window.location.protocol === 'file:') return;
+    const path = window.location.pathname;
+    if (!path.endsWith('/index.html')) return;
+    const cleanPath = path.slice(0, -'index.html'.length);
+    window.history.replaceState(window.history.state, '', cleanPath + window.location.search + window.location.hash);
+  }
+
+  return { initTheme, initToc, initMobileMenu, initCleanHomeURL };
 })();

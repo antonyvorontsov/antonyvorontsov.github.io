@@ -9,7 +9,8 @@
 ```
 .nav-container
 ├── nav.nav-menu
-│   ├── a.nav-avatar-link  → главная (аватар)
+│   ├── a.nav-avatar-link  → главная (аватар; href физически ".../index.html" —
+│   │                        см. ниже про initCleanHomeURL)
 │   ├── button#nav-burger  → бургер (моб.), 2 svg (open/close)
 │   └── .nav-links#nav-links
 │       └── {{ range .Site.Menus.main }} a.nav-link[.active]
@@ -38,6 +39,17 @@
 Реальная ссылка на перевод (не JS-тоггл). Полностью описан в
 [`conventions/bilingual-model.md`](../conventions/bilingual-model.md#переключатель-языка--реальная-ссылка).
 Подпись кнопки — `shortLabel` другого языка («En»/«Ru»).
+
+### Чистка адресной строки на главной (`navigation.js` → `initCleanHomeURL`)
+`relativeURLs` + `uglyURLs` (см.
+[`data-model/url-scheme.md`](../data-model/url-scheme.md)) заставляют `href`
+аватара физически указывать на `.../index.html` — иначе сломается открытие
+`public/` через `file://`. Поэтому после загрузки страницы `initCleanHomeURL`
+проверяет `window.location.pathname` и, если он оканчивается на
+`/index.html` и протокол не `file:`, убирает `index.html` из адресной строки
+через `history.replaceState` (без перезагрузки и без новой записи в истории).
+Из-за этого клик по аватару с любой другой страницы возвращает на чистый
+`/` (или `/en/`), а не на `.../index.html`.
 
 ## Тема (dark/light)
 
