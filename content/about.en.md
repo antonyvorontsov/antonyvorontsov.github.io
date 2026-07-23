@@ -12,9 +12,9 @@ social:
 - name: GitHub
   url: https://github.com/antonyvorontsov
   icon: github
-- name: GetMentor
-  url: https://getmentor.dev/mentor/anton-voroncov-4225
-  icon: getmentor
+- name: OpenMentor
+  url: https://openmentor.io/mentor/anton-voroncov-408
+  icon: openmentor
 - name: Telegram
   url: https://t.me/williams750
   icon: telegram
