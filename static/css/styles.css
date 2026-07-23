@@ -61,6 +61,12 @@ body {
   padding: 80px 24px;
 }
 
+@media (max-width: 767px) {
+  .container {
+    padding: 40px 24px;
+  }
+}
+
 /* Post pages need extra room for the article+ToC grid (see .post-layout below) -
    width = site-wide container width + the ToC sidebar's own width, so the article
    column keeps roughly the same working width as everywhere else instead of being

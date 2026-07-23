@@ -11,16 +11,54 @@
 <meta name="description" content="{{ $pageDescription }}">
 <link rel="icon" type="image/png" href="{{ "assets/favicon.png" | relURL }}">
 
+{{/*
+  .Permalink is dot-relative here, not a true absolute URL — relativeURLs=true
+  (see hugo.toml) makes Hugo emit relative links wherever site-wide it can, and
+  that includes .Permalink outside Hugo's own built-in sitemap/RSS templates
+  (those two are special-cased by Hugo to stay absolute). Canonical, hreflang
+  and OG tags are read by crawlers/social scrapers fetching this HTML in
+  isolation, with no page URL of their own to resolve a relative link
+  against — they need a real absolute URL, so .RelPermalink | absURL forces
+  one (absURL ignores relativeURLs by design), same as the sitemap/robots.txt
+  Sitemap: line already does.
+*/}}
+{{ $absPermalink := .RelPermalink | absURL }}
+<link rel="canonical" href="{{ $absPermalink }}">
+
 {{ range .AllTranslations }}
-<link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}">
+<link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .RelPermalink | absURL }}">
 {{ end }}
 
-{{ if not $isPostSingle }}
+{{/*
+  og:image: post cover (resolved as a page-bundle resource, same as
+  cover-image.html) if this is a post with one, site avatar otherwise. Guards
+  on "isset . src" before GetMatch rather than trusting shape, same reason as
+  cover-image.html — errorf logs but doesn't halt, so a malformed cover must
+  not reach a raw field-access panic here either.
+*/}}
+{{ $ogImage := "" }}
+{{ if $isPostSingle }}
+  {{ with .Params.cover }}
+    {{ if isset . "src" }}
+      {{ with $.Resources.GetMatch .src }}
+        {{ $ogImage = .RelPermalink | absURL }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ if not $ogImage }}
+  {{ $ogImage = "assets/images/avatar.jpeg" | absURL }}
+{{ end }}
+
 <!-- SEO Open Graph -->
 <meta property="og:title" content="{{ $pageTitle }}">
 <meta property="og:description" content="{{ .Params.og_description | default $pageDescription }}">
-<meta property="og:type" content="{{ .Params.og_type | default "website" }}">
-<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:type" content="{{ .Params.og_type | default (cond $isPostSingle "article" "website") }}">
+<meta property="og:url" content="{{ $absPermalink }}">
+<meta property="og:image" content="{{ $ogImage }}">
+
+{{ if $isPostSingle }}
+{{ partial "structured-data.html" (dict "page" . "permalink" $absPermalink "image" $ogImage) }}
 {{ end }}
 
 <!-- Fonts -->

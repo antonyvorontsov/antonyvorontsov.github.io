@@ -26,7 +26,8 @@ Frontmatter — см.
 `baseof.html` один раз вычисляет `$isPostSingle = (and .IsPage (eq .Section "posts"))`
 через `.Scratch` и переиспользует в `head.html`. Для страницы поста это даёт:
 - суффикс в `<title>` (i18n `siteTitleSuffix`);
-- **отсутствие** OG-мета-тегов (у постов их нет);
+- `og:type = article` (вместо `website` у остальных страниц) и рендер
+  `partials/structured-data.html` (JSON-LD `BlogPosting`) — см. ниже;
 - `.container-wide` (см. ниже);
 - рендер `partials/code-modal.html` и подключение
   `modules/copy-button.js`/`modules/code-expand.js` — эти два скрипта и модалка
@@ -124,6 +125,46 @@ Frontmatter — см.
   — часть Markdown-текста, который Hugo обрабатывает сам). См.
   [`frontmatter-reference.md`](../data-model/frontmatter-reference.md#пост) —
   полная схема полей.
+
+## SEO: OG-теги, canonical, JSON-LD
+
+`layouts/partials/head.html` рендерит для **всех** страниц сайта (не только постов)
+`<link rel="canonical">`, `hreflang`-альтернативы и Open Graph теги
+(`og:title`/`og:description`/`og:type`/`og:url`/`og:image`) — для постов
+`og:type` равен `article` (иначе `website`), а `og:image` — обложка поста
+(`cover.src`), если она задана, иначе аватар сайта (`static/assets/images/avatar.jpeg`)
+как site-wide заглушка.
+
+**Все четыре URL-поля (`canonical`, `hreflang`, `og:url`, `og:image`) обязаны
+резолвиться через `.RelPermalink | absURL`, а не голый `.Permalink`.** Из-за
+`relativeURLs = true` (`hugo.toml`) `.Permalink` вне встроенных
+sitemap/RSS-шаблонов Hugo сам по себе dot-relative (`../posts/slug.html`), а не
+абсолютный URL — рабочий для ссылок внутри самой страницы, но бесполезный для
+тегов, которые читают краулеры и соцсети-скрейперы, открывая HTML в отрыве от
+сайта. `absURL` игнорирует `relativeURLs` и всегда собирает абсолютный URL из
+`baseURL` — того же, что уже подставляет CI (`--baseURL`, см.
+[`architecture/build-and-deploy.md`](../architecture/build-and-deploy.md)) и
+что использует `layouts/robots.txt` для строки `Sitemap:`. Проверено сборкой
+с `--baseURL "https://vorontsov.dev/"` — без этого фикса теги оставались
+относительными даже в проде.
+
+Для постов `head.html` дополнительно рендерит `partials/structured-data.html`
+— JSON-LD `BlogPosting` (`headline`/`description`/`image`/`datePublished`/
+`dateModified`/`author`/`keywords` из тегов). Партиал получает `page`,
+уже посчитанный абсолютный `permalink` и `image` через `dict` — чтобы не
+резолвить `cover` через `Resources.GetMatch` второй раз, раз `head.html` уже
+сделал это для `og:image`.
+
+**Собирайте весь JSON-LD-объект одним `dict` и сериализуйте одним
+`jsonify | safeJS`, не подставляйте поля по одному как `"key": {{ ... |
+jsonify }}`.** Проверено на практике: построчная подстановка ломается внутри
+`<script>` — контекстный автоэскейпинг Go `html/template` трактует `<script>`
+как JS независимо от `type`, и подставленное `{{ ... | jsonify }}`-значение
+(само по себе уже валидная JSON-строка в кавычках) экранируется ещё раз, как
+если бы это был голый JS-литерал — получается задвоенное экранирование
+кавычек и невалидный JSON. Тот же автоэскейпинг проглатывает и единый
+`{{ $data | jsonify }}` без `safeJS` — `safeJS` обязателен, это единственный
+способ сказать Go-шаблону «это уже готовый JS/JSON, не трогай».
 
 ## Подсветка кода (code blocks)
 

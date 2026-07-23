@@ -24,6 +24,14 @@ defaultContentLanguageInSubdir = false
 # only per-tag term pages are.
 disableKinds = ["taxonomy"]
 
+# Renders layouts/robots.txt instead of just copying a static file — a plain
+# static/robots.txt can't reference the sitemap by absolute URL without
+# hardcoding vorontsov.dev, which is only allowed in static/CNAME (see
+# "Domain handling" in build-and-deploy.md). The template resolves the
+# Sitemap: line via absURL, so it inherits the same localhost/CI-baseURL
+# split as everything else — no domain literal here either.
+enableRobotsTXT = true
+
 [taxonomies]
   tag = "tags"
 

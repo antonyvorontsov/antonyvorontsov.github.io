@@ -92,8 +92,15 @@ outputs: [html]       # гасит RSS, чтобы фид не «увёл» URL 
 Пост, у которого поменялся `slug` (обычно — исправление транслита на нормальный
 английский, см. [`conventions/naming.md`](../conventions/naming.md#слаг--всегда-настоящий-английский-не-транслит)),
 может объявить старый URL через `aliases:` во frontmatter — Hugo сгенерирует по
-этому пути отдельную HTML-страницу-заглушку с `<meta http-equiv="refresh">` +
-`<link rel="canonical">`, ведущими на актуальный URL поста.
+этому пути отдельную HTML-страницу-заглушку (встроенный Hugo-шаблон, не
+`baseof.html`/`head.html`) с `<meta http-equiv="refresh">` + `<link
+rel="canonical">`, ведущими на актуальный URL поста.
+
+Это отдельный механизм от `<link rel="canonical">`, который `head.html`
+рендерит на **каждой** обычной странице сайта (не только alias-заглушках) —
+там она указывает сама на себя, через `.RelPermalink | absURL` (см.
+[`components/posts.md`](../components/posts.md#seo-og-теги-canonical-json-ld)
+и [`architecture/build-and-deploy.md`](../architecture/build-and-deploy.md)).
 
 ```yaml
 aliases: ["/posts/old-slug.html"]

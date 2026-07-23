@@ -1,0 +1,49 @@
+{{/*
+  JSON-LD BlogPosting for post pages, called from head.html (guarded there by
+  $isPostSingle, so this partial never has to re-derive that check itself).
+  Takes a dict rather than "." directly because it reuses the og:image URL
+  head.html already resolved from .Params.cover — resolving the cover page
+  resource a second time here would just duplicate that GetMatch lookup.
+  Params (dict):
+    page      - the current Page
+    permalink - resolved absolute page URL (head.html already forces this via
+                .RelPermalink | absURL — see the comment there on why plain
+                .Permalink isn't absolute under this site's relativeURLs=true)
+    image     - resolved absolute image URL (cover or site avatar fallback)
+
+  Builds the whole object as one dict and jsonify's it in a single action,
+  rather than interpolating each field as "key": {{ ... | jsonify }} text —
+  the latter breaks inside a <script> block: Go's html/template contextual
+  autoescaper treats each {{ }} substitution as a bare JS value needing its
+  own escaping, so a jsonify'd string (which already comes wrapped in its own
+  quotes) gets quoted and escaped a second time, corrupting the JSON
+  (confirmed by inspecting the build output before this fix).
+
+  A single {{ $data | jsonify }} action isn't enough either — Go's
+  html/template treats every <script> body as JS regardless of the type
+  attribute, so it still wraps the whole jsonify'd string in quotes and
+  backslash-escapes it as a JS string literal (also confirmed against build
+  output). safeJS marks the already-serialized JSON text as pre-escaped JS,
+  which is the documented Hugo way out of this — see
+  https://gohugo.io/methods/site/data/ examples for application/ld+json.
+*/}}
+{{ $page := .page }}
+{{ $data := dict
+  "@context" "https://schema.org"
+  "@type" "BlogPosting"
+  "headline" $page.Title
+  "description" $page.Params.description
+  "image" .image
+  "datePublished" ($page.Date.Format "2006-01-02T15:04:05Z07:00")
+  "dateModified" (($page.Lastmod | default $page.Date).Format "2006-01-02T15:04:05Z07:00")
+  "inLanguage" $page.Language.Lang
+  "url" .permalink
+  "mainEntityOfPage" (dict "@type" "WebPage" "@id" .permalink)
+  "author" (dict "@type" "Person" "name" $page.Site.Params.profileName)
+}}
+{{ with $page.Params.tags }}
+  {{ $data = merge $data (dict "keywords" (delimit . ", ")) }}
+{{ end }}
+<script type="application/ld+json">
+{{ $data | jsonify | safeJS }}
+</script>

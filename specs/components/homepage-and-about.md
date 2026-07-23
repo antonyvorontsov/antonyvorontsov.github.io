@@ -149,7 +149,10 @@ profile-header (с аватаром и соцсетями)
 
 ### `social-icon.html`
 Возвращает инлайн-svg по ключу `icon`: `linkedin` | `github` | `getmentor` |
-`telegram`. Новый соцсеть = добавить ветку `{{ else if eq . "…" }}` с svg.
+`openmentor` | `telegram`. Новый соцсеть = добавить ветку `{{ else if eq . "…" }}` с
+svg. `getmentor` используется только в `about.ru.md` (русскоязычная платформа),
+`openmentor` — только в `about.en.md` (её англоязычный аналог) — единственный
+случай, где `social` расходится между языками.
 
 ## Архив постов (`layouts/posts/list.html`)
 

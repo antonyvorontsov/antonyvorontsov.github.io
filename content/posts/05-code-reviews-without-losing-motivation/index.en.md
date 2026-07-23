@@ -1,6 +1,7 @@
 ---
 title: Code Review Without Killing Team Morale
 date: 2026-02-10
+draft: true
 description: Code review can easily become a source of conflict and burnout. Sharing
   the principles that helped my team keep both code quality and a healthy atmosphere
   intact.
