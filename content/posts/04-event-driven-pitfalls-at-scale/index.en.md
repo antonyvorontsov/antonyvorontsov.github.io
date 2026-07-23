@@ -1,6 +1,7 @@
 ---
 title: 'Event-Driven Architecture: Pitfalls at Scale'
 date: 2025-11-20
+draft: true
 description: Event-driven architecture sounds great on slides, but at scale it surfaces
   real problems with idempotency, delivery ordering, and debuggability. A collection
   of pitfalls my team has hit firsthand.

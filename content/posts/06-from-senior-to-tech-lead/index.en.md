@@ -1,6 +1,7 @@
 ---
 title: 'From Senior to Tech Lead: A Mindset Shift, Not Just New Duties'
 date: 2026-06-01
+draft: true
 description: Becoming a Tech Lead isn't just about new responsibilities — it's a complete
   shift in how you make decisions and measure your impact. Here's what changed in
   my thinking over the years.

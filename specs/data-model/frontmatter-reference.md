@@ -26,6 +26,7 @@ cover:                                                    # опциональн
   alt: "Схема потоков команд и запросов в CQRS"          # переводится, как title/description
 aliases: ["/posts/cqrs-na-praktike.html"]                 # опционально, старые URL поста
 enableComments: false                                     # опционально, bool, по умолчанию true
+draft: true                                                # опционально, bool, по умолчанию false
 ---
 ```
 
@@ -40,6 +41,7 @@ enableComments: false                                     # опциональн
 | `cover`       | object   | нет   | `{src, alt}`. Обложка на странице поста — единственное место, где показывается изображение поста вне его тела (карточки на главной картинок не показывают). `src` — bundle-относительный путь к page resource (без ведущего `/`, резолвится через `Page.Resources.GetMatch`, не `relURL`), не переводится; `alt` переводится. См. [`components/posts.md`](../components/posts.md). |
 | `aliases`     | []string | нет   | Старые URL поста (после смены `slug`), **без** языкового префикса — Hugo сам добавляет `/en/` для английского файла (в отличие от `url:`, которому префикс нужен явно). См. [`url-scheme.md`](url-scheme.md#алиасы-старых-url-aliases). |
 | `enableComments` | bool | нет   | По умолчанию `true` (комментарии включены). `false` отключает Giscus на этой конкретной странице. См. [`components/comments.md`](../components/comments.md). |
+| `draft`       | bool     | нет   | По умолчанию `false`. Стандартный Hugo-флаг: `true` полностью исключает страницу из сборки (нет `-D`/`--buildDrafts` ни в одном CI-workflow — см. [`architecture/build-and-deploy.md`](../architecture/build-and-deploy.md)) — страницы физически нет в `public/`, значит нет и в `sitemap.xml`, RSS, поисковом индексе, архиве постов и `.Site.RegularPages` (в т.ч. для страниц серий — см. [`components/series.md`](../components/series.md)). Используется для постов-заглушек, которые ещё не готовы к публикации; уберите поле (или поставьте `false`), когда пост дописан. |
 
 - `og_description` у поста **не бывает** (только у трёх корневых страниц).
 - Про формат тегов и слага — [`conventions/naming.md`](../conventions/naming.md).
@@ -190,6 +192,7 @@ outputs: [html]                            # та же причина, что и
 | `cover`          | опц. | —       | —       | —     | —     |
 | `aliases`        | опц. | —       | —       | —     | —     |
 | `enableComments` | опц. | —       | —       | —     | —     |
+| `draft`          | опц. | —       | —       | —     | —     |
 | `og_description` | —    | ✅      | ✅      | ✅    | —     |
 | `og_type`        | —    | ✅      | ✅      | ✅    | —     |
 | `url`            | —    | —       | —       | ✅    | ✅    |

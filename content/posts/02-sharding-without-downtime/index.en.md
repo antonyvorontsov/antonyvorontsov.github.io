@@ -1,6 +1,7 @@
 ---
 title: 'Zero-Downtime Sharding: A Practical Breakdown'
 date: 2025-03-14
+draft: true
 description: A walkthrough of migrating a high-load WMS's primary datastore to a sharded
   architecture without stopping warehouse operations. Covers shard key selection,
   data migration, and handling consistency edge cases.
